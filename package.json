@@ -1,0 +1,14 @@
+{
+  "name": "react-native-multiple-modals",
+  "version": "0.0.0",
+  "description": "TODO",
+  "main": "src/index",
+  "author": " <> ()",
+  "license": "UNLICENSED",
+  "homepage": "#readme",
+  "create-react-native-library": {
+    "type": "view-legacy",
+    "languages": "kotlin-swift",
+    "version": "0.41.2"
+  }
+}
