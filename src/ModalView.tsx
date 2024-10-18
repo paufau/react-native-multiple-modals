@@ -1,21 +1,25 @@
 import React, {FC, ReactNode} from 'react';
 import {
   Pressable,
+  PressableProps,
   StyleProp,
   StyleSheet,
   useWindowDimensions,
   View,
-  ViewProps,
   ViewStyle,
 } from 'react-native';
 import {RNTModalView} from './RNTModalView';
+
+type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
+  style: StyleProp<ViewStyle>;
+};
 
 export type ModalViewProps = {
   children: ReactNode;
   renderBackdrop?: () => ReactNode;
   onRequestDismiss?: () => void;
   style?: StyleProp<ViewStyle>;
-  backdropProps?: ViewProps;
+  backdropProps?: BackdropProps;
 };
 
 export const ModalView: FC<ModalViewProps> = ({
