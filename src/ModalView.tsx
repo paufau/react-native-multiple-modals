@@ -1,5 +1,6 @@
-import React, {FC, ReactNode} from 'react';
+import React, {FC, ReactNode, useEffect} from 'react';
 import {
+  BackHandler,
   Pressable,
   PressableProps,
   StyleProp,
@@ -14,10 +15,15 @@ type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
   style: StyleProp<ViewStyle>;
 };
 
+enum DismissalSource {
+  BackButton = 'BackButton',
+  Backdrop = 'Backdrop',
+}
+
 export type ModalViewProps = {
   children: ReactNode;
   renderBackdrop?: () => ReactNode;
-  onRequestDismiss?: () => void;
+  onRequestDismiss?: (calledBy: DismissalSource) => void;
   style?: StyleProp<ViewStyle>;
   backdropProps?: BackdropProps;
 };
@@ -31,6 +37,15 @@ export const ModalView: FC<ModalViewProps> = ({
 }) => {
   const windowDimensions = useWindowDimensions();
   const fullScreenStyle = [windowDimensions, styles.container];
+
+  useEffect(() => {
+    const handler = BackHandler.addEventListener('hardwareBackPress', () => {
+      onRequestDismiss?.(DismissalSource.BackButton);
+      return true;
+    });
+
+    return handler.remove;
+  }, [onRequestDismiss]);
 
   // TODO ADD
   /* <VirtualizedListContextResetter>
@@ -52,7 +67,7 @@ export const ModalView: FC<ModalViewProps> = ({
               renderBackdrop()
             ) : (
               <Pressable
-                onPress={onRequestDismiss}
+                onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
                 accessible
                 accessibilityLabel="Backdrop"
                 {...backdropProps}

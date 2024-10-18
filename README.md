@@ -64,7 +64,7 @@ For fine-tuning of the default backdrop
 
 ---
 
-### `renderBackdrop?: () => ReactNode`
+### `renderBackdrop?: (calledBy: DismissalSource) => ReactNode`
 
 When backdropProps are no longer enough.
 
