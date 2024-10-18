@@ -1,4 +1,4 @@
-import React, {FC, ReactNode, useEffect} from 'react';
+import React, { FC, ReactNode, useEffect } from "react";
 import {
   BackHandler,
   Pressable,
@@ -8,16 +8,17 @@ import {
   useWindowDimensions,
   View,
   ViewStyle,
-} from 'react-native';
-import {RNTModalView} from './RNTModalView';
+} from "react-native";
+import { RNTModalView } from "./RNTModalView";
+import { ScrollContextResetter } from "./ScrollContextResetter";
 
-type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
+type BackdropProps = Omit<PressableProps, "onPress" | "style"> & {
   style: StyleProp<ViewStyle>;
 };
 
 enum DismissalSource {
-  BackButton = 'BackButton',
-  Backdrop = 'Backdrop',
+  BackButton = "BackButton",
+  Backdrop = "Backdrop",
 }
 
 export type ModalViewProps = {
@@ -39,24 +40,13 @@ export const ModalView: FC<ModalViewProps> = ({
   const fullScreenStyle = [windowDimensions, styles.container];
 
   useEffect(() => {
-    const handler = BackHandler.addEventListener('hardwareBackPress', () => {
+    const handler = BackHandler.addEventListener("hardwareBackPress", () => {
       onRequestDismiss?.(DismissalSource.BackButton);
       return true;
     });
 
     return handler.remove;
   }, [onRequestDismiss]);
-
-  // TODO ADD
-  /* <VirtualizedListContextResetter>
-<ScrollView.Context.Provider value={null}>
-  <View
-    style={[styles.container, containerStyles]}
-    collapsable={false}>
-    {innerChildren}
-  </View>
-</ScrollView.Context.Provider>
-</VirtualizedListContextResetter> */
 
   return (
     <View style={fullScreenStyle}>
@@ -75,11 +65,14 @@ export const ModalView: FC<ModalViewProps> = ({
               />
             )}
           </View>
-          <View
-            pointerEvents="box-none"
-            style={[windowDimensions, styles.content, style]}>
-            {children}
-          </View>
+          <ScrollContextResetter>
+            <View
+              pointerEvents="box-none"
+              style={[windowDimensions, styles.content, style]}
+            >
+              {children}
+            </View>
+          </ScrollContextResetter>
         </View>
       </RNTModalView>
     </View>
@@ -88,7 +81,7 @@ export const ModalView: FC<ModalViewProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
+    position: "absolute",
   },
   content: {
     zIndex: 1,
@@ -96,6 +89,6 @@ const styles = StyleSheet.create({
   defaultBackdrop: {
     flex: 1,
     zIndex: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: "rgba(0,0,0,0.3)",
   },
 } as const);
