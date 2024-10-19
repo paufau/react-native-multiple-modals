@@ -6,8 +6,10 @@ No additional props to manage StatusBar or SafeArea. I try to make the ModalView
 
 ## ✨ Features
 
-- 📱 iOS & Android support multiple modals
-- ✅ Accessibility support
+- 📱 iOS & Android
+- 🚀 Performant Native Implementation
+- ✅ Accessibility Support
+- 💯 Compatible with Expo
 
 ## Installation
 
@@ -74,11 +76,4 @@ When backdropProps are no longer enough.
 
 ## Roadmap
 
-| version | goal                             |
-| ------- | -------------------------------- |
-| 1.0.0   | Setup linters & tests            |
-| 1.1.0   | NPM repo release                 |
-| 1.2.0   | JS-based projects support        |
-| 1.3.0   | Expo support                     |
-| 1.4.0   | New Architecture support         |
-| 1.5.0+  | To be the best lib on the market |
+[ ] New Architecture support
