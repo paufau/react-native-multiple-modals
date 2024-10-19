@@ -46,9 +46,9 @@ const YourComponent = () => {
 
 ## Properties
 
-### `style?: ViewStyle`
+### `contentContainerStyle?: ViewStyle`
 
-Controls styles of the view which contains content
+Styles of the content wrapper.
 
 ---
 

@@ -26,7 +26,7 @@ export type ModalViewProps = {
   children: ReactNode;
   renderBackdrop?: () => ReactNode;
   onRequestDismiss?: (calledBy: DismissalSource) => void;
-  style?: StyleProp<ViewStyle>;
+  contentContainerStyle?: StyleProp<ViewStyle>;
   backdropProps?: BackdropProps;
 };
 
@@ -35,7 +35,7 @@ export const ModalView: FC<ModalViewProps> = ({
   renderBackdrop,
   onRequestDismiss,
   backdropProps,
-  style,
+  contentContainerStyle,
 }) => {
   const windowDimensions = useWindowDimensions();
   const fullScreenStyle = [windowDimensions, styles.container];
@@ -64,7 +64,7 @@ export const ModalView: FC<ModalViewProps> = ({
           <ScrollContextResetter>
             <View
               pointerEvents='box-none'
-              style={[windowDimensions, styles.content, style]}
+              style={[windowDimensions, styles.content, contentContainerStyle]}
             >
               {children}
             </View>
