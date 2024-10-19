@@ -33,7 +33,7 @@
   "scripts": {
     "lint": "npx eslint ./src",
     "build": "tsup",
-    "release": "npm run build"
+    "release": "npm run build && npm publish"
   },
   "files": [
     "src",
