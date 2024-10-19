@@ -32,7 +32,7 @@
   "scripts": {
     "lint": "npx eslint ./src",
     "build": "tsup",
-    "release": "echo 'TODO'"
+    "release": "npm run build"
   },
   "files": [
     "src",
@@ -43,12 +43,17 @@
     "!ios/build",
     "!android/build",
     "!android/gradle",
+    "!android/.gradle",
+    "!android/.idea",
+    "!android/local.properties",
     "!android/gradlew",
     "!android/gradlew.bat",
     "!android/local.properties",
     "!**/__tests__",
     "!**/__mocks__",
-    "!**/.*"
+    "!**/.*",
+    "!.git",
+    "!.yarn"
   ],
   "dependencies": {
     "@react-native/virtualized-lists": "^0.75.4"
