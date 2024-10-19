@@ -9,6 +9,7 @@
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
   "react-native": "src/index.ts",
+  "private": false,
   "keywords": [
     "react-native",
     "multiple",
