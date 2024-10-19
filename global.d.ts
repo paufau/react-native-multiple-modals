@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unused-modules */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module '@react-native/virtualized-lists' {
   export const VirtualizedListContextResetter: any;
 }

@@ -1,4 +1,5 @@
-import React, { FC, ReactNode, useEffect } from "react";
+import React, { FC, ReactNode, useEffect } from 'react';
+
 import {
   BackHandler,
   Pressable,
@@ -8,17 +9,18 @@ import {
   useWindowDimensions,
   View,
   ViewStyle,
-} from "react-native";
-import { RNTModalView } from "./RNTModalView";
-import { ScrollContextResetter } from "./ScrollContextResetter";
+} from 'react-native';
 
-type BackdropProps = Omit<PressableProps, "onPress" | "style"> & {
+import { RNTModalView } from './RNTModalView';
+import { ScrollContextResetter } from './ScrollContextResetter';
+
+type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
   style: StyleProp<ViewStyle>;
 };
 
 enum DismissalSource {
-  BackButton = "BackButton",
-  Backdrop = "Backdrop",
+  BackButton = 'BackButton',
+  Backdrop = 'Backdrop',
 }
 
 export type ModalViewProps = {
@@ -40,7 +42,7 @@ export const ModalView: FC<ModalViewProps> = ({
   const fullScreenStyle = [windowDimensions, styles.container];
 
   useEffect(() => {
-    const handler = BackHandler.addEventListener("hardwareBackPress", () => {
+    const handler = BackHandler.addEventListener('hardwareBackPress', () => {
       onRequestDismiss?.(DismissalSource.BackButton);
       return true;
     });
@@ -59,7 +61,7 @@ export const ModalView: FC<ModalViewProps> = ({
               <Pressable
                 onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
                 accessible
-                accessibilityLabel="Backdrop"
+                accessibilityLabel='Backdrop'
                 {...backdropProps}
                 style={[styles.defaultBackdrop, backdropProps?.style]}
               />
@@ -67,7 +69,7 @@ export const ModalView: FC<ModalViewProps> = ({
           </View>
           <ScrollContextResetter>
             <View
-              pointerEvents="box-none"
+              pointerEvents='box-none'
               style={[windowDimensions, styles.content, style]}
             >
               {children}
@@ -81,7 +83,7 @@ export const ModalView: FC<ModalViewProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
+    position: 'absolute',
   },
   content: {
     zIndex: 1,
@@ -89,6 +91,6 @@ const styles = StyleSheet.create({
   defaultBackdrop: {
     flex: 1,
     zIndex: 0,
-    backgroundColor: "rgba(0,0,0,0.3)",
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
 } as const);
