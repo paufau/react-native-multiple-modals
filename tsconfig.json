@@ -15,7 +15,7 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "jsx": "react-native"
+    "jsx": "react-native",
   },
   "include": [
     "src",

@@ -4,10 +4,10 @@ The main goal of this library is to provide a component that allows to display m
 
 No additional props to manage StatusBar or SafeArea. I try to make the ModalView component as lightweight as possible. It solves one problem - shows a modal. Everything else is the task of other components.
 
-## Features
+## ✨ Features
 
-- ✅ iOS & Android support multiple modals
-- ✅ Accessibility Supported
+- 📱 iOS & Android support multiple modals
+- ✅ Accessibility support
 
 ## Installation
 
@@ -24,14 +24,14 @@ yarn add react-native-multiple-modals
 ## Usage
 
 ```tsx
-import {ModalView} from 'react-native-multiple-modals';
+import { ModalView } from 'react-native-multiple-modals';
 
 const YourComponent = () => {
   const [isVisible, setVisibility] = useState(false);
 
   return (
     <View>
-      <Button text="Open modal" onPress={() => setVisibility(true)} />
+      <Button text='Open modal' onPress={() => setVisibility(true)} />
       {isVisible && (
         <ModalView onRequestClose={() => setVisibility(false)}>
           <YourContentView />

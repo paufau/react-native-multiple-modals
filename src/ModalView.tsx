@@ -14,11 +14,11 @@ import {
 import { RNTModalView } from './RNTModalView';
 import { ScrollContextResetter } from './ScrollContextResetter';
 
-type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
+export type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
   style: StyleProp<ViewStyle>;
 };
 
-enum DismissalSource {
+export enum DismissalSource {
   BackButton = 'BackButton',
   Backdrop = 'Backdrop',
 }

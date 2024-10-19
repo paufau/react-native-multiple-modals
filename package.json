@@ -2,17 +2,22 @@
   "name": "react-native-multiple-modals",
   "version": "1.0.0",
   "description": "Native implementation with the ability to display multiple Modals",
-  "main": "src/index",
   "author": "Pavel Pakseev <pakseev.1999@gmail.com> (https://github.com/paufau)",
   "license": "MIT",
   "homepage": "https://github.com/paufau/react-native-multiple-modals#readme",
+  "main": "lib/index.js",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.ts",
+  "react-native": "src/index.ts",
   "keywords": [
     "react-native",
     "multiple",
     "modals",
     "simultaneously",
+    "ios",
     "modal",
-    "dialog"
+    "dialog",
+    "android"
   ],
   "engines": {
     "node": ">=18"
@@ -23,11 +28,12 @@
   },
   "scripts": {
     "lint": "npx eslint ./src",
-    "build": "echo 'TODO'",
+    "build": "tsup",
     "release": "echo 'TODO'"
   },
   "files": [
     "src",
+    "lib",
     "android",
     "ios",
     "*.podspec",
@@ -45,9 +51,10 @@
     "@react-native/virtualized-lists": "^0.75.4"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
+    "@swc/core": "^1.7.36",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-check-file": "^2.8.0",
@@ -59,13 +66,23 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-react-native": "^4.1.0",
-    "eslint-plugin-unicorn": "^55.0.0",
     "eslint-plugin-testing-library": "^6.3.0",
+    "eslint-plugin-unicorn": "^55.0.0",
     "prettier": "^3.3.3",
-    "@types/react": "^18.3.11"
+    "tsup": "^8.3.0"
   },
   "peerDependencies": {
     "react": "^18",
-    "react-native": ">=0.70.0"
+    "react-native": ">=0.70.0",
+    "@types/react": "*",
+    "@types/react-native": "*"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-native": {
+      "optional": true
+    }
   }
 }

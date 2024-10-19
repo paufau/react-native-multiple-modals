@@ -17,6 +17,7 @@ module.exports = {
     'folders',
     'filename-rules',
   ],
+  ignorePatterns: ["*", "!src/"],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {

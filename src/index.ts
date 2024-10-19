@@ -1,1 +1,2 @@
-export { ModalView, type ModalViewProps } from './ModalView';
+export { DismissalSource, ModalView, type BackdropProps, type ModalViewProps } from './ModalView';
+
