@@ -26,6 +26,9 @@
     "type": "git",
     "url": "https://github.com/paufau/react-native-multiple-modals"
   },
+  "bugs": {
+    "url": "https://github.com/paufau/react-native-multiple-modals/issues"
+  },
   "scripts": {
     "lint": "npx eslint ./src",
     "build": "tsup",
