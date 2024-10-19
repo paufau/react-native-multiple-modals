@@ -1,14 +1,17 @@
 package com.multiplemodals
 
 import android.content.Context
+import android.content.DialogInterface
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.accessibility.AccessibilityEvent
-import com.facebook.react.R
 import com.facebook.react.bridge.LifecycleEventListener
+import com.facebook.react.bridge.UiThreadUtil
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
+import com.multiplemodals.events.PressBackEvent
 import com.multiplemodals.library.ModalDialog
 import com.multiplemodals.library.ModalView
 
@@ -16,6 +19,8 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     companion object {
         const val REACT_CLASS: String = "RNTModalView"
     }
+
+    private val surfaceId: Int get() = UIManagerHelper.getSurfaceId(this)
 
     private val reactContext: ThemedReactContext get() = context as ThemedReactContext
     private val eventDispatcher: EventDispatcher
@@ -31,9 +36,35 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
             modalDialog = ModalDialog(reactContext, R.style.Theme_FullScreenDialog)
             modalView = ModalView(reactContext, eventDispatcher)
+
+            attackBackHandler()
         } else {
             throw Exception("Unable to initialize react native event dispatcher");
         }
+    }
+
+    private fun attackBackHandler() {
+        // Prevent closing from native part as this is handled by JS
+        modalDialog.setOnKeyListener(object : DialogInterface.OnKeyListener {
+            override fun onKey(dialog: DialogInterface, keyCode: Int, event: KeyEvent): Boolean {
+                if (event.action == KeyEvent.ACTION_UP) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_ESCAPE) {
+                        UiThreadUtil.runOnUiThread {
+                            eventDispatcher.dispatchEvent(PressBackEvent(surfaceId, id))
+                        }
+
+                        return true
+                    } else {
+                        // Bubble the event up
+                        val innerCurrentActivity = reactContext.currentActivity
+                        if (innerCurrentActivity != null) {
+                            return innerCurrentActivity.onKeyUp(keyCode, event)
+                        }
+                    }
+                }
+                return false
+            }
+        })
     }
 
     // Child management

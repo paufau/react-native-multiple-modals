@@ -1,7 +1,6 @@
-import React, { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode } from 'react';
 
 import {
-  BackHandler,
   Pressable,
   PressableProps,
   StyleProp,
@@ -41,18 +40,13 @@ export const ModalView: FC<ModalViewProps> = ({
   const windowDimensions = useWindowDimensions();
   const fullScreenStyle = [windowDimensions, styles.container];
 
-  useEffect(() => {
-    const handler = BackHandler.addEventListener('hardwareBackPress', () => {
-      onRequestDismiss?.(DismissalSource.BackButton);
-      return true;
-    });
-
-    return handler.remove;
-  }, [onRequestDismiss]);
-
   return (
     <View style={fullScreenStyle}>
-      <RNTModalView>
+      <RNTModalView
+        onPressBackAndroid={() =>
+          onRequestDismiss?.(DismissalSource.BackButton)
+        }
+      >
         <View collapsable={false}>
           <View style={fullScreenStyle}>
             {renderBackdrop ? (

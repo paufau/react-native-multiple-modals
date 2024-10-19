@@ -17,6 +17,7 @@ const LINKING_ERROR =
 export type RNTModalViewProps = {
   style?: StyleProp<ViewStyle>;
   children: ReactNode;
+  onPressBackAndroid?: () => void;
 };
 
 const ComponentName = 'RNTModalView';
