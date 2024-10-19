@@ -54,7 +54,7 @@ Controls styles of the view which contains content
 
 The method is called when backdrop or back button is pressed
 
-> _**NOTE**_: Modal will always be rendered until it's removed from React tree
+> _**TIP**_: If you want the modal to block the interface and not close when user taps the backdrop or back button. Then just don't pass this function. The modal will be rendered until you remove it from the React tree.
 
 ---
 
