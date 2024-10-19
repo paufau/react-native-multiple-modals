@@ -50,7 +50,7 @@ Controls styles of the view which contains content
 
 ---
 
-### `onRequestClose?: () => void`
+### `onRequestClose?: (calledBy: 'Backdrop' | 'BackButton') => void`
 
 The method is called when backdrop or back button is pressed
 
@@ -64,7 +64,7 @@ For fine-tuning of the default backdrop
 
 ---
 
-### `renderBackdrop?: (calledBy: DismissalSource) => ReactNode`
+### `renderBackdrop?: () => ReactNode`
 
 When backdropProps are no longer enough.
 
