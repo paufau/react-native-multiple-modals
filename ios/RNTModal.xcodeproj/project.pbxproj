@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF43775E2CB5A09C00334A86 /* RNTModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF43775C2CB5A09C00334A86 /* RNTModalView.swift */; };
-		AF43775F2CB5A09C00334A86 /* RNTModalViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF43775D2CB5A09C00334A86 /* RNTModalViewManager.m */; };
-		AFEFC13A2CC7F0210008863D /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1372CC7F0210008863D /* ModalView.swift */; };
-		AFEFC13B2CC7F0210008863D /* ModalShadowVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1362CC7F0210008863D /* ModalShadowVIew.swift */; };
-		AFEFC13C2CC7F0210008863D /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1382CC7F0210008863D /* ModalViewController.swift */; };
+		AFEFC15E2CC8339B0008863D /* RNTModalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1552CC8339B0008863D /* RNTModalViewController.mm */; };
+		AFEFC15F2CC8339B0008863D /* RNTModalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1592CC8339B0008863D /* RNTModalView.mm */; };
+		AFEFC1602CC8339B0008863D /* RNTModalShadowView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1522CC8339B0008863D /* RNTModalShadowView.mm */; };
+		AFEFC1612CC8339B0008863D /* RNTModalViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC15B2CC8339B0008863D /* RNTModalViewManager.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,13 +26,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AF43775C2CB5A09C00334A86 /* RNTModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNTModalView.swift; sourceTree = "<group>"; };
-		AF43775D2CB5A09C00334A86 /* RNTModalViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTModalViewManager.m; sourceTree = "<group>"; };
 		AF4377602CB5A09D00334A86 /* RNTModal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNTModal-Bridging-Header.h"; sourceTree = "<group>"; };
 		AFEFC1352CC7F0140008863D /* libRNTModal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNTModal.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AFEFC1362CC7F0210008863D /* ModalShadowVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalShadowVIew.swift; sourceTree = "<group>"; };
-		AFEFC1372CC7F0210008863D /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
-		AFEFC1382CC7F0210008863D /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		AFEFC1512CC8339B0008863D /* RNTModalShadowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalShadowView.h; sourceTree = "<group>"; };
+		AFEFC1522CC8339B0008863D /* RNTModalShadowView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalShadowView.mm; sourceTree = "<group>"; };
+		AFEFC1542CC8339B0008863D /* RNTModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalViewController.h; sourceTree = "<group>"; };
+		AFEFC1552CC8339B0008863D /* RNTModalViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalViewController.mm; sourceTree = "<group>"; };
+		AFEFC1592CC8339B0008863D /* RNTModalView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalView.mm; sourceTree = "<group>"; };
+		AFEFC15A2CC8339B0008863D /* RNTModalVIew.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalVIew.h; sourceTree = "<group>"; };
+		AFEFC15B2CC8339B0008863D /* RNTModalViewManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalViewManager.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,20 +51,38 @@
 		AF4377422CB59EF500334A86 = {
 			isa = PBXGroup;
 			children = (
-				AFEFC1392CC7F0210008863D /* Library */,
-				AF43775C2CB5A09C00334A86 /* RNTModalView.swift */,
-				AF43775D2CB5A09C00334A86 /* RNTModalViewManager.m */,
+				AFEFC1572CC8339B0008863D /* Library */,
+				AFEFC1592CC8339B0008863D /* RNTModalView.mm */,
+				AFEFC15A2CC8339B0008863D /* RNTModalVIew.h */,
+				AFEFC15B2CC8339B0008863D /* RNTModalViewManager.mm */,
 				AF4377602CB5A09D00334A86 /* RNTModal-Bridging-Header.h */,
 				AFEFC1352CC7F0140008863D /* libRNTModal.a */,
 			);
 			sourceTree = "<group>";
 		};
-		AFEFC1392CC7F0210008863D /* Library */ = {
+		AFEFC1532CC8339B0008863D /* RNTModalShadowView */ = {
 			isa = PBXGroup;
 			children = (
-				AFEFC1362CC7F0210008863D /* ModalShadowVIew.swift */,
-				AFEFC1372CC7F0210008863D /* ModalView.swift */,
-				AFEFC1382CC7F0210008863D /* ModalViewController.swift */,
+				AFEFC1512CC8339B0008863D /* RNTModalShadowView.h */,
+				AFEFC1522CC8339B0008863D /* RNTModalShadowView.mm */,
+			);
+			path = RNTModalShadowView;
+			sourceTree = "<group>";
+		};
+		AFEFC1562CC8339B0008863D /* RNTModalViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AFEFC1542CC8339B0008863D /* RNTModalViewController.h */,
+				AFEFC1552CC8339B0008863D /* RNTModalViewController.mm */,
+			);
+			path = RNTModalViewController;
+			sourceTree = "<group>";
+		};
+		AFEFC1572CC8339B0008863D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				AFEFC1532CC8339B0008863D /* RNTModalShadowView */,
+				AFEFC1562CC8339B0008863D /* RNTModalViewController */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -130,11 +149,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF43775E2CB5A09C00334A86 /* RNTModalView.swift in Sources */,
-				AF43775F2CB5A09C00334A86 /* RNTModalViewManager.m in Sources */,
-				AFEFC13A2CC7F0210008863D /* ModalView.swift in Sources */,
-				AFEFC13B2CC7F0210008863D /* ModalShadowVIew.swift in Sources */,
-				AFEFC13C2CC7F0210008863D /* ModalViewController.swift in Sources */,
+				AFEFC15E2CC8339B0008863D /* RNTModalViewController.mm in Sources */,
+				AFEFC15F2CC8339B0008863D /* RNTModalView.mm in Sources */,
+				AFEFC1602CC8339B0008863D /* RNTModalShadowView.mm in Sources */,
+				AFEFC1612CC8339B0008863D /* RNTModalViewManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
