@@ -1,8 +1,6 @@
 # react-native-multiple-modals
 
-The main goal of this library is to provide a component that allows to display multiple modals at the same time.
-
-No additional props to manage StatusBar or SafeArea. I try to make the ModalView component as lightweight as possible. It solves one problem - shows a modal. Everything else is the task of other components.
+Native Modal implementation which allows to display multiple Modals simultaneously.
 
 ## ✨ Features
 
@@ -10,6 +8,9 @@ No additional props to manage StatusBar or SafeArea. I try to make the ModalView
 - 🚀 Performant Native Implementation
 - ✅ Accessibility Support
 - 💯 Compatible with Expo
+- 💥 New Architecture
+  - 🛠️ iOS - Migration Started
+  - ⌛ Android - Planned
 
 ## Installation
 
@@ -48,7 +49,7 @@ const YourComponent = () => {
 
 ### `contentContainerStyle?: ViewStyle`
 
-Styles of the content wrapper.
+Styles of the content wrapper. Use it for aligning your content view.
 
 ---
 
@@ -73,7 +74,3 @@ When backdropProps are no longer enough.
 > _**NOTE**_: While rendering custom backdrop `onRequestClose` is not called, so you should handle backdrop press by yourself
 
 ---
-
-## Roadmap
-
-[ ] New Architecture support

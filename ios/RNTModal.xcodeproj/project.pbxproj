@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AF43775E2CB5A09C00334A86 /* RNTModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF43775C2CB5A09C00334A86 /* RNTModalView.swift */; };
 		AF43775F2CB5A09C00334A86 /* RNTModalViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF43775D2CB5A09C00334A86 /* RNTModalViewManager.m */; };
+		AFEFC13A2CC7F0210008863D /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1372CC7F0210008863D /* ModalView.swift */; };
+		AFEFC13B2CC7F0210008863D /* ModalShadowVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1362CC7F0210008863D /* ModalShadowVIew.swift */; };
+		AFEFC13C2CC7F0210008863D /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1382CC7F0210008863D /* ModalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,10 +27,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AF43774B2CB59EF500334A86 /* libRNTModal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRNTModal.a; path = "/Users/pavelpakseev/code/react_native_multiple_modals_app/modules/react-native-multiple-modals/ios/build/Debug-iphoneos/libRNTModal.a"; sourceTree = "<absolute>"; };
 		AF43775C2CB5A09C00334A86 /* RNTModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNTModalView.swift; sourceTree = "<group>"; };
 		AF43775D2CB5A09C00334A86 /* RNTModalViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTModalViewManager.m; sourceTree = "<group>"; };
 		AF4377602CB5A09D00334A86 /* RNTModal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNTModal-Bridging-Header.h"; sourceTree = "<group>"; };
+		AFEFC1352CC7F0140008863D /* libRNTModal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNTModal.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFEFC1362CC7F0210008863D /* ModalShadowVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalShadowVIew.swift; sourceTree = "<group>"; };
+		AFEFC1372CC7F0210008863D /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		AFEFC1382CC7F0210008863D /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,10 +50,22 @@
 		AF4377422CB59EF500334A86 = {
 			isa = PBXGroup;
 			children = (
+				AFEFC1392CC7F0210008863D /* Library */,
 				AF43775C2CB5A09C00334A86 /* RNTModalView.swift */,
 				AF43775D2CB5A09C00334A86 /* RNTModalViewManager.m */,
 				AF4377602CB5A09D00334A86 /* RNTModal-Bridging-Header.h */,
+				AFEFC1352CC7F0140008863D /* libRNTModal.a */,
 			);
+			sourceTree = "<group>";
+		};
+		AFEFC1392CC7F0210008863D /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				AFEFC1362CC7F0210008863D /* ModalShadowVIew.swift */,
+				AFEFC1372CC7F0210008863D /* ModalView.swift */,
+				AFEFC1382CC7F0210008863D /* ModalViewController.swift */,
+			);
+			path = Library;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -69,7 +87,7 @@
 			packageProductDependencies = (
 			);
 			productName = RNTModal;
-			productReference = AF43774B2CB59EF500334A86 /* libRNTModal.a */;
+			productReference = AFEFC1352CC7F0140008863D /* libRNTModal.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -114,6 +132,9 @@
 			files = (
 				AF43775E2CB5A09C00334A86 /* RNTModalView.swift in Sources */,
 				AF43775F2CB5A09C00334A86 /* RNTModalViewManager.m in Sources */,
+				AFEFC13A2CC7F0210008863D /* ModalView.swift in Sources */,
+				AFEFC13B2CC7F0210008863D /* ModalShadowVIew.swift in Sources */,
+				AFEFC13C2CC7F0210008863D /* ModalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

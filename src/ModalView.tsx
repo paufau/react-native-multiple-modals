@@ -14,7 +14,7 @@ import { RNTModalView } from './RNTModalView';
 import { ScrollContextResetter } from './ScrollContextResetter';
 
 export type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 };
 
 export enum DismissalSource {
@@ -29,6 +29,9 @@ export type ModalViewProps = {
   contentContainerStyle?: StyleProp<ViewStyle>;
   backdropProps?: BackdropProps;
 };
+
+const backdropAccessibilityLabel = 'Backdrop';
+const backdropAccessibilityHint = 'Double-tap to close the modal';
 
 export const ModalView: FC<ModalViewProps> = ({
   children,
@@ -53,10 +56,10 @@ export const ModalView: FC<ModalViewProps> = ({
               renderBackdrop()
             ) : (
               <Pressable
-                onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
-                accessible
-                accessibilityLabel='Backdrop'
+                accessibilityLabel={backdropAccessibilityLabel}
+                accessibilityHint={backdropAccessibilityHint}
                 {...backdropProps}
+                onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
                 style={[styles.defaultBackdrop, backdropProps?.style]}
               />
             )}
