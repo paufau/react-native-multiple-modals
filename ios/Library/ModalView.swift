@@ -60,7 +60,7 @@ final class ModalView: UIView {
         self.modalViewController?.dismiss()
         self.modalViewController = nil
         self.isMounted = false
-        UIAccessibility.post(notification: .screenChanged, argument: null)
+        UIAccessibility.post(notification: .screenChanged, argument: nil)
     }
     
     func update() {
