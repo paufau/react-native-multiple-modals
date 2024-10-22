@@ -31,6 +31,7 @@ final class ModalView: UIView {
         
         if (atIndex == 0) {
             self.modalViewController?.addReactSubview(subview)
+            UIAccessibility.post(notification: .screenChanged, argument: subview)
         }
     }
     
@@ -59,6 +60,7 @@ final class ModalView: UIView {
         self.modalViewController?.dismiss()
         self.modalViewController = nil
         self.isMounted = false
+        UIAccessibility.post(notification: .screenChanged, argument: null)
     }
     
     func update() {
