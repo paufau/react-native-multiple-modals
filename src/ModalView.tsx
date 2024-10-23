@@ -10,8 +10,8 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { RNTModalView } from './RNTModalView';
 import { ScrollContextResetter } from './ScrollContextResetter';
+import RNTModalView from './RNTModalView';
 
 export type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
   style?: StyleProp<ViewStyle>;

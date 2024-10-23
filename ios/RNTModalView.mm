@@ -5,7 +5,38 @@
 #import "RNTModalViewController.h"
 #import "RNTModalVIew.h"
 
+#ifdef RCT_NEW_ARCH_ENABLED
+
+#import <react/renderer/components/RNTModalViewSpec/ComponentDescriptors.h>
+#import <react/renderer/components/RNTModalViewSpec/EventEmitters.h>
+#import <react/renderer/components/RNTModalViewSpec/Props.h>
+#import <react/renderer/components/RNTModalViewSpec/RCTComponentViewHelpers.h>
+#import "RCTFabricComponentsPlugins.h"
+
+using namespace facebook::react;
+
+@interface RNTModalView () <RCTRNTModalViewViewProtocol>
+
+@end
+
 @implementation RNTModalView
+
+Class<RCTComponentViewProtocol> RNTModalViewCls(void)
+{
+    return RNTModalView.class;
+}
+
++ (ComponentDescriptorProvider)componentDescriptorProvider
+{
+    return concreteComponentDescriptorProvider<RNTModalViewComponentDescriptor>();
+}
+
+
+#else
+
+@implementation RNTModalView
+
+#endif
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithFrame:CGRectZero];
