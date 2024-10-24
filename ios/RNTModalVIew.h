@@ -7,7 +7,17 @@
 #import <UIKit/UIKit.h>
 #import "RNTModalViewController.h"
 
+#ifdef RCT_NEW_ARCH_ENABLED
+#import <React/RCTViewComponentView.h>
+NS_ASSUME_NONNULL_BEGIN
+
+@interface RNTModalView : RCTViewComponentView <RCTInvalidating>
+
+#else
+
 @interface RNTModalView : UIView <RCTInvalidating>
+
+#endif
 
 @property (nonatomic, strong) RCTUIManager *uiManager;
 @property (nonatomic, strong) RCTTouchHandler *touchHandler;
@@ -21,5 +31,9 @@
 - (void)update;
 
 @end
+
+#ifdef RCT_NEW_ARCH_ENABLED
+NS_ASSUME_NONNULL_END
+#endif
 
 #endif /* RNTModalVIew_h */

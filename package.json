@@ -10,6 +10,11 @@
   "types": "lib/index.d.ts",
   "react-native": "src/index.ts",
   "private": false,
+  "codegenConfig": {
+    "name": "RNTModalViewSpec",
+    "type": "components",
+    "jsSrcsDir": "./src/newarch/"
+  },
   "keywords": [
     "react-native",
     "multiple",

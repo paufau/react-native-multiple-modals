@@ -9,8 +9,8 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 - ✅ Accessibility Support
 - 💯 Compatible with Expo
 - 💥 New Architecture
-  - 🛠️ iOS - Migration Started
-  - ⌛ Android - Planned
+  - 🛠️ iOS - Migration Done! (Not released yet)
+  - ⌛ Android - Migration Started...
 
 ## Installation
 

@@ -1,30 +1,12 @@
-import { ReactNode } from 'react';
+import { FC } from 'react';
+import { RNTModalViewProps } from './oldarch/RNTModalView';
 
-import {
-  Platform,
-  requireNativeComponent,
-  StyleProp,
-  UIManager,
-  ViewStyle,
-} from 'react-native';
+let RNTModalView: FC<RNTModalViewProps>;
 
-const LINKING_ERROR =
-  `The package 'react-native-multiple-modals' doesn't seem to be linked. Make sure: \n\n${Platform.select(
-    { ios: "- You have run 'pod install'\n", default: '' },
-  )}- You rebuilt the app after installing the package\n` +
-  `- You are not using Expo Go\n`;
+if ((global as any)?.nativeFabricUIManager) {
+  RNTModalView = require('./newarch/RNTModalViewNativeComponent').default;
+} else {
+  RNTModalView = require('./oldarch/RNTModalView').default;
+}
 
-export type RNTModalViewProps = {
-  style?: StyleProp<ViewStyle>;
-  children: ReactNode;
-  onPressBackAndroid?: () => void;
-};
-
-const ComponentName = 'RNTModalView';
-
-export const RNTModalView =
-  UIManager.getViewManagerConfig(ComponentName) != null
-    ? requireNativeComponent<RNTModalViewProps>(ComponentName)
-    : () => {
-        throw new Error(LINKING_ERROR);
-      };
+export default RNTModalView;
