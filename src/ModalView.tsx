@@ -12,6 +12,7 @@ import {
 
 import { ScrollContextResetter } from './ScrollContextResetter';
 import RNTModalView from './RNTModalView';
+import { useScreenDimensions } from './useScreenDimensions';
 
 export type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
   style?: StyleProp<ViewStyle>;
@@ -28,6 +29,10 @@ export type ModalViewProps = {
   onRequestDismiss?: (calledBy: DismissalSource) => void;
   contentContainerStyle?: StyleProp<ViewStyle>;
   backdropProps?: BackdropProps;
+  containerSize?: {
+    width: number;
+    height: number;
+  }
 };
 
 const backdropAccessibilityLabel = 'Backdrop';
@@ -39,9 +44,12 @@ export const ModalView: FC<ModalViewProps> = ({
   onRequestDismiss,
   backdropProps,
   contentContainerStyle,
+  containerSize,
 }) => {
-  const windowDimensions = useWindowDimensions();
-  const fullScreenStyle = [windowDimensions, styles.container];
+  const screenDimensions = useScreenDimensions();
+  const preferredContainerSize = containerSize ?? screenDimensions;
+
+  const fullScreenStyle = [preferredContainerSize, styles.container];
 
   return (
     <View style={fullScreenStyle}>
@@ -67,7 +75,7 @@ export const ModalView: FC<ModalViewProps> = ({
           <ScrollContextResetter>
             <View
               pointerEvents='box-none'
-              style={[windowDimensions, styles.content, contentContainerStyle]}
+              style={[preferredContainerSize, styles.content, contentContainerStyle]}
             >
               {children}
             </View>
