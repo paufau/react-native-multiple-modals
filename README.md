@@ -22,6 +22,12 @@ or
 yarn add react-native-multiple-modals
 ```
 
+#### iOS
+
+```bash
+pod install --project-directory=ios
+```
+
 ## Usage
 
 ```tsx
@@ -70,5 +76,13 @@ For fine-tuning of the default backdrop
 When backdropProps are no longer enough.
 
 > _**NOTE**_: While rendering custom backdrop `onRequestClose` is not called, so you should handle backdrop press by yourself
+
+---
+
+### `containerSize?: { width: number, height: number }`
+
+Use to change the modals's rendering area. May be useful for foldable devices.
+
+Default: Dimensions.get('screen')
 
 ---
