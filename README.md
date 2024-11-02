@@ -1,4 +1,4 @@
-# react-native-multiple-modals
+# React Native Multiple Modals
 
 [![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
 
