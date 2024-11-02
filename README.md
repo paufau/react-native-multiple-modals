@@ -1,4 +1,4 @@
-![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)
+[![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
 
 # react-native-multiple-modals
 
