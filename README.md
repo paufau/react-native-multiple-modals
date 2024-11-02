@@ -1,3 +1,5 @@
+![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)
+
 # react-native-multiple-modals
 
 Native Modal implementation which allows to display multiple Modals simultaneously.
@@ -86,3 +88,9 @@ Use to change the modals's rendering area. May be useful for foldable devices.
 Default: Dimensions.get('screen')
 
 ---
+
+## Integrations
+
+### react-native-gesture-handler
+
+Wrap your content with `<GestureHandlerRootView> ... </GestureHandlerRootView>` to make gestures work inside a modal

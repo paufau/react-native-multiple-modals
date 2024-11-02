@@ -6,7 +6,7 @@ import com.facebook.react.uimanager.events.Event
  
 class PressBackEvent(surfaceId: Int, viewTag: Int) : Event<PressBackEvent>(surfaceId, viewTag) {
     companion object {
-        const val NAME = "pressBack"
+        const val NAME = "topPressBackAndroid"
         const val REGISTRATION_NAME = "onPressBackAndroid"
     }
 

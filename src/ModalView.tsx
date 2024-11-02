@@ -5,13 +5,12 @@ import {
   PressableProps,
   StyleProp,
   StyleSheet,
-  useWindowDimensions,
   View,
   ViewStyle,
 } from 'react-native';
 
 import { ScrollContextResetter } from './ScrollContextResetter';
-import RNTModalView from './RNTModalView';
+import RNTModalView from './newarch/RNTModalViewNativeComponent';
 import { useScreenDimensions } from './useScreenDimensions';
 
 export type BackdropProps = Omit<PressableProps, 'onPress' | 'style'> & {
@@ -32,7 +31,7 @@ export type ModalViewProps = {
   containerSize?: {
     width: number;
     height: number;
-  }
+  };
 };
 
 const backdropAccessibilityLabel = 'Backdrop';
@@ -75,7 +74,11 @@ export const ModalView: FC<ModalViewProps> = ({
           <ScrollContextResetter>
             <View
               pointerEvents='box-none'
-              style={[preferredContainerSize, styles.content, contentContainerStyle]}
+              style={[
+                preferredContainerSize,
+                styles.content,
+                contentContainerStyle,
+              ]}
             >
               {children}
             </View>
