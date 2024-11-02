@@ -38,7 +38,8 @@
   "scripts": {
     "lint": "npx eslint ./src",
     "build": "tsup",
-    "release": "npm run build && npm publish"
+    "release": "npm run build && npm publish",
+    "prepare": "husky"
   },
   "files": [
     "src",
@@ -82,14 +83,15 @@
     "eslint-plugin-react-native": "^4.1.0",
     "eslint-plugin-testing-library": "^6.3.0",
     "eslint-plugin-unicorn": "^55.0.0",
+    "husky": "^9.1.6",
     "prettier": "^3.3.3",
     "tsup": "^8.3.0"
   },
   "peerDependencies": {
-    "react": "^18",
-    "react-native": ">=0.70.0",
     "@types/react": "*",
-    "@types/react-native": "*"
+    "@types/react-native": "*",
+    "react": "^18",
+    "react-native": ">=0.70.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
