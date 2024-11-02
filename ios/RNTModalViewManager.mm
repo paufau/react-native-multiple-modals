@@ -1,7 +1,6 @@
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
 #import "RCTBridge.h"
-#import "RNTModalShadowView.h"
 #import "RNTModalView.h"
 
 @interface RNTModalViewManager : RCTViewManager
@@ -9,17 +8,15 @@
 
 @implementation RNTModalViewManager
 
-RCT_EXPORT_MODULE(RNTModalViewManager)
+RCT_EXPORT_MODULE(RNTModalView)
 
-- (RNTModalView *)view
+#ifdef RCT_NEW_ARCH_ENABLED
+#else
+- (UIView *)view
 {
     return [[RNTModalView alloc] initWithBridge:self.bridge];
 }
-
-- (RNTModalShadowView *)shadowView
-{
-    return [[RNTModalShadowView alloc] init];
-}
+#endif
 
 + (BOOL)requiresMainQueueSetup
 {
