@@ -12,6 +12,7 @@
 #import <react/renderer/components/RNTModalViewSpec/Props.h>
 #import <react/renderer/components/RNTModalViewSpec/RCTComponentViewHelpers.h>
 #import "RCTFabricComponentsPlugins.h"
+#import <React/RCTSurfaceTouchHandler.h>
 
 using namespace facebook::react;
 
@@ -31,12 +32,35 @@ Class<RCTComponentViewProtocol> RNTModalViewCls(void)
     return concreteComponentDescriptorProvider<RNTModalViewComponentDescriptor>();
 }
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:CGRectZero];
+    if (self) {
+        _touchHandler = [RCTSurfaceTouchHandler new];
+        _modalViewController = [[RNTModalViewController alloc] init];
+        _isMounted = NO;
+    }
+    return self;
+}
+
+- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+{
+    [self insertReactSubview:childComponentView atIndex:index];
+    [self setupIfNeeded];
+}
+
+- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
+{
+    [self removeReactSubview:childComponentView];
+    [self unmount];
+}
+
+- (void)didMoveToSuperview {
+    [self setupIfNeeded];
+}
 
 #else
 
 @implementation RNTModalView
-
-#endif
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithFrame:CGRectZero];
@@ -49,9 +73,18 @@ Class<RCTComponentViewProtocol> RNTModalViewCls(void)
     return self;
 }
 
+#endif
+
+RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
+
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self setupIfNeeded];
+}
+
+- (void)addSubview:(UIView *)view {
+    [super addSubview:view];
 }
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
@@ -65,8 +98,10 @@ Class<RCTComponentViewProtocol> RNTModalViewCls(void)
 - (void)removeReactSubview:(UIView *)subview
 {
     [super removeReactSubview:subview];
-    [_touchHandler detachFromView:subview];
-    [subview removeFromSuperview];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.touchHandler detachFromView:subview];
+        [subview removeFromSuperview];
+    });
 }
 
 - (void)setupIfNeeded {
@@ -84,13 +119,15 @@ Class<RCTComponentViewProtocol> RNTModalViewCls(void)
         return;
     }
     
-    [self.modalViewController presentOn:rvc onView:rvc.view];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.modalViewController presentOn:rvc onView:rvc.view];
+    });
+    
     self.isMounted = YES;
 }
 
 - (void)unmount {
     [self.modalViewController dismiss];
-    self.modalViewController = nil;
     self.isMounted = NO;
 }
 
