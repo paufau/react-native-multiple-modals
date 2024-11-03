@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { ScrollContextResetter } from './ScrollContextResetter';
+import { GestureHandlerRootView } from './integrations/GestureHandlerRootView';
 import RNTModalView from './newarch/RNTModalViewNativeComponent';
 import { useScreenDimensions } from './useScreenDimensions';
 
@@ -58,31 +59,33 @@ export const ModalView: FC<ModalViewProps> = ({
         }
       >
         <View collapsable={false}>
-          <View style={fullScreenStyle}>
-            {renderBackdrop ? (
-              renderBackdrop()
-            ) : (
-              <Pressable
-                accessibilityLabel={backdropAccessibilityLabel}
-                accessibilityHint={backdropAccessibilityHint}
-                {...backdropProps}
-                onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
-                style={[styles.defaultBackdrop, backdropProps?.style]}
-              />
-            )}
-          </View>
-          <ScrollContextResetter>
-            <View
-              pointerEvents='box-none'
-              style={[
-                preferredContainerSize,
-                styles.content,
-                contentContainerStyle,
-              ]}
-            >
-              {children}
+          <GestureHandlerRootView>
+            <View style={fullScreenStyle}>
+              {renderBackdrop ? (
+                renderBackdrop()
+              ) : (
+                <Pressable
+                  accessibilityLabel={backdropAccessibilityLabel}
+                  accessibilityHint={backdropAccessibilityHint}
+                  {...backdropProps}
+                  onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+                  style={[styles.defaultBackdrop, backdropProps?.style]}
+                />
+              )}
             </View>
-          </ScrollContextResetter>
+            <ScrollContextResetter>
+              <View
+                pointerEvents='box-none'
+                style={[
+                  preferredContainerSize,
+                  styles.content,
+                  contentContainerStyle,
+                ]}
+              >
+                {children}
+              </View>
+            </ScrollContextResetter>
+          </GestureHandlerRootView>
         </View>
       </RNTModalView>
     </View>
