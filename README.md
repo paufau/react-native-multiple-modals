@@ -53,6 +53,8 @@ const YourComponent = () => {
 
 More Examples: https://github.com/paufau/react-native-multiple-modals-examples
 
+---
+
 ## Properties
 
 ### `contentContainerStyle?: ViewStyle`
@@ -90,9 +92,3 @@ Use to change the modals's rendering area. May be useful for foldable devices.
 Default: Dimensions.get('screen')
 
 ---
-
-## Integrations
-
-### react-native-gesture-handler
-
-Wrap your content with `<GestureHandlerRootView> ... </GestureHandlerRootView>` to make gestures work inside a modal
