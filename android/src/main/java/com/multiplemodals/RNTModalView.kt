@@ -43,6 +43,15 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         }
     }
 
+    fun dismiss() {
+        reactContext.removeLifecycleEventListener(this)
+
+        // Should be call before 'modalDialog.dismiss' to ensure reanimated children are removed correctly
+        modalView.removeAllViews()
+
+        modalDialog.dismiss()
+    }
+
     private fun attackBackHandler() {
         // Prevent closing from native part as this is handled by JS
         modalDialog.setOnKeyListener(object : DialogInterface.OnKeyListener {
@@ -97,14 +106,14 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
     override fun removeAllViews() {
         super.removeAllViews()
-        modalView.removeAllViews()
+        dismiss()
     }
 
     // Layout
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        modalDialog.dismiss()
+        dismiss()
     }
 
     override fun onLayout(p0: Boolean, p1: Int, p2: Int, p3: Int, p4: Int) {
@@ -112,8 +121,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     }
 
     override fun onHostDestroy() {
-        reactContext.removeLifecycleEventListener(this)
-        modalDialog.dismiss()
+        dismiss()
     }
 
     override fun onHostPause() {
