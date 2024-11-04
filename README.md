@@ -92,3 +92,13 @@ Use to change the modals's rendering area. May be useful for foldable devices.
 Default: Dimensions.get('screen')
 
 ---
+
+## Author
+
+- [Pavel Pakseev](https://www.linkedin.com/in/pavel-pakseev/)
+
+## Sponsor & Support
+
+If you found the library useful, you can support me here:
+
+<a href='https://ko-fi.com/Y8Y315L7NK' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
