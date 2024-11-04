@@ -12,7 +12,9 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 - 🚀 Performant Native Implementation
 - ✅ Accessibility Support
 - 💯 Compatible with Expo
-- 💥 New Architecture
+- 💥 New Architecture (Fabric)
+- 🆗 Old Architecture (Paper)
+- 👌 Written in TypeScript
 
 ## Installation
 
