@@ -4,6 +4,8 @@
 
 Native Modal implementation which allows to display multiple Modals simultaneously.
 
+![React Native Multiple Modals](./assets/preview.gif)
+
 ## ✨ Features
 
 - 📱 iOS & Android
