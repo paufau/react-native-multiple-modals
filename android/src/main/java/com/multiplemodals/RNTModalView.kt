@@ -43,7 +43,9 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         }
     }
 
-    fun dismiss() {
+    private fun dismiss() {
+        UiThreadUtil.assertOnUiThread()
+
         reactContext.removeLifecycleEventListener(this)
 
         // Should be call before 'modalDialog.dismiss' to ensure reanimated children are removed correctly
@@ -79,6 +81,8 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     // Child management
 
     override fun addView(subview: View, atIndex: Int) {
+        UiThreadUtil.assertOnUiThread()
+
         if (atIndex > 0) {
             throw Exception("Only one subview expected (at index 0)")
         }
@@ -97,15 +101,16 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     }
 
     override fun removeView(view: View?) {
+        UiThreadUtil.assertOnUiThread()
         modalView.removeView(view)
     }
 
     override fun removeViewAt(index: Int) {
+        UiThreadUtil.assertOnUiThread()
         modalView.removeViewAt(index)
     }
 
     override fun removeAllViews() {
-        super.removeAllViews()
         dismiss()
     }
 
