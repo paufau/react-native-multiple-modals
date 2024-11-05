@@ -59,7 +59,7 @@ export const ModalView: FC<ModalViewProps> = ({
         }
       >
         <View collapsable={false}>
-          <GestureHandlerRootView>
+          <GestureHandlerRootView style={preferredContainerSize}>
             <View style={fullScreenStyle}>
               {renderBackdrop ? (
                 renderBackdrop()

@@ -2,7 +2,6 @@ package com.multiplemodals.library
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.WindowManager.LayoutParams
 import com.facebook.react.uimanager.ThemedReactContext
 
