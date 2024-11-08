@@ -28,23 +28,26 @@ export type ModalViewProps = {
   renderBackdrop?: () => ReactNode;
   onRequestDismiss?: (calledBy: DismissalSource) => void;
   contentContainerStyle?: StyleProp<ViewStyle>;
-  backdropProps?: BackdropProps;
   containerSize?: {
     width: number;
     height: number;
   };
+  BackdropPressableComponent?: FC<PressableProps>;
+  backdropColor?: string;
 };
 
 const backdropAccessibilityLabel = 'Backdrop';
 const backdropAccessibilityHint = 'Double-tap to close the modal';
+const defaultBackdropColor = 'rgba(0, 0, 0, 0.3)';
 
 export const ModalView: FC<ModalViewProps> = ({
   children,
   renderBackdrop,
   onRequestDismiss,
-  backdropProps,
   contentContainerStyle,
   containerSize,
+  BackdropPressableComponent = Pressable,
+  backdropColor = defaultBackdropColor,
 }) => {
   const screenDimensions = useScreenDimensions();
   const preferredContainerSize = containerSize ?? screenDimensions;
@@ -52,43 +55,43 @@ export const ModalView: FC<ModalViewProps> = ({
   const fullScreenStyle = [preferredContainerSize, styles.container];
 
   return (
-    <View style={fullScreenStyle}>
-      <RNTModalView
-        onPressBackAndroid={() =>
-          onRequestDismiss?.(DismissalSource.BackButton)
-        }
-      >
-        <View collapsable={false}>
-          <GestureHandlerRootView style={preferredContainerSize}>
-            <View style={fullScreenStyle}>
+    <RNTModalView
+      style={fullScreenStyle}
+      onPressBackAndroid={() => onRequestDismiss?.(DismissalSource.BackButton)}
+    >
+      <View collapsable={false}>
+        <GestureHandlerRootView style={preferredContainerSize}>
+          <View style={fullScreenStyle}>
+            <BackdropPressableComponent
+              accessibilityLabel={backdropAccessibilityLabel}
+              accessibilityHint={backdropAccessibilityHint}
+              style={styles.backdrop}
+              onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+            >
               {renderBackdrop ? (
                 renderBackdrop()
               ) : (
-                <Pressable
-                  accessibilityLabel={backdropAccessibilityLabel}
-                  accessibilityHint={backdropAccessibilityHint}
-                  {...backdropProps}
-                  onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
-                  style={[styles.defaultBackdrop, backdropProps?.style]}
+                <View
+                  style={[styles.backdrop, { backgroundColor: backdropColor }]}
                 />
               )}
+            </BackdropPressableComponent>
+          </View>
+          <ScrollContextResetter>
+            <View
+              pointerEvents='box-none'
+              style={[
+                preferredContainerSize,
+                styles.content,
+                contentContainerStyle,
+              ]}
+            >
+              {children}
             </View>
-            <ScrollContextResetter>
-              <View
-                pointerEvents='box-none'
-                style={[
-                  preferredContainerSize,
-                  styles.content,
-                  contentContainerStyle,
-                ]}
-              >
-                {children}
-              </View>
-            </ScrollContextResetter>
-          </GestureHandlerRootView>
-        </View>
-      </RNTModalView>
-    </View>
+          </ScrollContextResetter>
+        </GestureHandlerRootView>
+      </View>
+    </RNTModalView>
   );
 };
 
@@ -99,9 +102,7 @@ const styles = StyleSheet.create({
   content: {
     zIndex: 1,
   },
-  defaultBackdrop: {
+  backdrop: {
     flex: 1,
-    zIndex: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
   },
 } as const);

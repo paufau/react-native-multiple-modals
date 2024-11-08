@@ -75,17 +75,22 @@ The method is called when backdrop or back button is pressed
 
 ---
 
-### `backdropProps?: PressableProps`
+### `renderBackdrop?: () => ReactNode`
 
-For fine-tuning of the default backdrop
+Use it to render custom backdrop. For example `<BlurView />`
 
 ---
 
-### `renderBackdrop?: () => ReactNode`
+### `backdropColor?: string`
 
-When backdropProps are no longer enough.
+Default: `rgba(0, 0, 0, 0.3)`
 
-> _**NOTE**_: While rendering custom backdrop `onRequestClose` is not called, so you should handle backdrop press by yourself
+---
+
+### `BackdropPressableComponent?: FC<PressableProps>`
+
+The component which wraps `renderBackdrop`.
+Use it to overwrite default props or make backdrop untouchable.
 
 ---
 

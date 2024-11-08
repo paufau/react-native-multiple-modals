@@ -25,4 +25,9 @@ class RNTModalViewManager : RNTModalViewManagerSpec<RNTModalView>() {
     super.onDropViewInstance(view)
     view.onHostDestroy()
   }
+
+  override fun onAfterUpdateTransaction(view: RNTModalView) {
+    super.onAfterUpdateTransaction(view)
+    view.show()
+  }
 }
