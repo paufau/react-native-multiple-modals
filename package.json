@@ -29,7 +29,9 @@
     "android"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=18",
+    "npm": "^10.7.0",
+    "yarn": "please-use-npm"
   },
   "repository": {
     "type": "git",

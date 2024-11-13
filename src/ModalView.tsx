@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
+  // TODO remove before release
   flexDebug: {
     flex: 1,
     borderWidth: 1,
