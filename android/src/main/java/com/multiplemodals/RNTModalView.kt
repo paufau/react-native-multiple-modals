@@ -5,9 +5,12 @@ import android.content.DialogInterface
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewStructure
 import android.view.accessibility.AccessibilityEvent
+import android.widget.FrameLayout
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.UiThreadUtil
+import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
@@ -20,12 +23,25 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         const val REACT_CLASS: String = "RNTModalView"
     }
 
+    public var stateWrapper: StateWrapper?
+        get() = modalView.stateWrapper
+        public set(stateWrapper) {
+            modalView.stateWrapper = stateWrapper
+        }
+
     private val surfaceId: Int get() = UIManagerHelper.getSurfaceId(this)
+
+    override fun setId(id: Int) {
+        super.setId(id)
+        // Id is passed to control shadow node size
+        modalView.id = id
+    }
 
     private val reactContext: ThemedReactContext get() = context as ThemedReactContext
     private val eventDispatcher: EventDispatcher
     private val modalDialog: ModalDialog
     private val modalView: ModalView
+    private val contentView: FrameLayout
 
     init {
         this.reactContext.addLifecycleEventListener(this)
@@ -36,11 +52,18 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
             modalDialog = ModalDialog(reactContext, R.style.Theme_FullScreenDialog)
             modalView = ModalView(reactContext, eventDispatcher)
+            contentView = FrameLayout(context)
 
             attackBackHandler()
         } else {
             throw Exception("Unable to initialize react native event dispatcher");
         }
+    }
+
+    fun show() {
+        contentView.addView(modalView)
+        modalDialog.addContent(contentView)
+        modalDialog.show()
     }
 
     private fun dismiss() {
@@ -88,8 +111,6 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         }
 
         modalView.addView(subview, atIndex)
-        modalDialog.addContent(modalView)
-        modalDialog.show()
     }
 
     override fun getChildCount(): Int {
@@ -115,6 +136,10 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     }
 
     // Layout
+
+    override fun dispatchProvideStructure(structure: ViewStructure?) {
+        modalView.dispatchProvideStructure(structure)
+    }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
