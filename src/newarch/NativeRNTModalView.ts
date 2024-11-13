@@ -10,4 +10,6 @@ interface NativeProps extends ViewProps {
 }
 
 // Codegen doesn't accept variables, so component name is hardcoded
-export default codegenNativeComponent<NativeProps>('RNTModalView');
+export default codegenNativeComponent<NativeProps>('RNTModalView', {
+  interfaceOnly: true,
+});
