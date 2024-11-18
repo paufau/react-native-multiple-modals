@@ -5,69 +5,11 @@
 #import "RNTModalViewController.h"
 #import "RNTModalVIew.h"
 
-// #ifdef RCT_NEW_ARCH_ENABLED
-//
-//#import <react/renderer/components/multiplemodals/ComponentDescriptors.h>
-//#import <react/renderer/components/multiplemodals/EventEmitters.h>
-//#import <react/renderer/components/multiplemodals/Props.h>
-//#import <react/renderer/components/multiplemodals/RCTComponentViewHelpers.h>
-//#import "RCTFabricComponentsPlugins.h"
-//#import <React/RCTSurfaceTouchHandler.h>
-//
-//using namespace facebook::react;
-//
-//@interface RNTModalView () <RCTRNTModalViewViewProtocol>
-//
-//@end
-//
-//@implementation RNTModalView
-//
-//Class<RCTComponentViewProtocol> RNTModalViewCls(void)
-//{
-//    return RNTModalView.class;
-//}
-//
-//+ (ComponentDescriptorProvider)componentDescriptorProvider
-//{
-//    return concreteComponentDescriptorProvider<RNTModalViewComponentDescriptor>();
-//}
-//
-//- (instancetype)initWithFrame:(CGRect)frame {
-//    self = [super initWithFrame:CGRectZero];
-//    if (self) {
-//        _touchHandler = [RCTSurfaceTouchHandler new];
-//        _modalViewController = [[RNTModalViewController alloc] init];
-//        _isMounted = NO;
-//    }
-//    return self;
-//}
-//
-//- (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
-//{
-//    [self insertReactSubview:childComponentView atIndex:index];
-//    [self setupIfNeeded];
-//}
-//
-//- (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
-//{
-//    [self removeReactSubview:childComponentView];
-//    [self unmount];
-//}
-//
-//- (void)didMoveToSuperview {
-//    [self setupIfNeeded];
-//}
-//
-// @implementation RNTModalView
-
-// #else
-
 @implementation RNTModalView
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        _uiManager = bridge.uiManager;
         _touchHandler = [[RCTTouchHandler alloc] initWithBridge:bridge];
         _modalViewController = [[RNTModalViewController alloc] init];
         _isMounted = NO;
@@ -75,10 +17,7 @@
     return self;
 }
 
-// #endif
-
 RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
-
 
 - (void)layoutSubviews {
     [super layoutSubviews];
