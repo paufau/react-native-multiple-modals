@@ -1,7 +1,8 @@
 require "json"
 
+fabric_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
+
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
-folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
 
 Pod::Spec.new do |s|
   s.name         = "react-native-multiple-modals"
@@ -14,29 +15,24 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => min_ios_version_supported }
   s.source       = { :git => ".git", :tag => "#{s.version}" }
 
-  s.source_files = "ios/**/*.{h,m,mm,swift}"
+  s.source_files = "ios/**/*.{h,m,mm}"
+  s.exclude_files = "ios/Fabric"
 
-  # Use install_modules_dependencies helper to install the dependencies if React Native version >=0.71.0.
-  # See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
-  if respond_to?(:install_modules_dependencies, true)
+  s.dependency "React-Core"
+
+  if fabric_enabled
     install_modules_dependencies(s)
-  else
-    s.dependency "React-Core"
 
-    # Don't install the dependencies when we run `pod install` in the old architecture.
-    if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
-      s.compiler_flags = folly_compiler_flags + " -DRCT_NEW_ARCH_ENABLED=1"
-      s.pod_target_xcconfig    = {
-          "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\"",
-          "OTHER_CPLUSPLUSFLAGS" => "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1",
-          "CLANG_CXX_LANGUAGE_STANDARD" => "c++17"
-      }
-      s.dependency "React-RCTFabric"
-      s.dependency "React-Codegen"
-      s.dependency "RCT-Folly"
-      s.dependency "RCTRequired"
-      s.dependency "RCTTypeSafety"
-      s.dependency "ReactCommon/turbomodule/core"
+    s.subspec "common" do |ss|
+      ss.source_files         = "common/cpp/**/*.{cpp,h,mm}"
+      ss.header_dir           = "react/renderer/components/multiplemodals"
+      ss.pod_target_xcconfig  = { "HEADER_SEARCH_PATHS" => "\"$(PODS_TARGET_SRCROOT)/common/cpp\"" }
+    end
+
+    s.subspec "fabric" do |ss|
+      ss.dependency "react-native-multiple-modals/common"
+      ss.source_files         = "ios/Fabric/**/*.{h,m,mm}"
+      ss.pod_target_xcconfig  = { "HEADER_SEARCH_PATHS" => "\"$(PODS_TARGET_SRCROOT)/common/cpp\"" }
     end
   end
 end

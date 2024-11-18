@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AFEFC15E2CC8339B0008863D /* RNTModalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1552CC8339B0008863D /* RNTModalViewController.mm */; };
-		AFEFC15F2CC8339B0008863D /* RNTModalView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1592CC8339B0008863D /* RNTModalView.mm */; };
-		AFEFC1602CC8339B0008863D /* RNTModalShadowView.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC1522CC8339B0008863D /* RNTModalShadowView.mm */; };
-		AFEFC1612CC8339B0008863D /* RNTModalViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEFC15B2CC8339B0008863D /* RNTModalViewManager.mm */; };
+		AFCA57EE2CE7838F007DA1C1 /* RNTModalViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = AFCA57DC2CE78360007DA1C1 /* RNTModalViewController.h */; };
+		AFCA57EF2CE7838F007DA1C1 /* RNTModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCA57DD2CE78360007DA1C1 /* RNTModalViewController.m */; };
+		AFCA57F02CE7838F007DA1C1 /* RNTModal-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = AFCA57E12CE78360007DA1C1 /* RNTModal-Bridging-Header.h */; };
+		AFCA57F12CE7838F007DA1C1 /* RNTModalShadowView.h in Sources */ = {isa = PBXBuildFile; fileRef = AFCA57E22CE78360007DA1C1 /* RNTModalShadowView.h */; };
+		AFCA57F22CE7838F007DA1C1 /* RNTModalShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCA57E32CE78360007DA1C1 /* RNTModalShadowView.m */; };
+		AFCA57F32CE7838F007DA1C1 /* RNTModalView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCA57E42CE78360007DA1C1 /* RNTModalView.m */; };
+		AFCA57F42CE7838F007DA1C1 /* RNTModalVIew.h in Sources */ = {isa = PBXBuildFile; fileRef = AFCA57E52CE78360007DA1C1 /* RNTModalVIew.h */; };
+		AFCA57F52CE7838F007DA1C1 /* RNTModalViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AFCA57E62CE78360007DA1C1 /* RNTModalViewManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,15 +30,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AF4377602CB5A09D00334A86 /* RNTModal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNTModal-Bridging-Header.h"; sourceTree = "<group>"; };
-		AFEFC1352CC7F0140008863D /* libRNTModal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNTModal.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AFEFC1512CC8339B0008863D /* RNTModalShadowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalShadowView.h; sourceTree = "<group>"; };
-		AFEFC1522CC8339B0008863D /* RNTModalShadowView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalShadowView.mm; sourceTree = "<group>"; };
-		AFEFC1542CC8339B0008863D /* RNTModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalViewController.h; sourceTree = "<group>"; };
-		AFEFC1552CC8339B0008863D /* RNTModalViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalViewController.mm; sourceTree = "<group>"; };
-		AFEFC1592CC8339B0008863D /* RNTModalView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalView.mm; sourceTree = "<group>"; };
-		AFEFC15A2CC8339B0008863D /* RNTModalVIew.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalVIew.h; sourceTree = "<group>"; };
-		AFEFC15B2CC8339B0008863D /* RNTModalViewManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalViewManager.mm; sourceTree = "<group>"; };
+		AFCA57D92CE78360007DA1C1 /* RNTModalViewComponentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalViewComponentView.h; sourceTree = "<group>"; };
+		AFCA57DA2CE78360007DA1C1 /* RNTModalViewComponentView.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RNTModalViewComponentView.mm; sourceTree = "<group>"; };
+		AFCA57DC2CE78360007DA1C1 /* RNTModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalViewController.h; sourceTree = "<group>"; };
+		AFCA57DD2CE78360007DA1C1 /* RNTModalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTModalViewController.m; sourceTree = "<group>"; };
+		AFCA57E12CE78360007DA1C1 /* RNTModal-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNTModal-Bridging-Header.h"; sourceTree = "<group>"; };
+		AFCA57E22CE78360007DA1C1 /* RNTModalShadowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalShadowView.h; sourceTree = "<group>"; };
+		AFCA57E32CE78360007DA1C1 /* RNTModalShadowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTModalShadowView.m; sourceTree = "<group>"; };
+		AFCA57E42CE78360007DA1C1 /* RNTModalView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTModalView.m; sourceTree = "<group>"; };
+		AFCA57E52CE78360007DA1C1 /* RNTModalVIew.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTModalVIew.h; sourceTree = "<group>"; };
+		AFCA57E62CE78360007DA1C1 /* RNTModalViewManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTModalViewManager.m; sourceTree = "<group>"; };
+		AFEFC1352CC7F0140008863D /* libRNTModal.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libRNTModal.a; path = "/Users/pavelpakseev/code/react-native-multiple-modals/ios/build/Debug-iphoneos/libRNTModal.a"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,38 +57,39 @@
 		AF4377422CB59EF500334A86 = {
 			isa = PBXGroup;
 			children = (
-				AFEFC1572CC8339B0008863D /* Library */,
-				AFEFC1592CC8339B0008863D /* RNTModalView.mm */,
-				AFEFC15A2CC8339B0008863D /* RNTModalVIew.h */,
-				AFEFC15B2CC8339B0008863D /* RNTModalViewManager.mm */,
-				AF4377602CB5A09D00334A86 /* RNTModal-Bridging-Header.h */,
-				AFEFC1352CC7F0140008863D /* libRNTModal.a */,
+				AFCA57DB2CE78360007DA1C1 /* Fabric */,
+				AFCA57DF2CE78360007DA1C1 /* Library */,
+				AFCA57E12CE78360007DA1C1 /* RNTModal-Bridging-Header.h */,
+				AFCA57E22CE78360007DA1C1 /* RNTModalShadowView.h */,
+				AFCA57E32CE78360007DA1C1 /* RNTModalShadowView.m */,
+				AFCA57E42CE78360007DA1C1 /* RNTModalView.m */,
+				AFCA57E52CE78360007DA1C1 /* RNTModalVIew.h */,
+				AFCA57E62CE78360007DA1C1 /* RNTModalViewManager.m */,
 			);
 			sourceTree = "<group>";
 		};
-		AFEFC1532CC8339B0008863D /* RNTModalShadowView */ = {
+		AFCA57DB2CE78360007DA1C1 /* Fabric */ = {
 			isa = PBXGroup;
 			children = (
-				AFEFC1512CC8339B0008863D /* RNTModalShadowView.h */,
-				AFEFC1522CC8339B0008863D /* RNTModalShadowView.mm */,
+				AFCA57D92CE78360007DA1C1 /* RNTModalViewComponentView.h */,
+				AFCA57DA2CE78360007DA1C1 /* RNTModalViewComponentView.mm */,
 			);
-			path = RNTModalShadowView;
+			path = Fabric;
 			sourceTree = "<group>";
 		};
-		AFEFC1562CC8339B0008863D /* RNTModalViewController */ = {
+		AFCA57DE2CE78360007DA1C1 /* RNTModalViewController */ = {
 			isa = PBXGroup;
 			children = (
-				AFEFC1542CC8339B0008863D /* RNTModalViewController.h */,
-				AFEFC1552CC8339B0008863D /* RNTModalViewController.mm */,
+				AFCA57DC2CE78360007DA1C1 /* RNTModalViewController.h */,
+				AFCA57DD2CE78360007DA1C1 /* RNTModalViewController.m */,
 			);
 			path = RNTModalViewController;
 			sourceTree = "<group>";
 		};
-		AFEFC1572CC8339B0008863D /* Library */ = {
+		AFCA57DF2CE78360007DA1C1 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				AFEFC1532CC8339B0008863D /* RNTModalShadowView */,
-				AFEFC1562CC8339B0008863D /* RNTModalViewController */,
+				AFCA57DE2CE78360007DA1C1 /* RNTModalViewController */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -149,10 +156,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFEFC15E2CC8339B0008863D /* RNTModalViewController.mm in Sources */,
-				AFEFC15F2CC8339B0008863D /* RNTModalView.mm in Sources */,
-				AFEFC1602CC8339B0008863D /* RNTModalShadowView.mm in Sources */,
-				AFEFC1612CC8339B0008863D /* RNTModalViewManager.mm in Sources */,
+				AFCA57EE2CE7838F007DA1C1 /* RNTModalViewController.h in Sources */,
+				AFCA57EF2CE7838F007DA1C1 /* RNTModalViewController.m in Sources */,
+				AFCA57F02CE7838F007DA1C1 /* RNTModal-Bridging-Header.h in Sources */,
+				AFCA57F12CE7838F007DA1C1 /* RNTModalShadowView.h in Sources */,
+				AFCA57F22CE7838F007DA1C1 /* RNTModalShadowView.m in Sources */,
+				AFCA57F32CE7838F007DA1C1 /* RNTModalView.m in Sources */,
+				AFCA57F42CE7838F007DA1C1 /* RNTModalVIew.h in Sources */,
+				AFCA57F52CE7838F007DA1C1 /* RNTModalViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
