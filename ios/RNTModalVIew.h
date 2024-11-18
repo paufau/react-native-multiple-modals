@@ -7,28 +7,28 @@
 #import <UIKit/UIKit.h>
 #import "RNTModalViewController.h"
 
-#ifdef RCT_NEW_ARCH_ENABLED
-#import <React/RCTViewComponentView.h>
-#import <React/RCTSurfaceTouchHandler.h>
-NS_ASSUME_NONNULL_BEGIN
+// #ifdef RCT_NEW_ARCH_ENABLED
+// #import <React/RCTViewComponentView.h>
+// #import <React/RCTSurfaceTouchHandler.h>
+// NS_ASSUME_NONNULL_BEGIN
 
-@interface RNTModalView : RCTViewComponentView <RCTInvalidating>
+// @interface RNTModalView : RCTViewComponentView <RCTInvalidating>
 
-@property (nonatomic, strong) RCTSurfaceTouchHandler *touchHandler;
+// @property (nonatomic, strong) RCTSurfaceTouchHandler *touchHandler;
 
-#else
+// #else
 
 @interface RNTModalView : UIView <RCTInvalidating>
 
-@property (nonatomic, strong) RCTTouchHandler *touchHandler;
+@property(nonatomic, strong) RCTTouchHandler *touchHandler;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
-#endif
+// #endif
 
-@property (nonatomic, strong) RCTUIManager *uiManager;
-@property (nonatomic, strong) RNTModalViewController *modalViewController;
-@property (nonatomic, assign) BOOL isMounted;
+@property(nonatomic, strong) RCTUIManager *uiManager;
+@property(nonatomic, strong) RNTModalViewController *modalViewController;
+@property(nonatomic, assign) BOOL isMounted;
 
 - (void)setupIfNeeded;
 - (void)mount;
@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#ifdef RCT_NEW_ARCH_ENABLED
-NS_ASSUME_NONNULL_END
-#endif
+// #ifdef RCT_NEW_ARCH_ENABLED
+// NS_ASSUME_NONNULL_END
+// #endif
 
 #endif /* RNTModalVIew_h */

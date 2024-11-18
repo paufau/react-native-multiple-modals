@@ -11,9 +11,6 @@
 
 RCT_EXPORT_MODULE(RNTModalView)
 
-#ifdef RCT_NEW_ARCH_ENABLED
-#else
-
 - (UIView *)view
 {
     return [[RNTModalView alloc] initWithBridge:self.bridge];
@@ -23,8 +20,6 @@ RCT_EXPORT_MODULE(RNTModalView)
 {
     return [RNTModalShadowView new];
 }
-
-#endif
 
 + (BOOL)requiresMainQueueSetup
 {
