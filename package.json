@@ -1,6 +1,6 @@
 {
   "name": "react-native-multiple-modals",
-  "version": "1.3.0",
+  "version": "2.0.0",
   "description": "Native implementation with the ability to display multiple Modals",
   "author": "Pavel Pakseev <pakseev.1999@gmail.com> (https://github.com/paufau)",
   "license": "MIT",
@@ -49,6 +49,7 @@
   "files": [
     "src",
     "lib",
+    "common",
     "android",
     "ios",
     "*.podspec",
