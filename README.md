@@ -111,7 +111,6 @@ Default: Dimensions.get('screen')
 
 ## Known issues
 
-- Android - New Architecture - The first render is incorrect and displays content shrunk.
 - Some layout animations from `react-native-reanimated` don't work properly inside the ModalView
 
 ## Roadmap
@@ -120,6 +119,7 @@ Common:
 
 - Add default `fade` and `slide` animations
 - Add UI tests automation
+- Create separate documentation page
 
 Android:
 

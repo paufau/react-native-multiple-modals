@@ -3,8 +3,6 @@ package com.multiplemodals
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.LayoutShadowNode
-import com.facebook.react.uimanager.ReactStylesDiffMap
-import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
 import com.multiplemodals.events.PressBackEvent
 
@@ -31,19 +29,5 @@ class RNTModalViewManager : RNTModalViewManagerSpec<RNTModalView>() {
   override fun onDropViewInstance(view: RNTModalView) {
     super.onDropViewInstance(view)
     view.onHostDestroy()
-  }
-
-  override fun onAfterUpdateTransaction(view: RNTModalView) {
-    super.onAfterUpdateTransaction(view)
-    view.show()
-  }
-
-  override fun updateState(
-    view: RNTModalView,
-    props: ReactStylesDiffMap,
-    stateWrapper: StateWrapper
-  ): Any? {
-    view.stateWrapper = stateWrapper
-    return null
   }
 }

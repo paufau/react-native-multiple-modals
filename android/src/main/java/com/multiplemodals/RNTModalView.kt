@@ -7,27 +7,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewStructure
 import android.view.accessibility.AccessibilityEvent
-import android.widget.FrameLayout
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.UiThreadUtil
-import com.facebook.react.uimanager.StateWrapper
+import com.facebook.react.uimanager.PixelUtil
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
 import com.multiplemodals.events.PressBackEvent
 import com.multiplemodals.library.ModalDialog
+import com.multiplemodals.library.ModalHostHelper
 import com.multiplemodals.library.ModalView
+import com.multiplemodals.library.OnSizeComputedListener
 
 class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener {
     companion object {
         const val REACT_CLASS: String = "RNTModalView"
     }
 
-    public var stateWrapper: StateWrapper?
-        get() = modalView.stateWrapper
-        public set(stateWrapper) {
-            modalView.stateWrapper = stateWrapper
+    var onSizeComputedListener: OnSizeComputedListener?
+        get() = modalView.onSizeComputedListener
+        set(value) {
+            modalView.onSizeComputedListener = value
         }
+
+    internal fun requestViewSizeComputation() {
+        val modalSize = ModalHostHelper.getModalHostSize(context)
+
+        onSizeComputedListener?.onSizeComputed(
+            id,
+            PixelUtil.toDIPFromPixel(modalSize.x.toFloat()),
+            PixelUtil.toDIPFromPixel(modalSize.y.toFloat()),
+        )
+    }
 
     private val surfaceId: Int get() = UIManagerHelper.getSurfaceId(this)
 
@@ -41,7 +52,9 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     private val eventDispatcher: EventDispatcher
     private val modalDialog: ModalDialog
     private val modalView: ModalView
-    private val contentView: FrameLayout
+
+    private var wasShown = false
+    internal var isShadowViewSizeSet = false
 
     init {
         this.reactContext.addLifecycleEventListener(this)
@@ -52,7 +65,6 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
             modalDialog = ModalDialog(reactContext, R.style.Theme_FullScreenDialog)
             modalView = ModalView(reactContext, eventDispatcher)
-            contentView = FrameLayout(context)
 
             attackBackHandler()
         } else {
@@ -61,9 +73,15 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     }
 
     fun show() {
-        contentView.addView(modalView)
-        modalDialog.addContent(contentView)
+        if (wasShown || !isShadowViewSizeSet) {
+            return
+        }
+
+        UiThreadUtil.assertOnUiThread()
+
+        modalDialog.addContent(modalView)
         modalDialog.show()
+        wasShown = true
     }
 
     private fun dismiss() {
