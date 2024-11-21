@@ -2,8 +2,8 @@ package com.multiplemodals.library
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager.LayoutParams
-import android.widget.FrameLayout
 import com.facebook.react.uimanager.ThemedReactContext
 
 class ModalDialog(private val reactContext: ThemedReactContext, themeId: Int) : Dialog(reactContext, themeId) {
@@ -29,7 +29,7 @@ class ModalDialog(private val reactContext: ThemedReactContext, themeId: Int) : 
         }
     }
 
-    fun addContent(view: FrameLayout) {
+    fun addContent(view: View) {
         setContentView(view)
     }
 }

@@ -3,68 +3,40 @@ package com.multiplemodals.library
 import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
-import androidx.annotation.UiThread
-import com.facebook.react.bridge.GuardedRunnable
-import com.facebook.react.bridge.WritableMap
-import com.facebook.react.bridge.WritableNativeMap
 import com.facebook.react.config.ReactFeatureFlags
 import com.facebook.react.uimanager.JSPointerDispatcher
 import com.facebook.react.uimanager.JSTouchDispatcher
 import com.facebook.react.uimanager.PixelUtil
 import com.facebook.react.uimanager.RootView
-import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ThemedReactContext
-import com.facebook.react.uimanager.UIManagerModule
 import com.facebook.react.uimanager.events.EventDispatcher
 import com.facebook.react.views.view.ReactViewGroup
 
+fun interface OnSizeComputedListener {
+    fun onSizeComputed(id: Int, widthDip: Float, heightDip: Float)
+}
+
 @SuppressLint("ViewConstructor")
-class ModalView(private val reactContext: ThemedReactContext,
+class ModalView(reactContext: ThemedReactContext,
                 private val eventDispatcher: EventDispatcher): ReactViewGroup(reactContext), RootView {
+
     private val jSTouchDispatcher = JSTouchDispatcher(this)
     private var jSPointerDispatcher: JSPointerDispatcher? = null
-    private var viewWidth = 0
-    private var viewHeight = 0
-    internal var stateWrapper: StateWrapper? = null
+    internal var onSizeComputedListener: OnSizeComputedListener? = null
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        onSizeComputedListener?.onSizeComputed(
+            id,
+            PixelUtil.toDIPFromPixel(w.toFloat()),
+            PixelUtil.toDIPFromPixel(h.toFloat())
+        )
+    }
 
     init {
         if (ReactFeatureFlags.dispatchPointerEvents) {
             this.jSPointerDispatcher = JSPointerDispatcher(this)
         }
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        viewWidth = w
-        viewHeight = h
-
-        updateState(viewWidth, viewHeight)
-    }
-
-    @UiThread
-    public fun updateState(width: Int, height: Int) {
-        val realWidth: Float = PixelUtil.toDIPFromPixel(width.toFloat())
-        val realHeight: Float = PixelUtil.toDIPFromPixel(height.toFloat())
-
-        // TODO splint into different files
-        stateWrapper?.let { sw ->
-            // new architecture
-            val newStateData: WritableMap = WritableNativeMap()
-            newStateData.putDouble("screenWidth", realWidth.toDouble())
-            newStateData.putDouble("screenHeight", realHeight.toDouble())
-            sw.updateState(newStateData)
-        }
-            ?: run {
-                // old architecture
-                reactContext.runOnNativeModulesQueueThread(
-                    object : GuardedRunnable(reactContext) {
-                        override fun runGuarded() {
-                            reactContext.reactApplicationContext
-                                .getNativeModule(UIManagerModule::class.java)
-                                ?.updateNodeSize(id, viewWidth, viewHeight)
-                        }
-                    })
-            }
     }
 
     override fun handleException(exception: Throwable?) {
