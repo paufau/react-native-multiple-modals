@@ -28,11 +28,6 @@
     "dialog",
     "android"
   ],
-  "engines": {
-    "node": ">=18",
-    "npm": "^10.7.0",
-    "yarn": "please-use-npm"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/paufau/react-native-multiple-modals"
