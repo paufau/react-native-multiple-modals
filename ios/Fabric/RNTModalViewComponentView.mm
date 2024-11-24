@@ -25,6 +25,11 @@ using namespace facebook::react;
     RNTModalViewShadowNode::ConcreteState::Shared _state;
 }
 
++ (BOOL)shouldBeRecycled
+{
+    return NO;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:CGRectZero];
@@ -43,13 +48,15 @@ using namespace facebook::react;
 
 - (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
-    [self insertReactSubview:childComponentView atIndex:index];
+    [self.touchHandler attachToView:childComponentView];
+    [self.modalViewController addReactSubview:childComponentView];
     [self setupIfNeeded];
 }
 
 - (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
-    [self removeReactSubview:childComponentView];
+    [self.touchHandler detachFromView:childComponentView];
+    [childComponentView removeFromSuperview];
     [self unmount];
 }
 
@@ -63,28 +70,12 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     [self setupIfNeeded];
 }
 
 - (void)addSubview:(UIView *)view {
     [super addSubview:view];
-}
-
-- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
-    [super insertReactSubview:subview atIndex:atIndex];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.touchHandler attachToView:subview];
-        [self.modalViewController addReactSubview:subview];
-    });
-}
-
-- (void)removeReactSubview:(UIView *)subview
-{
-    [super removeReactSubview:subview];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.touchHandler detachFromView:subview];
-        [subview removeFromSuperview];
-    });
 }
 
 - (void)setupIfNeeded {
@@ -95,8 +86,20 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
     }
 }
 
+- (UIViewController *)getRootController {
+    UIWindow *keyWindow = [UIApplication sharedApplication].windows.firstObject;
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+        if (window.isKeyWindow) {
+            keyWindow = window;
+            break;
+        }
+    }
+    UIViewController *topController = keyWindow.rootViewController;
+    return topController;
+}
+
 - (void)mount {
-    UIViewController *rvc = [self reactViewController];
+    UIViewController *rvc = [self getRootController];
     if (!rvc) {
         NSLog(@"reactViewController not found");
         return;
@@ -111,7 +114,9 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
 
 - (void)unmount {
     [self.modalViewController dismiss];
-    self.isMounted = NO;
+    _isMounted = NO;
+    _modalViewController = NULL;
+    _touchHandler = NULL;
 }
 
 - (void)update {

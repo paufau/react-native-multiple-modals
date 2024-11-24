@@ -53,8 +53,20 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
     }
 }
 
+- (UIViewController *)getRootViewController {
+    UIWindow *keyWindow = [UIApplication sharedApplication].windows.firstObject;
+    for (UIWindow *window in [UIApplication sharedApplication].windows) {
+        if (window.isKeyWindow) {
+            keyWindow = window;
+            break;
+        }
+    }
+    UIViewController *topController = keyWindow.rootViewController;
+    return topController;
+}
+
 - (void)mount {
-    UIViewController *rvc = [self reactViewController];
+    UIViewController *rvc = [self getRootViewController];
     if (!rvc) {
         NSLog(@"reactViewController not found");
         return;

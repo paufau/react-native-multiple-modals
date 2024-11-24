@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RNTModalViewComponentView : RCTViewComponentView
 
-@property(nonatomic, strong) RCTSurfaceTouchHandler *touchHandler;
-@property(nonatomic, strong) RNTModalViewController *modalViewController;
+@property(nullable, strong) RCTSurfaceTouchHandler *touchHandler;
+@property(nullable, strong) RNTModalViewController *modalViewController;
 @property(nonatomic, assign) BOOL isMounted;
 
 - (void)setupIfNeeded;
