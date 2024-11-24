@@ -3,12 +3,14 @@ package com.multiplemodals
 import android.view.ViewGroup
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeMap
+import com.facebook.react.uimanager.PixelUtil
 import com.facebook.react.uimanager.ReactStylesDiffMap
 import com.facebook.react.uimanager.StateWrapper
 import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.ViewManagerDelegate
 import com.facebook.react.viewmanagers.RNTModalViewManagerDelegate
 import com.facebook.react.viewmanagers.RNTModalViewManagerInterface
+import com.multiplemodals.library.ModalHostHelper
 import com.multiplemodals.library.OnSizeComputedListener
 import kotlin.math.roundToInt
 
@@ -17,6 +19,15 @@ abstract class RNTModalViewManagerSpec<T : ViewGroup> : ViewGroupManager<T>(), R
 
   override fun getDelegate(): ViewManagerDelegate<T>? {
     return mDelegate
+  }
+
+  private fun computeViewSize(view: RNTModalView) {
+    val modalSize = ModalHostHelper.getModalHostSize(view.context)
+
+    view.onSizeComputedListener?.onSizeComputed(
+      modalSize.x,
+      modalSize.y,
+    )
   }
 
   override fun updateState(
@@ -34,20 +45,20 @@ abstract class RNTModalViewManagerSpec<T : ViewGroup> : ViewGroupManager<T>(), R
         }
       }
 
-      view.onSizeComputedListener = OnSizeComputedListener { _, widthDip, heightDip ->
-        val nextWidthDip = widthDip.roundToInt()
-        val nextHeightDip = heightDip.roundToInt()
+      view.onSizeComputedListener = OnSizeComputedListener { widthPx, heightPx ->
+        val nextWidthDip = PixelUtil.toDIPFromPixel(widthPx.toFloat()).roundToInt()
+        val nextHeightDip = PixelUtil.toDIPFromPixel(heightPx.toFloat()).roundToInt()
 
         // Comparing props prevents infinite update cycle
         if (currentWidthDip != nextWidthDip || currentHeightDip != nextHeightDip) {
           val newStateData: WritableMap = WritableNativeMap()
-          newStateData.putDouble("screenWidth", widthDip.toDouble())
-          newStateData.putDouble("screenHeight", heightDip.toDouble())
+          newStateData.putDouble("screenWidth", nextWidthDip.toDouble())
+          newStateData.putDouble("screenHeight", nextHeightDip.toDouble())
           stateWrapper.updateState(newStateData)
         }
       }
 
-      view.requestViewSizeComputation()
+      computeViewSize(view)
       view.show()
     }
 

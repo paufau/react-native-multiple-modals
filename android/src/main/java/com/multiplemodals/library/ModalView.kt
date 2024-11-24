@@ -6,14 +6,13 @@ import android.view.View
 import com.facebook.react.config.ReactFeatureFlags
 import com.facebook.react.uimanager.JSPointerDispatcher
 import com.facebook.react.uimanager.JSTouchDispatcher
-import com.facebook.react.uimanager.PixelUtil
 import com.facebook.react.uimanager.RootView
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.events.EventDispatcher
 import com.facebook.react.views.view.ReactViewGroup
 
 fun interface OnSizeComputedListener {
-    fun onSizeComputed(id: Int, widthDip: Float, heightDip: Float)
+    fun onSizeComputed(widthPx: Int, heightPx: Int)
 }
 
 @SuppressLint("ViewConstructor")
@@ -26,11 +25,7 @@ class ModalView(reactContext: ThemedReactContext,
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        onSizeComputedListener?.onSizeComputed(
-            id,
-            PixelUtil.toDIPFromPixel(w.toFloat()),
-            PixelUtil.toDIPFromPixel(h.toFloat())
-        )
+        onSizeComputedListener?.onSizeComputed(w, h)
     }
 
     init {

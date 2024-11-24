@@ -9,13 +9,11 @@ import android.view.ViewStructure
 import android.view.accessibility.AccessibilityEvent
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.UiThreadUtil
-import com.facebook.react.uimanager.PixelUtil
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
 import com.multiplemodals.events.PressBackEvent
 import com.multiplemodals.library.ModalDialog
-import com.multiplemodals.library.ModalHostHelper
 import com.multiplemodals.library.ModalView
 import com.multiplemodals.library.OnSizeComputedListener
 
@@ -30,25 +28,9 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
             modalView.onSizeComputedListener = value
         }
 
-    internal fun requestViewSizeComputation() {
-        val modalSize = ModalHostHelper.getModalHostSize(context)
-
-        onSizeComputedListener?.onSizeComputed(
-            id,
-            PixelUtil.toDIPFromPixel(modalSize.x.toFloat()),
-            PixelUtil.toDIPFromPixel(modalSize.y.toFloat()),
-        )
-    }
-
     private val surfaceId: Int get() = UIManagerHelper.getSurfaceId(this)
 
-    override fun setId(id: Int) {
-        super.setId(id)
-        // Id is passed to control shadow node size
-        modalView.id = id
-    }
-
-    private val reactContext: ThemedReactContext get() = context as ThemedReactContext
+    internal val reactContext: ThemedReactContext get() = context as ThemedReactContext
     private val eventDispatcher: EventDispatcher
     private val modalDialog: ModalDialog
     private val modalView: ModalView
