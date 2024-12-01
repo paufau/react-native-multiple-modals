@@ -2,6 +2,7 @@ package com.multiplemodals
 
 import android.content.Context
 import android.content.DialogInterface
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
     private var wasShown = false
     internal var isShadowViewSizeSet = false
+    internal var statusBarTranslucent: Boolean = false
 
     init {
         this.reactContext.addLifecycleEventListener(this)
@@ -48,7 +50,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
             modalDialog = ModalDialog(reactContext, R.style.Theme_FullScreenDialog)
             modalView = ModalView(reactContext, eventDispatcher)
 
-            attackBackHandler()
+            attachBackHandler()
         } else {
             throw Exception("Unable to initialize react native event dispatcher");
         }
@@ -61,6 +63,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
         UiThreadUtil.assertOnUiThread()
 
+        modalDialog.setStatusBarTranslucency(statusBarTranslucent)
         modalDialog.addContent(modalView)
         modalDialog.show()
         wasShown = true
@@ -77,25 +80,28 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         modalDialog.dismiss()
     }
 
-    private fun attackBackHandler() {
+    private fun attachBackHandler() {
         // Prevent closing from native part as this is handled by JS
         modalDialog.setOnKeyListener(object : DialogInterface.OnKeyListener {
             override fun onKey(dialog: DialogInterface, keyCode: Int, event: KeyEvent): Boolean {
-                if (event.action == KeyEvent.ACTION_UP) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_ESCAPE) {
-                        UiThreadUtil.runOnUiThread {
-                            eventDispatcher.dispatchEvent(PressBackEvent(surfaceId, id))
-                        }
-
-                        return true
-                    } else {
-                        // Bubble the event up
-                        val innerCurrentActivity = reactContext.currentActivity
-                        if (innerCurrentActivity != null) {
-                            return innerCurrentActivity.onKeyUp(keyCode, event)
-                        }
-                    }
+                if (event.action != KeyEvent.ACTION_UP) {
+                    return false
                 }
+
+                // Handle event
+                if (keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_ESCAPE) {
+                    UiThreadUtil.runOnUiThread {
+                        eventDispatcher.dispatchEvent(PressBackEvent(surfaceId, id))
+                    }
+                    return true
+                }
+
+                // Bubble the event up
+                val innerCurrentActivity = reactContext.currentActivity
+                if (innerCurrentActivity != null) {
+                    return innerCurrentActivity.onKeyUp(keyCode, event)
+                }
+
                 return false
             }
         })

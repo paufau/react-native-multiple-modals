@@ -12,8 +12,8 @@ internal object ModalHostHelper {
     private val MAX_POINT = Point()
     private val SIZE_POINT = Point()
 
-    @SuppressLint("InternalInsetResource")
-    fun getModalHostSize(context: Context): Point {
+    @SuppressLint("InternalInsetResource", "DiscouragedApi")
+    fun getModalHostSize(context: Context, includeStatusBar: Boolean): Point {
         val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = Assertions.assertNotNull(wm).defaultDisplay
         // getCurrentSizeRange will return the min and max width and height that the window can be
@@ -31,7 +31,7 @@ internal object ModalHostHelper {
         val resources = context.resources
         val statusBarId = resources.getIdentifier("status_bar_height", "dimen", "android")
         var statusBarHeight = 0
-        if (windowFullscreen && statusBarId > 0) {
+        if ((windowFullscreen || includeStatusBar) && statusBarId > 0) {
             statusBarHeight = resources.getDimension(statusBarId).toInt()
         }
 

@@ -1,6 +1,8 @@
 # React Native Multiple Modals
 
 [![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
+![Static Badge](https://img.shields.io/badge/types-included-81B622)
+[![NPM Downloads](https://img.shields.io/npm/dm/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
 
 Native Modal implementation which allows to display multiple Modals simultaneously.
 
@@ -33,13 +35,6 @@ yarn add react-native-multiple-modals
 ```bash
 pod install --project-directory=ios
 ```
-
-## Versions
-
-| version       | react-native | links                                                                               |
-| ------------- | ------------ | ----------------------------------------------------------------------------------- |
-| 2.0.0+        | 71+          | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/main)   |
-| 1.0.0 - 1.2.6 | 70+          | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v1.2.6) |
 
 ## Usage
 
@@ -74,6 +69,12 @@ Styles of the content wrapper. Use it for aligning your content view.
 
 ---
 
+### `statusBarTranslucent?: boolean = false` - Android only
+
+Determines whether your modal should go under the system statusbar.
+
+---
+
 ### `onRequestClose?: (calledBy: 'Backdrop' | 'BackButton') => void`
 
 The method is called when backdrop or back button is pressed
@@ -101,17 +102,9 @@ Use it to overwrite default props or make backdrop untouchable.
 
 ---
 
-### `containerSize?: { width: number, height: number }`
-
-Use to change the modals's rendering area. May be useful for foldable devices.
-
-Default: Dimensions.get('screen')
-
----
-
 ## Known issues
 
-- Some layout animations from `react-native-reanimated` don't work properly inside the ModalView
+- Some layout animations from `react-native-reanimated` don't work properly inside the ModalView on new architecture
 
 ## Roadmap
 
@@ -121,9 +114,12 @@ Common:
 - Add UI tests automation
 - Create separate documentation page
 
-Android:
+## Versions
 
-- Add `statusBarTranslucent` and `navigationBarTranslucent` prop
+| version       | react-native | links                                                                               |
+| ------------- | ------------ | ----------------------------------------------------------------------------------- |
+| 2.0.0+        | 71+          | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/main)   |
+| 1.0.0 - 1.2.6 | 70+          | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v1.2.6) |
 
 ## Author
 

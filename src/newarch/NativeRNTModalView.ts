@@ -7,6 +7,7 @@ import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNati
 type PressBackAndroidEvent = Readonly<{}>;
 interface NativeProps extends ViewProps {
   onPressBackAndroid?: DirectEventHandler<PressBackAndroidEvent>;
+  statusBarTranslucent?: boolean;
 }
 
 // Codegen doesn't accept variables, so component name is hardcoded
