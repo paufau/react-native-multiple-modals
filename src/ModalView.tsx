@@ -27,6 +27,7 @@ export type ModalViewProps = {
   renderBackdrop?: () => ReactNode;
   onRequestDismiss?: (calledBy: DismissalSource) => void;
   contentContainerStyle?: StyleProp<ViewStyle>;
+  statusBarTranslucent?: boolean;
   BackdropPressableComponent?: FC<PressableProps>;
   backdropColor?: string;
 };
@@ -40,12 +41,14 @@ export const ModalView: FC<ModalViewProps> = ({
   renderBackdrop,
   onRequestDismiss,
   contentContainerStyle,
+  statusBarTranslucent,
   BackdropPressableComponent = Pressable,
   backdropColor = defaultBackdropColor,
 }) => {
   return (
     <RNTModalView
       style={styles.container}
+      statusBarTranslucent={statusBarTranslucent}
       onPressBackAndroid={() => onRequestDismiss?.(DismissalSource.BackButton)}
     >
       <View collapsable={false} style={styles.flex}>

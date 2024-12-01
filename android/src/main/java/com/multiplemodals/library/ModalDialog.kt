@@ -4,9 +4,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager.LayoutParams
+import androidx.core.view.ViewCompat
 import com.facebook.react.uimanager.ThemedReactContext
 
-class ModalDialog(private val reactContext: ThemedReactContext, themeId: Int) : Dialog(reactContext, themeId) {
+@Suppress("DEPRECATION")
+class ModalDialog(reactContext: ThemedReactContext, themeId: Int) : Dialog(reactContext, themeId) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,10 +28,30 @@ class ModalDialog(private val reactContext: ThemedReactContext, themeId: Int) : 
 
             // Makes dialog background opaque
             clearFlags(LayoutParams.FLAG_DIM_BEHIND)
+
+            setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         }
     }
 
     fun addContent(view: View) {
         setContentView(view)
+    }
+
+    fun setStatusBarTranslucency(isTranslucent: Boolean) {
+        window?.apply {
+            if (isTranslucent) {
+                decorView.setOnApplyWindowInsetsListener { v, insets ->
+                    val defaultInsets = v.onApplyWindowInsets(insets)
+                    defaultInsets.replaceSystemWindowInsets(
+                        defaultInsets.systemWindowInsetLeft,
+                        0,
+                        defaultInsets.systemWindowInsetRight,
+                        defaultInsets.systemWindowInsetBottom)
+                }
+            } else {
+                decorView.setOnApplyWindowInsetsListener(null)
+            }
+            ViewCompat.requestApplyInsets(decorView)
+        }
     }
 }

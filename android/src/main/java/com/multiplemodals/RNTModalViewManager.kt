@@ -4,6 +4,7 @@ import com.facebook.react.common.MapBuilder
 import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.uimanager.LayoutShadowNode
 import com.facebook.react.uimanager.ThemedReactContext
+import com.facebook.react.uimanager.annotations.ReactProp
 import com.multiplemodals.events.PressBackEvent
 
 @ReactModule(name = RNTModalView.REACT_CLASS)
@@ -29,5 +30,13 @@ class RNTModalViewManager : RNTModalViewManagerSpec<RNTModalView>() {
   override fun onDropViewInstance(view: RNTModalView) {
     super.onDropViewInstance(view)
     view.onHostDestroy()
+  }
+
+  @ReactProp(name = "statusBarTranslucent")
+  override fun setStatusBarTranslucent(
+    view: RNTModalView,
+    statusBarTranslucent: Boolean
+  ) {
+    view.statusBarTranslucent = statusBarTranslucent
   }
 }

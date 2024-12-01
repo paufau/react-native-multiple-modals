@@ -22,7 +22,7 @@ abstract class RNTModalViewManagerSpec<T : ViewGroup> : ViewGroupManager<T>(), R
   }
 
   private fun computeViewSize(view: RNTModalView) {
-    val modalSize = ModalHostHelper.getModalHostSize(view.context)
+    val modalSize = ModalHostHelper.getModalHostSize(view.context, view.statusBarTranslucent)
 
     view.onSizeComputedListener?.onSizeComputed(
       modalSize.x,
