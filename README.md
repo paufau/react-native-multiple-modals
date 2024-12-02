@@ -102,6 +102,14 @@ Use it to overwrite default props or make backdrop untouchable.
 
 ---
 
+## Contribution
+
+#### FOUND A BUG? HELP THE PROJECT AND REPORT IT!
+
+If you notice any bugs or anything working differently compared to React Native, feel free to open an issue. It’ll really help improve the project 🙏.
+
+Also, if there are any well-known issues in React Native that haven’t been fixed for a long time and they show up here too, let me know! Let’s make things better together 😎.
+
 ## Known issues
 
 - Some layout animations from `react-native-reanimated` don't work properly inside the ModalView on new architecture
