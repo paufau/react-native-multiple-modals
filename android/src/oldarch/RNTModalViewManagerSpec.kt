@@ -17,6 +17,13 @@ abstract class RNTModalViewManagerSpec<T : ViewGroup> : ViewGroupManager<T>() {
         }
     }
 
+    open fun setStatusBarTranslucent(
+        view: RNTModalView,
+        statusBarTranslucent: Boolean
+    ) {
+        throw Exception("Not implemented (override in the view manager)")
+    }
+
     override fun onAfterUpdateTransaction(view: T) {
         super.onAfterUpdateTransaction(view)
 
