@@ -2,12 +2,10 @@ package com.multiplemodals
 
 import android.content.Context
 import android.content.DialogInterface
-import android.os.Build
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewStructure
-import android.view.WindowInsetsController
 import android.view.accessibility.AccessibilityEvent
 import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.UiThreadUtil
@@ -150,7 +148,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
     // Layout
 
-    override fun dispatchProvideStructure(structure: ViewStructure?) {
+    override fun dispatchProvideStructure(structure: ViewStructure) {
         modalView.dispatchProvideStructure(structure)
     }
 
