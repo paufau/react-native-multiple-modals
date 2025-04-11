@@ -34,9 +34,9 @@ class ModalView(reactContext: ThemedReactContext,
         }
     }
 
-    override fun handleException(exception: Throwable?) {
+    override fun handleException(t: Throwable) {
         val reactContext = context as ThemedReactContext
-        reactContext.reactApplicationContext.handleException(RuntimeException(exception))
+        reactContext.reactApplicationContext.handleException(RuntimeException(t))
     }
 
     // React overrides to make touches work
@@ -60,9 +60,9 @@ class ModalView(reactContext: ThemedReactContext,
         this.jSTouchDispatcher.onChildStartedNativeGesture(ev, eventDispatcher)
     }
 
-    override fun onChildStartedNativeGesture(childView: View, ev: MotionEvent) {
-        this.jSTouchDispatcher.onChildStartedNativeGesture(ev, eventDispatcher)
-        this.jSPointerDispatcher?.onChildStartedNativeGesture(childView, ev, eventDispatcher)
+    override fun onChildStartedNativeGesture(childView: View?, ev: MotionEvent) {
+        jSTouchDispatcher.onChildStartedNativeGesture(ev, eventDispatcher)
+        jSPointerDispatcher?.onChildStartedNativeGesture(childView, ev, eventDispatcher)
     }
 
     override fun onChildEndedNativeGesture(childView: View, ev: MotionEvent) {
