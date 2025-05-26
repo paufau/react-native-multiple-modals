@@ -78,8 +78,10 @@ Determines whether your modal should go under the system statusbar.
 ### `statusBar?: StatusBarProps`
 
 Controls the status bar.
-Android - supports only: translucent, barStyle
-iOS - full support
+
+<span style="color: #a4c936">Android</span> - supports only `translucent`, `barStyle`
+
+<span style="color: #fff">iOS</span> - all props are supported
 
 ---
 
