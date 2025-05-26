@@ -15,6 +15,7 @@
 #import <React/RCTTouchHandler.h>
 
 #import "RNTModalViewController.h"
+#import "RNTModalMountingHelper.h"
 
 using namespace facebook::react;
 
@@ -24,6 +25,8 @@ using namespace facebook::react;
 @implementation RNTModalViewComponentView {
     RNTModalViewShadowNode::ConcreteState::Shared _state;
 }
+
+RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
 
 + (BOOL)shouldBeRecycled
 {
@@ -40,7 +43,7 @@ using namespace facebook::react;
         
         _touchHandler = [RCTSurfaceTouchHandler new];
         _modalViewController = [[RNTModalViewController alloc] init];
-        _isMounted = NO;
+        _mountingHelper = [[RNTModalMountingHelper alloc] initWithViewController:_modalViewController];
     }
     
     return self;
@@ -49,86 +52,35 @@ using namespace facebook::react;
 - (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
     [self.touchHandler attachToView:childComponentView];
-    [self.modalViewController addReactSubview:childComponentView];
-    [self setupIfNeeded];
+    [self.mountingHelper updateChildrenTransaction:^{
+        [self.modalViewController addReactSubview:childComponentView];
+    }];
 }
 
 - (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
     [self.touchHandler detachFromView:childComponentView];
+    [self.mountingHelper unmountIfNeeded];
     [childComponentView removeFromSuperview];
-    [self unmount];
 }
-
-- (void)didMoveToSuperview {
-    [self setupIfNeeded];
-}
-
-// TODO: START - Move to shared class
-
-RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    [self setupIfNeeded];
-}
-
-- (void)addSubview:(UIView *)view {
-    [super addSubview:view];
-}
-
-- (void)setupIfNeeded {
-    if (self.isMounted) {
-        [self update];
-    } else {
-        [self mount];
-    }
-}
-
-- (UIViewController *)getRootController {
-    UIWindow *keyWindow = [UIApplication sharedApplication].windows.firstObject;
-    for (UIWindow *window in [UIApplication sharedApplication].windows) {
-        if (window.isKeyWindow) {
-            keyWindow = window;
-            break;
-        }
-    }
-    UIViewController *topController = keyWindow.rootViewController;
-    return topController;
-}
-
-- (void)mount {
-    UIViewController *rvc = [self getRootController];
-    if (!rvc) {
-        NSLog(@"reactViewController not found");
-        return;
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.modalViewController presentOn:rvc onView:rvc.view];
-    });
-    
-    self.isMounted = YES;
-}
-
-- (void)unmount {
-    [self.modalViewController dismiss];
-    _isMounted = NO;
-    _modalViewController = NULL;
-    _touchHandler = NULL;
-}
-
-- (void)update {
-    // No actions required
-}
-
-// TODO: END
 
 // Needed because of this: https://github.com/facebook/react-native/pull/37274
 + (void)load
 {
     [super load];
+}
+
+- (void)updateProps:(const Props::Shared &)props oldProps:(const Props::Shared &)oldProps
+{
+    const auto &newProps = static_cast<const RNTModalViewProps &>(*props);
+    
+    NSString *animationType = [NSString stringWithCString:newProps.animationType.c_str() encoding:NSUTF8StringEncoding];
+    
+    [self.mountingHelper updatePropsTransaction:^{
+        [self.modalViewController setAnimationType:animationType];
+    }];
+    
+    [super updateProps:props oldProps:oldProps];
 }
 
 #pragma mark - RCTComponentViewProtocol

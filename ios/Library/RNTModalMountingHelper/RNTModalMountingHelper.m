@@ -1,0 +1,93 @@
+#import <UIKit/UIKit.h>
+#import "RNTModalMountingHelper.h"
+
+@implementation RNTModalMountingHelper
+
+- (UIWindow *)getKeyWindow {
+    UIWindow *keyWindow = nil;
+    
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+        if ([scene isKindOfClass:[UIWindowScene class]]) {
+            UIWindowScene *windowScene = (UIWindowScene *)scene;
+            for (UIWindow *window in windowScene.windows) {
+                if (window.isKeyWindow) {
+                    keyWindow = window;
+                    break;
+                }
+            }
+        }
+        if (keyWindow) {
+            break;
+        }
+    }
+    
+    return keyWindow;
+}
+
+- (UIViewController *)getRootController {
+    return [self getKeyWindow].rootViewController;
+}
+
+- (void)updateChildrenTransaction:(void (^ _Nullable)(void))completion {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (completion) {
+            completion();
+        }
+        self.hasChildren = YES;
+        [self mountIfNeeded];
+    });
+}
+
+- (void)updatePropsTransaction:(void (^ _Nullable)(void))completion { 
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (completion) {
+            completion();
+        }
+        self.hasProps = YES;
+        [self mountIfNeeded];
+    });
+}
+
+- (instancetype _Nonnull)initWithViewController:(RNTModalViewController * _Nonnull)viewController {
+    _modal = viewController;
+    return self;
+}
+
+
+- (void)mountIfNeeded { 
+    if (!self.isMounted && self.hasProps && self.hasChildren) {
+        [self mount];
+    }
+}
+
+
+- (void)unmountIfNeeded { 
+    if (self.isMounted) {
+        [self unmount];
+    }
+}
+
+- (void)mount {
+    UIViewController *rvc = [self getRootController];
+    
+    if (!rvc) {
+        NSLog(@"reactViewController not found");
+        return;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.modal presentOn:rvc onView:rvc.view];
+    });
+    
+    self.isMounted = YES;
+}
+
+- (void)unmount {
+    [self.modal dismiss];
+    _modal = NULL;
+    _isMounted = NO;
+    _hasProps = NO;
+    _hasChildren = NO;
+}
+
+@end
