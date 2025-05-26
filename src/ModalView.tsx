@@ -1,8 +1,11 @@
 import { FC, ReactNode } from 'react';
 
 import {
+  Platform,
   Pressable,
   PressableProps,
+  StatusBar,
+  StatusBarProps,
   StyleProp,
   StyleSheet,
   View,
@@ -22,12 +25,16 @@ export enum DismissalSource {
   Backdrop = 'Backdrop',
 }
 
+export type StatusBarIconsStyle = 'light' | 'dark';
+
 export type ModalViewProps = {
   children: ReactNode;
   renderBackdrop?: () => ReactNode;
   onRequestDismiss?: (calledBy: DismissalSource) => void;
   contentContainerStyle?: StyleProp<ViewStyle>;
   statusBarTranslucent?: boolean;
+  statusBarIconsStyle?: StatusBarIconsStyle;
+  disableDefaultStatusBarIOS?: boolean;
   BackdropPressableComponent?: FC<PressableProps>;
   backdropColor?: string;
 };
@@ -36,21 +43,41 @@ const backdropAccessibilityLabel = 'Backdrop';
 const backdropAccessibilityHint = 'Double-tap to close the modal';
 const defaultBackdropColor = 'rgba(0, 0, 0, 0.3)';
 
+const iconsStyleToNativeBarStyle: Record<
+  StatusBarIconsStyle,
+  StatusBarProps['barStyle']
+> = {
+  light: 'light-content',
+  dark: 'dark-content',
+};
+
 export const ModalView: FC<ModalViewProps> = ({
   children,
   renderBackdrop,
   onRequestDismiss,
   contentContainerStyle,
   statusBarTranslucent,
+  statusBarIconsStyle,
   BackdropPressableComponent = Pressable,
   backdropColor = defaultBackdropColor,
+  disableDefaultStatusBarIOS = false,
 }) => {
   return (
     <RNTModalView
       style={styles.container}
       statusBarTranslucent={statusBarTranslucent}
+      statusBarIconsStyle={statusBarIconsStyle}
       onPressBackAndroid={() => onRequestDismiss?.(DismissalSource.BackButton)}
     >
+      {Platform.OS === 'ios' && !disableDefaultStatusBarIOS ? (
+        <StatusBar
+          barStyle={
+            statusBarIconsStyle
+              ? iconsStyleToNativeBarStyle[statusBarIconsStyle]
+              : 'default'
+          }
+        />
+      ) : null}
       <View collapsable={false} style={styles.flex}>
         <GestureHandlerRootView style={styles.flex}>
           <View style={[styles.backdropContainer]}>

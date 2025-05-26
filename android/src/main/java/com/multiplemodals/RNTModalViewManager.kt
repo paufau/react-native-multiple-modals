@@ -39,4 +39,14 @@ class RNTModalViewManager : RNTModalViewManagerSpec<RNTModalView>() {
   ) {
     view.statusBarTranslucent = statusBarTranslucent
   }
+
+  @ReactProp(name = "statusBarIconsStyle")
+  override fun setStatusBarIconsStyle(
+    view:RNTModalView,
+    statusBarIconsStyle: String?
+  ) {
+    if (statusBarIconsStyle != null) {
+      view.statusBarIconsStyle = statusBarIconsStyle;
+    }
+  }
 }
