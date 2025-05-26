@@ -69,15 +69,17 @@ Styles of the content wrapper. Use it for aligning your content view.
 
 ---
 
-### `statusBarTranslucent?: boolean = false` - <span style="color: #a4c936">Android only</span>
+### @Deprecated `statusBarTranslucent?: boolean = false` - <span style="color: #a4c936">Android only</span>
 
 Determines whether your modal should go under the system statusbar.
 
 ---
 
-### `statusBarIconsStyle?: 'dark' | 'light'` - <span style="color: #a4c936">Android only</span>
+### `statusBar?: StatusBarProps`
 
-Controls the color of system icons
+Controls the status bar.
+Android - supports only: translucent, barStyle
+iOS - full support
 
 ---
 
