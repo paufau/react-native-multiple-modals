@@ -69,19 +69,15 @@ Styles of the content wrapper. Use it for aligning your content view.
 
 ---
 
-### @Deprecated `statusBarTranslucent?: boolean = false` - <span style="color: #a4c936">Android only</span>
-
-Determines whether your modal should go under the system statusbar.
-
----
-
 ### `statusBar?: StatusBarProps`
 
 Controls the status bar.
 
 <span style="color: #a4c936">Android</span> - supports only `translucent`, `barStyle`
 
-<span style="color: #fff">iOS</span> - all props are supported
+<span style="color: #fff">iOS</span> - all props are supported.
+
+[See StatusBarProps type](https://reactnative.dev/docs/statusbar#props)
 
 ---
 
@@ -117,6 +113,12 @@ Default: `rgba(0, 0, 0, 0.3)`
 
 The component which wraps `renderBackdrop`.
 Use it to overwrite default props or make backdrop untouchable.
+
+---
+
+### @Deprecated (use `statusBar` prop) `statusBarTranslucent?: boolean = false` - <span style="color: #a4c936">Android only</span>
+
+Determines whether your modal should go under the system statusbar.
 
 ---
 
