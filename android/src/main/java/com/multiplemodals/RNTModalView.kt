@@ -38,6 +38,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     private var wasShown = false
     internal var isShadowViewSizeSet = false
     internal var statusBarTranslucent: Boolean = false
+    internal var statusBarIconsStyle: String = "default"
 
     init {
         this.reactContext.addLifecycleEventListener(this)
@@ -63,13 +64,9 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         UiThreadUtil.assertOnUiThread()
 
         modalDialog.setStatusBarTranslucency(statusBarTranslucent)
+        modalDialog.setStatusBarDarkIcons(statusBarIconsStyle == "dark-content")
         modalDialog.addContent(modalView)
         modalDialog.show()
-
-        val currentActivity = reactContext.currentActivity
-        if (currentActivity != null) {
-            modalDialog.syncStatusBarAppearance(currentActivity)
-        }
 
         wasShown = true
     }

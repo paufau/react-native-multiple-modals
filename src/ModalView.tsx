@@ -1,8 +1,11 @@
 import { FC, ReactNode } from 'react';
 
 import {
+  Platform,
   Pressable,
   PressableProps,
+  StatusBar,
+  StatusBarProps,
   StyleProp,
   StyleSheet,
   View,
@@ -27,31 +30,44 @@ export type ModalViewProps = {
   renderBackdrop?: () => ReactNode;
   onRequestDismiss?: (calledBy: DismissalSource) => void;
   contentContainerStyle?: StyleProp<ViewStyle>;
-  statusBarTranslucent?: boolean;
+  statusBar?: StatusBarProps;
+  disableDefaultStatusBarIOS?: boolean;
   BackdropPressableComponent?: FC<PressableProps>;
   backdropColor?: string;
+
+  /**
+   * @deprecated Use `statusBar.translucent` instead.
+   */
+  statusBarTranslucent?: boolean;
 };
 
 const backdropAccessibilityLabel = 'Backdrop';
 const backdropAccessibilityHint = 'Double-tap to close the modal';
 const defaultBackdropColor = 'rgba(0, 0, 0, 0.3)';
+const isIOS = Platform.OS === 'ios';
 
 export const ModalView: FC<ModalViewProps> = ({
   children,
   renderBackdrop,
   onRequestDismiss,
   contentContainerStyle,
-  statusBarTranslucent,
+  statusBar,
   BackdropPressableComponent = Pressable,
   backdropColor = defaultBackdropColor,
+  disableDefaultStatusBarIOS = false,
+  statusBarTranslucent,
 }) => {
   return (
     <RNTModalView
       style={styles.container}
-      statusBarTranslucent={statusBarTranslucent}
+      statusBarTranslucent={statusBar?.translucent ?? statusBarTranslucent}
+      statusBarIconsStyle={statusBar?.barStyle ?? undefined}
       onPressBackAndroid={() => onRequestDismiss?.(DismissalSource.BackButton)}
     >
       <View collapsable={false} style={styles.flex}>
+        {isIOS && statusBar && !disableDefaultStatusBarIOS ? (
+          <StatusBar {...statusBar} />
+        ) : null}
         <GestureHandlerRootView style={styles.flex}>
           <View style={[styles.backdropContainer]}>
             <BackdropPressableComponent
@@ -101,11 +117,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-  },
-  // TODO remove before release
-  flexDebug: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: 'cyan',
   },
 } as const);

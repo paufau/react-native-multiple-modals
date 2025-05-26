@@ -8,6 +8,7 @@ type PressBackAndroidEvent = Readonly<{}>;
 interface NativeProps extends ViewProps {
   onPressBackAndroid?: DirectEventHandler<PressBackAndroidEvent>;
   statusBarTranslucent?: boolean;
+  statusBarIconsStyle?: string;
 }
 
 // Codegen doesn't accept variables, so component name is hardcoded

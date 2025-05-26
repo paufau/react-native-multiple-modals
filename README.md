@@ -69,9 +69,23 @@ Styles of the content wrapper. Use it for aligning your content view.
 
 ---
 
-### `statusBarTranslucent?: boolean = false` - Android only
+### `statusBar?: StatusBarProps`
 
-Determines whether your modal should go under the system statusbar.
+Controls the status bar.
+
+<span style="color: #a4c936">Android</span> - supports only `translucent`, `barStyle`
+
+<span style="color: #fff">iOS</span> - all props are supported.
+
+[See StatusBarProps type](https://reactnative.dev/docs/statusbar#props)
+
+---
+
+### `disableDefaultStatusBarIOS?: boolean = false` - <span style="color: #fff">iOS only</span>
+
+Allows to disable inner StatusBar component in case you are using 'expo-status-bar'.
+
+Note that it is only applicable for iOS because there status bar is shared between all modal windows. On the other hand on android status bar is tightly coupled to the individual modal window and couldn't be controller through the StatusBar component.
 
 ---
 
@@ -99,6 +113,12 @@ Default: `rgba(0, 0, 0, 0.3)`
 
 The component which wraps `renderBackdrop`.
 Use it to overwrite default props or make backdrop untouchable.
+
+---
+
+### @Deprecated (use `statusBar` prop) `statusBarTranslucent?: boolean = false` - <span style="color: #a4c936">Android only</span>
+
+Determines whether your modal should go under the system statusbar.
 
 ---
 
@@ -132,9 +152,3 @@ Common:
 ## Author
 
 - [Pavel Pakseev](https://www.linkedin.com/in/pavel-pakseev/)
-
-## Sponsor & Support
-
-If you found the library useful, you can support me:
-
-<a href='https://ko-fi.com/Y8Y315L7NK' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
