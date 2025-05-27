@@ -3,6 +3,17 @@
 
 @implementation RNTModalMountingHelper
 
+- (instancetype)init
+{
+    [NSException raise:@"init" format:@"init has not been implemented"];
+    return self;
+}
+
+- (instancetype _Nonnull)initWithViewController:(RNTModalViewController * _Nonnull)viewController {
+    _modal = viewController;
+    return self;
+}
+
 - (UIWindow *)getKeyWindow {
     UIWindow *keyWindow = nil;
     
@@ -48,18 +59,11 @@
     });
 }
 
-- (instancetype _Nonnull)initWithViewController:(RNTModalViewController * _Nonnull)viewController {
-    _modal = viewController;
-    return self;
-}
-
-
 - (void)mountIfNeeded { 
     if (!self.isMounted && self.hasProps && self.hasChildren) {
         [self mount];
     }
 }
-
 
 - (void)unmountIfNeeded { 
     if (self.isMounted) {

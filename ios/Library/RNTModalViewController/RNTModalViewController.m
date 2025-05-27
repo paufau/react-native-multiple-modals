@@ -57,8 +57,11 @@
 }
 
 - (void)dismiss {
+    UIView *prevReactSubviewContainer = self.reactSubviewContainer;
     self.reactSubviewContainer = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
+    [prevReactSubviewContainer removeFromSuperview];
     [self setupReactSubview:self.reactSubviewContainer];
+
     [self.outAnimation prepareAnimation:self.reactSubviewContainer];
     [self.outAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
         [self willMoveToParentViewController:nil];

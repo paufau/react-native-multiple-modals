@@ -4,6 +4,7 @@
 #import <UIKit/UIKit.h>
 #import "RNTModalViewController.h"
 #import "RNTModalVIew.h"
+#import "RNTModalMountingHelper.h"
 
 @implementation RNTModalView
 
@@ -12,7 +13,7 @@
     if (self) {
         _touchHandler = [[RCTTouchHandler alloc] initWithBridge:bridge];
         _modalViewController = [[RNTModalViewController alloc] init];
-        _isMounted = NO;
+        _mountingHelper = [[RNTModalMountingHelper alloc] initWithViewController:_modalViewController];
     }
     return self;
 }
@@ -21,7 +22,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self setupIfNeeded];
+    [self.mountingHelper mountIfNeeded];
 }
 
 - (void)addSubview:(UIView *)view {
@@ -30,10 +31,10 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
     [super insertReactSubview:subview atIndex:atIndex];
-    dispatch_async(dispatch_get_main_queue(), ^{
+    [self.mountingHelper updateChildrenTransaction:^{
         [self.touchHandler attachToView:subview];
         [self.modalViewController addReactSubview:subview];
-    });
+    }];
 }
 
 - (void)removeReactSubview:(UIView *)subview
@@ -41,55 +42,26 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
     [super removeReactSubview:subview];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.touchHandler detachFromView:subview];
+        [self.mountingHelper unmountIfNeeded];
         [subview removeFromSuperview];
     });
 }
 
-- (void)setupIfNeeded {
-    if (self.isMounted) {
-        [self update];
-    } else {
-        [self mount];
-    }
-}
-
-- (UIViewController *)getRootViewController {
-    UIWindow *keyWindow = [UIApplication sharedApplication].windows.firstObject;
-    for (UIWindow *window in [UIApplication sharedApplication].windows) {
-        if (window.isKeyWindow) {
-            keyWindow = window;
-            break;
-        }
-    }
-    UIViewController *topController = keyWindow.rootViewController;
-    return topController;
-}
-
-- (void)mount {
-    UIViewController *rvc = [self getRootViewController];
-    if (!rvc) {
-        NSLog(@"reactViewController not found");
-        return;
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.modalViewController presentOn:rvc onView:rvc.view];
-    });
-    
-    self.isMounted = YES;
-}
-
-- (void)unmount {
-    [self.modalViewController dismiss];
-    self.isMounted = NO;
-}
-
-- (void)update {
-    // No actions required
-}
-
 - (void)invalidate {
-    [self unmount];
+    [self.mountingHelper unmountIfNeeded];
+}
+
+- (void) didSetProps: (NSArray<NSString*>*)changedProps {
+    [self.mountingHelper updatePropsTransaction:^{
+        [self.modalViewController setAnimationType:self.animationType];
+    }];
+}
+
+// Props
+
+- (void)setAnimationType:(NSString *)animationType
+{
+    _animationType = animationType;
 }
 
 @end
