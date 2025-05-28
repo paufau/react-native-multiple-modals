@@ -86,7 +86,7 @@
 
 - (void)unmount {
     [self.modal dismiss];
-    _modal = NULL;
+    _modal = nil;
     _isMounted = NO;
     _hasProps = NO;
     _hasChildren = NO;
