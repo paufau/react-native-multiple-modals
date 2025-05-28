@@ -4,6 +4,8 @@
 #import "ModalAnimation.h"
 #import "FadeInAnimation.h"
 #import "FadeOutAnimation.h"
+#import "SlideInAnimation.h"
+#import "SlideOutAnimation.h"
 
 @implementation RNTModalViewController
 
@@ -60,8 +62,8 @@
     UIView *prevReactSubviewContainer = self.reactSubviewContainer;
     self.reactSubviewContainer = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
     [prevReactSubviewContainer removeFromSuperview];
+    
     [self setupReactSubview:self.reactSubviewContainer];
-
     [self.outAnimation prepareAnimation:self.reactSubviewContainer];
     [self.outAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
         [self willMoveToParentViewController:nil];
@@ -85,7 +87,8 @@
             },
         @"slide":
             ^{
-                // TODO
+                self.inAnimation = [[SlideInAnimation alloc] init];
+                self.outAnimation = [[SlideOutAnimation alloc] init];
             }
     };
     

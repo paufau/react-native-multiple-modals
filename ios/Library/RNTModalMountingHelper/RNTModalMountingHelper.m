@@ -10,29 +10,26 @@
 }
 
 - (instancetype _Nonnull)initWithViewController:(RNTModalViewController * _Nonnull)viewController {
-    _modal = viewController;
+    if (self = [super init]) {
+        _modal = viewController;
+    }
+    
     return self;
 }
 
 - (UIWindow *)getKeyWindow {
-    UIWindow *keyWindow = nil;
-    
     for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
         if ([scene isKindOfClass:[UIWindowScene class]]) {
             UIWindowScene *windowScene = (UIWindowScene *)scene;
             for (UIWindow *window in windowScene.windows) {
                 if (window.isKeyWindow) {
-                    keyWindow = window;
-                    break;
+                    return window;
                 }
             }
         }
-        if (keyWindow) {
-            break;
-        }
     }
     
-    return keyWindow;
+    return nil;
 }
 
 - (UIViewController *)getRootController {
@@ -64,6 +61,7 @@
         [self mount];
     }
 }
+
 
 - (void)unmountIfNeeded { 
     if (self.isMounted) {
