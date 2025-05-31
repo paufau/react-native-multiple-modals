@@ -34,6 +34,7 @@ export type ModalViewProps = {
   disableDefaultStatusBarIOS?: boolean;
   BackdropPressableComponent?: FC<PressableProps>;
   backdropColor?: string;
+  animationType?: 'none' | 'fade' | 'slide';
 
   /**
    * @deprecated Use `statusBar.translucent` instead.
@@ -55,6 +56,7 @@ export const ModalView: FC<ModalViewProps> = ({
   BackdropPressableComponent = Pressable,
   backdropColor = defaultBackdropColor,
   disableDefaultStatusBarIOS = false,
+  animationType = 'none',
   statusBarTranslucent,
 }) => {
   return (
@@ -63,6 +65,7 @@ export const ModalView: FC<ModalViewProps> = ({
       statusBarTranslucent={statusBar?.translucent ?? statusBarTranslucent}
       statusBarIconsStyle={statusBar?.barStyle ?? undefined}
       onPressBackAndroid={() => onRequestDismiss?.(DismissalSource.BackButton)}
+      animationType={animationType}
     >
       <View collapsable={false} style={styles.flex}>
         {isIOS && statusBar && !disableDefaultStatusBarIOS ? (

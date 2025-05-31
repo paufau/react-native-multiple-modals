@@ -46,7 +46,17 @@ class RNTModalViewManager : RNTModalViewManagerSpec<RNTModalView>() {
     statusBarIconsStyle: String?
   ) {
     if (statusBarIconsStyle != null) {
-      view.statusBarIconsStyle = statusBarIconsStyle;
+      view.statusBarIconsStyle = statusBarIconsStyle
+    }
+  }
+
+  @ReactProp(name = "animationType")
+  override fun setAnimationType(
+    view:RNTModalView,
+    animationType: String?
+  ) {
+    if (animationType != null) {
+      view.animationType = animationType
     }
   }
 }
