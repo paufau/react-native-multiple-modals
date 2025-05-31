@@ -48,7 +48,16 @@ const YourComponent = () => {
     <View>
       <Button text='Open modal' onPress={() => setVisibility(true)} />
       {isVisible && (
-        <ModalView onRequestClose={() => setVisibility(false)}>
+        <ModalView
+          animationType='fade'
+          statusBar={{ translucent: true, barStyle: 'dark-content' }}
+          backdropColor='rgba(0,0,0,0.5)'
+          contentContainerStyle={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onRequestClose={() => setVisibility(false)}
+        >
           <YourContentView />
         </ModalView>
       )}
@@ -63,7 +72,7 @@ More Examples: https://github.com/paufau/react-native-multiple-modals-examples
 
 ## Properties
 
-### `animationType?: "fade" | "slide" | "none" = "none"` - iOS only
+### `animationType?: "fade" | "slide" | "none" = "none"`
 
 The animationType prop controls how the modal animates.
 
@@ -150,7 +159,6 @@ Also, if there are any well-known issues in React Native that haven’t been fix
 
 Common:
 
-- Add default `fade` and `slide` animations
 - Add UI tests automation
 - Create separate documentation page
 
