@@ -63,6 +63,18 @@ More Examples: https://github.com/paufau/react-native-multiple-modals-examples
 
 ## Properties
 
+### `animationType?: "fade" | "slide" | "none" = "none"` - iOS only
+
+The animationType prop controls how the modal animates.
+
+Possible values:
+
+- "slide" slides in from the bottom
+- "fade" fades into view
+- "none" appears without an animation
+
+---
+
 ### `contentContainerStyle?: ViewStyle`
 
 Styles of the content wrapper. Use it for aligning your content view.
@@ -73,15 +85,15 @@ Styles of the content wrapper. Use it for aligning your content view.
 
 Controls the status bar.
 
-<span style="color: #a4c936">Android</span> - supports only `translucent`, `barStyle`
+Android - supports only `translucent`, `barStyle`
 
-<span style="color: #fff">iOS</span> - all props are supported.
+iOS - all props are supported.
 
 [See StatusBarProps type](https://reactnative.dev/docs/statusbar#props)
 
 ---
 
-### `disableDefaultStatusBarIOS?: boolean = false` - <span style="color: #fff">iOS only</span>
+### `disableDefaultStatusBarIOS?: boolean = false` - iOS only
 
 Allows to disable inner StatusBar component in case you are using 'expo-status-bar'.
 
@@ -116,7 +128,7 @@ Use it to overwrite default props or make backdrop untouchable.
 
 ---
 
-### @Deprecated (use `statusBar` prop) `statusBarTranslucent?: boolean = false` - <span style="color: #a4c936">Android only</span>
+### @Deprecated (use `statusBar` prop) `statusBarTranslucent?: boolean = false` - Android only
 
 Determines whether your modal should go under the system statusbar.
 

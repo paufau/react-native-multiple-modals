@@ -7,6 +7,7 @@
 #import <React/RCTUIManager.h>
 #import <React/RCTTouchHandler.h>
 #import "RNTModalViewController.h"
+#import "RNTModalMountingHelper.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,12 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nullable, strong) RCTSurfaceTouchHandler *touchHandler;
 @property(nullable, strong) RNTModalViewController *modalViewController;
-@property(nonatomic, assign) BOOL isMounted;
-
-- (void)setupIfNeeded;
-- (void)mount;
-- (void)unmount;
-- (void)update;
+@property(nonnull, strong) RNTModalMountingHelper *mountingHelper;
 
 @end
 

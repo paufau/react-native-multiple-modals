@@ -11,6 +11,8 @@
 
 RCT_EXPORT_MODULE(RNTModalView)
 
+RCT_EXPORT_VIEW_PROPERTY(animationType, NSString)
+
 - (UIView *)view
 {
     return [[RNTModalView alloc] initWithBridge:self.bridge];

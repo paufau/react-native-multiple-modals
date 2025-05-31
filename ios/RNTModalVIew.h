@@ -6,20 +6,18 @@
 #import <React/RCTTouchHandler.h>
 #import <UIKit/UIKit.h>
 #import "RNTModalViewController.h"
+#import "RNTModalMountingHelper.h"
 
 @interface RNTModalView : UIView <RCTInvalidating>
 
-@property(nonatomic, strong) RCTTouchHandler *touchHandler;
-
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
+@property(nonatomic, strong) RCTTouchHandler *touchHandler;
 @property(nonatomic, strong) RNTModalViewController *modalViewController;
-@property(nonatomic, assign) BOOL isMounted;
+@property(nonatomic, strong) RNTModalMountingHelper *mountingHelper;
 
-- (void)setupIfNeeded;
-- (void)mount;
-- (void)unmount;
-- (void)update;
+// Props
+@property(nonatomic, strong) NSString *animationType;
 
 @end
 
