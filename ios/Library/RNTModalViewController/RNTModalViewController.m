@@ -1,6 +1,12 @@
 #import <UIKit/UIKit.h>
 #import "RNTModalViewController.h"
 
+#import "ModalAnimation.h"
+#import "FadeInAnimation.h"
+#import "FadeOutAnimation.h"
+#import "SlideInAnimation.h"
+#import "SlideOutAnimation.h"
+
 @implementation RNTModalViewController
 
 - (instancetype)init {
@@ -13,12 +19,11 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     [NSException raise:@"initWithCoder" format:@"init(coder:) has not been implemented"];
-    return nil;
+    self = [super initWithNibName:nil bundle:nil];
+    return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
+- (void)setupReactSubview:(UIView *)subview {
     [self.view addSubview:self.reactSubviewContainer];
     self.reactSubviewContainer.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -28,6 +33,17 @@
         [self.reactSubviewContainer.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
         [self.reactSubviewContainer.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor]
     ]];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.inAnimation prepareAnimation:self.reactSubviewContainer];
+    [self setupReactSubview:self.reactSubviewContainer];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.inAnimation animate:self.reactSubviewContainer completion:NULL];
 }
 
 #pragma mark - ModalViewControllerProtocol
@@ -43,13 +59,48 @@
 }
 
 - (void)dismiss {
-    [self willMoveToParentViewController:nil];
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
+    UIView *prevReactSubviewContainer = self.reactSubviewContainer;
+    self.reactSubviewContainer = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
+    [prevReactSubviewContainer removeFromSuperview];
+    
+    [self setupReactSubview:self.reactSubviewContainer];
+    [self.outAnimation prepareAnimation:self.reactSubviewContainer];
+    [self.outAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
+        [self willMoveToParentViewController:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+    }];
 }
 
 - (void)addReactSubview:(UIView *)view {
     [self.reactSubviewContainer addSubview:view];
+}
+
+- (void)setAnimationType:(NSString *)type {
+    typedef void (^CaseBlock)(void);
+    
+    NSDictionary *cases = @{
+        @"fade":
+            ^{
+                self.inAnimation = [[FadeInAnimation alloc] init];
+                self.outAnimation = [[FadeOutAnimation alloc] init];
+            },
+        @"slide":
+            ^{
+                self.inAnimation = [[SlideInAnimation alloc] init];
+                self.outAnimation = [[SlideOutAnimation alloc] init];
+            }
+    };
+    
+    CaseBlock selectedCase = cases[type];
+    
+    if (selectedCase) {
+        selectedCase();
+    } else {
+        ModalAnimation *defaultAnimation = [[ModalAnimation alloc] init];
+        self.inAnimation = defaultAnimation;
+        self.outAnimation = defaultAnimation;
+    }
 }
 
 @end
