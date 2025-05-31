@@ -32,13 +32,14 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
     internal val reactContext: ThemedReactContext get() = context as ThemedReactContext
     private val eventDispatcher: EventDispatcher
-    private val modalDialog: ModalDialog
+    private var modalDialog: ModalDialog? = null
     private val modalView: ModalView
 
     private var wasShown = false
     internal var isShadowViewSizeSet = false
     internal var statusBarTranslucent: Boolean = false
     internal var statusBarIconsStyle: String = "default"
+    internal var animationType: String = "none"
 
     init {
         this.reactContext.addLifecycleEventListener(this)
@@ -47,10 +48,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         if (maybeEventDispatcher is EventDispatcher) {
             eventDispatcher = maybeEventDispatcher;
 
-            modalDialog = ModalDialog(reactContext, R.style.Theme_FullScreenDialog)
             modalView = ModalView(reactContext, eventDispatcher)
-
-            attachBackHandler()
         } else {
             throw Exception("Unable to initialize react native event dispatcher");
         }
@@ -63,10 +61,22 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
         UiThreadUtil.assertOnUiThread()
 
-        modalDialog.setStatusBarTranslucency(statusBarTranslucent)
-        modalDialog.setStatusBarDarkIcons(statusBarIconsStyle == "dark-content")
-        modalDialog.addContent(modalView)
-        modalDialog.show()
+        val dialogStyle: Int =
+            when (animationType) {
+                "fade" -> R.style.Theme_FullScreenDialogAnimatedFade
+                "slide" -> R.style.Theme_FullScreenDialogAnimatedSlide
+                else -> R.style.Theme_FullScreenDialog
+            }
+
+        modalDialog = ModalDialog(reactContext, dialogStyle)
+
+        modalDialog?.apply {
+            attachBackHandler(this)
+            setStatusBarTranslucency(statusBarTranslucent)
+            setStatusBarDarkIcons(statusBarIconsStyle == "dark-content")
+            addContent(modalView)
+            show()
+        }
 
         wasShown = true
     }
@@ -76,15 +86,15 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
 
         reactContext.removeLifecycleEventListener(this)
 
-        // Should be call before 'modalDialog.dismiss' to ensure reanimated children are removed correctly
+        // Should be called before 'modalDialog.dismiss' to ensure reanimated children are removed correctly
         modalView.removeAllViews()
 
-        modalDialog.dismiss()
+        modalDialog?.dismiss()
     }
 
-    private fun attachBackHandler() {
+    private fun attachBackHandler(dialog: ModalDialog) {
         // Prevent closing from native part as this is handled by JS
-        modalDialog.setOnKeyListener(object : DialogInterface.OnKeyListener {
+        dialog.setOnKeyListener(object : DialogInterface.OnKeyListener {
             override fun onKey(dialog: DialogInterface, keyCode: Int, event: KeyEvent): Boolean {
                 if (event.action != KeyEvent.ACTION_UP) {
                     return false
