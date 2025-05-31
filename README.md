@@ -17,6 +17,7 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 - 💥 New Architecture (Fabric)
 - 🆗 Old Architecture (Paper)
 - 👌 Written in TypeScript
+- 🛠️ Displays above bottom tabs navigation
 
 ## Installation
 
