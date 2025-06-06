@@ -33,7 +33,7 @@ abstract class RNTModalViewManagerSpec<T : ViewGroup> : ViewGroupManager<T>() {
 
     open fun setAnimationType(
         view: RNTModalView,
-        animationType: String
+        animationType: String?
     ) {
         throw Exception("Not implemented (override in the view manager)")
     }
