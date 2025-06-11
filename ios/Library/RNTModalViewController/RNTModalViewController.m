@@ -49,13 +49,13 @@
 #pragma mark - ModalViewControllerProtocol
 
 - (void)presentOn:(UIViewController *)parentVC onView:(UIView *)parentView {
-    self.modalPresentationStyle = UIModalPresentationCustom;
-    self.view.accessibilityViewIsModal = YES;
-    
     [self willMoveToParentViewController:parentVC];
     [parentVC addChildViewController:self];
     [parentView addSubview:self.view];
     [self didMoveToParentViewController:parentVC];
+    
+//    TODO pass the content view tag ant put focus on it
+//    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.reactSubviewContainer);
 }
 
 - (void)dismiss {

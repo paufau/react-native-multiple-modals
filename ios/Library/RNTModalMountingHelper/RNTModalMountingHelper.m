@@ -33,7 +33,18 @@
 }
 
 - (UIViewController *)getRootController {
-    return [self getKeyWindow].rootViewController;
+    UIWindow *keyWindow = [self getKeyWindow];
+    
+    self.modalWindow = [[UIWindow alloc] initWithFrame: keyWindow.bounds];
+    
+    self.modalWindow.rootViewController = [[UIViewController alloc] init];
+    self.modalWindow.backgroundColor = UIColor.clearColor;
+    self.modalWindow.accessibilityViewIsModal = YES;
+    self.modalWindow.rootViewController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self.modalWindow makeKeyAndVisible];
+    
+    return self.modalWindow.rootViewController;
 }
 
 - (void)updateChildrenTransaction:(void (^ _Nullable)(void))completion {

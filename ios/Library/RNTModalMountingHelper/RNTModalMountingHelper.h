@@ -18,6 +18,7 @@
 @property(nonatomic, assign) BOOL hasProps;
 @property(nonatomic, assign) BOOL hasChildren;
 @property(nullable, weak) RNTModalViewController *modal;
+@property(nonnull, strong) UIWindow *modalWindow;
 
 - (UIWindow *_Nullable)getKeyWindow;
 - (UIViewController *_Nullable)getRootController;
