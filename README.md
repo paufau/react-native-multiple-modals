@@ -57,7 +57,7 @@ const YourComponent = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}
-          onRequestClose={() => setVisibility(false)}
+          onRequestDismiss={() => setVisibility(false)}
         >
           <YourContentView />
         </ModalView>
@@ -111,7 +111,7 @@ Note that it is only applicable for iOS because there status bar is shared betwe
 
 ---
 
-### `onRequestClose?: (calledBy: 'Backdrop' | 'BackButton') => void`
+### `onRequestDismiss?: (calledBy: 'Backdrop' | 'BackButton') => void`
 
 The method is called when backdrop or back button is pressed
 
