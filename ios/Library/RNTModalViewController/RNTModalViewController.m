@@ -9,16 +9,23 @@
 
 @implementation RNTModalViewController
 
-- (instancetype)init {
+- (instancetype)initWithDelegate:(id<RNTModalViewControllerDelegate>)delegate {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _reactSubviewContainer = [[UIView alloc] init];
+        self.reactSubviewContainer = [[UIView alloc] init];
+        self.delegate = delegate;
     }
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     [NSException raise:@"initWithCoder" format:@"init(coder:) has not been implemented"];
+    self = [super initWithNibName:nil bundle:nil];
+    return self;
+}
+
+- (instancetype)init {
+    [NSException raise:@"init" format:@"init has not been implemented"];
     self = [super initWithNibName:nil bundle:nil];
     return self;
 }
@@ -44,6 +51,15 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self.inAnimation animate:self.reactSubviewContainer completion:NULL];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    if (!CGRectEqualToRect(self.lastBounds, self.view.bounds)) {
+        [self.delegate boundsDidChange:self.view.bounds];
+        self.lastBounds = self.view.bounds;
+    }
 }
 
 #pragma mark - ModalViewControllerProtocol
