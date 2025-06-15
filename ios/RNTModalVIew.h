@@ -12,12 +12,18 @@
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
+@property(nonatomic, weak) RCTBridge *bridge;
+@property(nonatomic, weak) UIView *reactSubview;
 @property(nonatomic, strong) RCTTouchHandler *touchHandler;
 @property(nonatomic, strong) RNTModalViewController *modalViewController;
 @property(nonatomic, strong) RNTModalMountingHelper *mountingHelper;
 
 // Props
-@property(nonatomic, strong) NSString *animationType;
+@property(nonatomic, copy) NSString *animationType;
+
+@end
+
+@interface RNTModalView () <RNTModalViewControllerDelegate>
 
 @end
 

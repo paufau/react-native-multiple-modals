@@ -9,7 +9,6 @@
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
   "react-native": "src/index.ts",
-  "private": false,
   "codegenConfig": {
     "name": "multiplemodals",
     "type": "all",
@@ -56,7 +55,6 @@
     "!android/local.properties",
     "!android/gradlew",
     "!android/gradlew.bat",
-    "!android/local.properties",
     "!**/__tests__",
     "!**/__mocks__",
     "!**/.*",
