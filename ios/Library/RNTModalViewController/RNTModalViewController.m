@@ -14,20 +14,8 @@
     if (self) {
         self.reactSubviewContainer = [[UIView alloc] init];
         self.delegate = delegate;
-        self.shouldTrackRotationChange = false;
+        self.shouldTrackRotationChange = NO;
     }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    [NSException raise:@"initWithCoder" format:@"init(coder:) has not been implemented"];
-    self = [super initWithNibName:nil bundle:nil];
-    return self;
-}
-
-- (instancetype)init {
-    [NSException raise:@"init" format:@"init has not been implemented"];
-    self = [super initWithNibName:nil bundle:nil];
     return self;
 }
 
@@ -52,7 +40,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self.inAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
-        self.shouldTrackRotationChange = true;
+        self.shouldTrackRotationChange = YES;
     }];
 }
 
@@ -82,7 +70,7 @@
     self.reactSubviewContainer = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
     [prevReactSubviewContainer removeFromSuperview];
 
-    self.shouldTrackRotationChange = false;
+    self.shouldTrackRotationChange = NO;
     [self setupReactSubview:self.reactSubviewContainer];
     [self.outAnimation prepareAnimation:self.reactSubviewContainer];
     [self.outAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
