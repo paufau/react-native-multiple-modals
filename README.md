@@ -152,10 +152,6 @@ If you notice any bugs or anything working differently compared to React Native,
 
 Also, if there are any well-known issues in React Native that haven’t been fixed for a long time and they show up here too, let me know! Let’s make things better together 😎.
 
-## Known issues
-
-- Some layout animations from `react-native-reanimated` don't work properly inside the ModalView on new architecture
-
 ## Roadmap
 
 Common:

@@ -104,46 +104,52 @@ export const ModalView: FC<ModalViewProps> = ({
   animationType = 'none',
   statusBarTranslucent,
 }) => {
+  // RNTModalView is wrapped in a View to fix the reanimated layout entering issue
+  // https://github.com/software-mansion/react-native-reanimated/issues/6659
   return (
-    <RNTModalView
-      style={styles.container}
-      statusBarTranslucent={statusBar?.translucent ?? statusBarTranslucent}
-      statusBarIconsStyle={statusBar?.barStyle ?? undefined}
-      onPressBackAndroid={() => onRequestDismiss?.(DismissalSource.BackButton)}
-      animationType={animationType}
-    >
-      <View collapsable={false} style={styles.flex}>
-        {isIOS && statusBar && !disableDefaultStatusBarIOS ? (
-          <StatusBar {...statusBar} />
-        ) : null}
-        <GestureHandlerRootView style={styles.flex}>
-          <View style={[styles.backdropContainer]}>
-            <BackdropPressableComponent
-              accessibilityLabel={backdropAccessibilityLabel}
-              accessibilityHint={backdropAccessibilityHint}
-              style={styles.flex}
-              onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
-            >
-              {renderBackdrop ? (
-                renderBackdrop()
-              ) : (
-                <View
-                  style={[styles.flex, { backgroundColor: backdropColor }]}
-                />
-              )}
-            </BackdropPressableComponent>
-          </View>
-          <ScrollContextResetter>
-            <View
-              pointerEvents='box-none'
-              style={[styles.content, contentContainerStyle]}
-            >
-              {children}
+    <View>
+      <RNTModalView
+        style={styles.container}
+        statusBarTranslucent={statusBar?.translucent ?? statusBarTranslucent}
+        statusBarIconsStyle={statusBar?.barStyle ?? undefined}
+        onPressBackAndroid={() =>
+          onRequestDismiss?.(DismissalSource.BackButton)
+        }
+        animationType={animationType}
+      >
+        <View collapsable={false} style={styles.flex}>
+          {isIOS && statusBar && !disableDefaultStatusBarIOS ? (
+            <StatusBar {...statusBar} />
+          ) : null}
+          <GestureHandlerRootView style={styles.flex}>
+            <View style={[styles.backdropContainer]}>
+              <BackdropPressableComponent
+                accessibilityLabel={backdropAccessibilityLabel}
+                accessibilityHint={backdropAccessibilityHint}
+                style={styles.flex}
+                onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+              >
+                {renderBackdrop ? (
+                  renderBackdrop()
+                ) : (
+                  <View
+                    style={[styles.flex, { backgroundColor: backdropColor }]}
+                  />
+                )}
+              </BackdropPressableComponent>
             </View>
-          </ScrollContextResetter>
-        </GestureHandlerRootView>
-      </View>
-    </RNTModalView>
+            <ScrollContextResetter>
+              <View
+                pointerEvents='box-none'
+                style={[styles.content, contentContainerStyle]}
+              >
+                {children}
+              </View>
+            </ScrollContextResetter>
+          </GestureHandlerRootView>
+        </View>
+      </RNTModalView>
+    </View>
   );
 };
 
