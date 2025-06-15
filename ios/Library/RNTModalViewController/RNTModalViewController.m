@@ -9,17 +9,13 @@
 
 @implementation RNTModalViewController
 
-- (instancetype)init {
+- (instancetype)initWithDelegate:(id<RNTModalViewControllerDelegate>)delegate {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
-        _reactSubviewContainer = [[UIView alloc] init];
+        self.reactSubviewContainer = [[UIView alloc] init];
+        self.delegate = delegate;
+        self.shouldTrackRotationChange = NO;
     }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder {
-    [NSException raise:@"initWithCoder" format:@"init(coder:) has not been implemented"];
-    self = [super initWithNibName:nil bundle:nil];
     return self;
 }
 
@@ -43,7 +39,18 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self.inAnimation animate:self.reactSubviewContainer completion:NULL];
+    [self.inAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
+        self.shouldTrackRotationChange = YES;
+    }];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    if (!CGRectEqualToRect(self.lastBounds, self.view.bounds) && self.shouldTrackRotationChange) {
+        [self.delegate boundsDidChange:self.view.bounds];
+        self.lastBounds = self.view.bounds;
+    }
 }
 
 #pragma mark - ModalViewControllerProtocol
@@ -62,7 +69,8 @@
     UIView *prevReactSubviewContainer = self.reactSubviewContainer;
     self.reactSubviewContainer = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
     [prevReactSubviewContainer removeFromSuperview];
-    
+
+    self.shouldTrackRotationChange = NO;
     [self setupReactSubview:self.reactSubviewContainer];
     [self.outAnimation prepareAnimation:self.reactSubviewContainer];
     [self.outAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {

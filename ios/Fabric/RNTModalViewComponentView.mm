@@ -7,6 +7,7 @@
 #import <react/renderer/components/multiplemodals/RCTComponentViewHelpers.h>
 #import <react/renderer/components/multiplemodals/RNTModalViewComponentDescriptor.h>
 #import <react/renderer/components/multiplemodals/RNTModalViewShadowNode.h>
+#import <react/renderer/components/multiplemodals/RNTModalViewState.h>
 
 #import <React/RCTConversions.h>
 #import <React/RCTFabricComponentsPlugins.h>
@@ -42,7 +43,7 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
         _props = defaultProps;
         
         _touchHandler = [RCTSurfaceTouchHandler new];
-        _modalViewController = [[RNTModalViewController alloc] init];
+        _modalViewController = [[RNTModalViewController alloc] initWithDelegate:self];
         _mountingHelper = [[RNTModalMountingHelper alloc] initWithViewController:_modalViewController];
     }
     
@@ -81,6 +82,16 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
     }];
     
     [super updateProps:props oldProps:oldProps];
+}
+
+#pragma mark - RNTModalViewControllerDelegate
+
+- (void)boundsDidChange:(CGRect)newBounds
+{
+    if (_state != nullptr) {
+        auto newState = RNTModalViewState{RCTSizeFromCGSize(newBounds.size)};
+        _state->updateState(std::move(newState));
+    }
 }
 
 #pragma mark - RCTComponentViewProtocol

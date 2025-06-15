@@ -10,10 +10,12 @@
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithFrame:CGRectZero];
+    
     if (self) {
-        _touchHandler = [[RCTTouchHandler alloc] initWithBridge:bridge];
-        _modalViewController = [[RNTModalViewController alloc] init];
-        _mountingHelper = [[RNTModalMountingHelper alloc] initWithViewController:_modalViewController];
+        self.bridge = bridge;
+        self.touchHandler = [[RCTTouchHandler alloc] initWithBridge:bridge];
+        self.modalViewController = [[RNTModalViewController alloc] initWithDelegate:self];
+        self.mountingHelper = [[RNTModalMountingHelper alloc] initWithViewController:self.modalViewController];
     }
     return self;
 }
@@ -25,25 +27,27 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
     [self.mountingHelper mountIfNeeded];
 }
 
-- (void)addSubview:(UIView *)view {
-    [super addSubview:view];
-}
-
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
+    RCTAssert(_reactSubview == nil, @"[RNTModalView]: can only have one react subview");
+    
     [super insertReactSubview:subview atIndex:atIndex];
     [self.mountingHelper updateChildrenTransaction:^{
         [self.touchHandler attachToView:subview];
         [self.modalViewController addReactSubview:subview];
+        self.reactSubview = subview;
     }];
 }
 
 - (void)removeReactSubview:(UIView *)subview
 {
+    RCTAssert(subview == _reactSubview, @"[RNTModalView]: cannot remove view other than react subview");
+    
     [super removeReactSubview:subview];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.touchHandler detachFromView:subview];
         [self.mountingHelper unmountIfNeeded];
         [subview removeFromSuperview];
+        self.reactSubview = nil;
     });
 }
 
@@ -57,11 +61,10 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
     }];
 }
 
-// Props
+#pragma mark - RNTModalViewControllerDelegate
 
-- (void)setAnimationType:(NSString *)animationType
-{
-    _animationType = animationType;
+- (void)boundsDidChange:(CGRect)newBounds {
+    [self.bridge.uiManager setSize:newBounds.size forView:self.reactSubview];
 }
 
 @end

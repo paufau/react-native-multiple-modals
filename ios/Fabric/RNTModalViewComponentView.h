@@ -19,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface RNTModalViewComponentView () <RNTModalViewControllerDelegate>
+
+@end
+
 NS_ASSUME_NONNULL_END
 
 #endif /* RNTModalViewComponentView_h */
