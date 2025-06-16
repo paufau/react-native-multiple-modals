@@ -16,7 +16,7 @@ fun interface OnSizeComputedListener {
 }
 
 @SuppressLint("ViewConstructor")
-class ModalView(reactContext: ThemedReactContext,
+class ModalView(private val reactContext: ThemedReactContext,
                 private val eventDispatcher: EventDispatcher): ReactViewGroup(reactContext), RootView {
 
     private val jSTouchDispatcher = JSTouchDispatcher(this)
@@ -35,7 +35,6 @@ class ModalView(reactContext: ThemedReactContext,
     }
 
     override fun handleException(t: Throwable) {
-        val reactContext = context as ThemedReactContext
         reactContext.reactApplicationContext.handleException(RuntimeException(t))
     }
 
