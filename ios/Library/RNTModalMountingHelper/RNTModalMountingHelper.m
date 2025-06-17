@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "RNTModalMountingHelper.h"
+#import "RNTModalWindowHelper.h"
 
 @implementation RNTModalMountingHelper
 
@@ -15,25 +16,6 @@
     }
     
     return self;
-}
-
-- (UIWindow *)getKeyWindow {
-    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
-        if ([scene isKindOfClass:[UIWindowScene class]]) {
-            UIWindowScene *windowScene = (UIWindowScene *)scene;
-            for (UIWindow *window in windowScene.windows) {
-                if (window.isKeyWindow) {
-                    return window;
-                }
-            }
-        }
-    }
-    
-    return nil;
-}
-
-- (UIViewController *)getRootController {
-    return [self getKeyWindow].rootViewController;
 }
 
 - (void)updateChildrenTransaction:(void (^ _Nullable)(void))completion {
@@ -70,7 +52,8 @@
 }
 
 - (void)mount {
-    UIViewController *rvc = [self getRootController];
+    RNTModalWindowHelper *windowHelper = [[RNTModalWindowHelper alloc] init];
+    UIViewController *rvc = [windowHelper getRootController];
     
     if (!rvc) {
         NSLog(@"reactViewController not found");

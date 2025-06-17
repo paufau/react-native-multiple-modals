@@ -4,5 +4,5 @@
 
 namespace facebook::react
 {
-  Size RNTModalViewSize(void);
+    Size RNTModalViewSize(void);
 } // namespace facebook::react
