@@ -5,32 +5,32 @@
 
 - (UIWindow *)getKeyWindow
 {
-  for (UIScene *scene in [UIApplication sharedApplication].connectedScenes)
-  {
-    if ([scene isKindOfClass:[UIWindowScene class]])
+    for (UIScene *scene in [UIApplication sharedApplication].connectedScenes)
     {
-      UIWindowScene *windowScene = (UIWindowScene *)scene;
-      for (UIWindow *window in windowScene.windows)
-      {
-        if (window.isKeyWindow)
+        if ([scene isKindOfClass:[UIWindowScene class]])
         {
-          return window;
+            UIWindowScene *windowScene = (UIWindowScene *)scene;
+            for (UIWindow *window in windowScene.windows)
+            {
+                if (window.isKeyWindow)
+                {
+                    return window;
+                }
+            }
         }
-      }
     }
-  }
 
-  return nil;
+    return nil;
 }
 
 - (UIViewController *)getRootController
 {
-  return [self getKeyWindow].rootViewController;
+    return [self getKeyWindow].rootViewController;
 }
 
 - (UIInterfaceOrientation)getWindowOrientation
 {
-  return [self getKeyWindow].windowScene.interfaceOrientation ?: UIInterfaceOrientationPortrait;
+    return [self getKeyWindow].windowScene.interfaceOrientation ?: UIInterfaceOrientationPortrait;
 }
 
 @end
