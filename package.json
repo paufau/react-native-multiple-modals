@@ -16,6 +16,11 @@
     "jsSrcsDir": "./src/newarch/",
     "android": {
       "javaPackageName": "com.multiplemodals"
+    },
+    "ios": {
+      "componentProvider": {
+        "RNTModalView": "RNTModalViewComponentView"
+      }
     }
   },
   "keywords": [
@@ -63,9 +68,6 @@
     "!.git",
     "!.yarn"
   ],
-  "dependencies": {
-    "@react-native/virtualized-lists": "^0.75.4"
-  },
   "devDependencies": {
     "@swc/core": "^1.7.36",
     "@typescript-eslint/eslint-plugin": "^8.6.0",
@@ -92,7 +94,8 @@
     "@types/react": "*",
     "@types/react-native": "*",
     "react": "^18",
-    "react-native": ">=0.71.0"
+    "react-native": ">=0.71.0",
+    "@react-native/virtualized-lists": ">=0.75.4"
   },
   "peerDependenciesMeta": {
     "@types/react": {
