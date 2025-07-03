@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import { VirtualizedListContextResetter } from '@react-native/virtualized-lists';
+import VirtualizedLists from '@react-native/virtualized-lists';
 import ScrollViewContext from 'react-native/Libraries/Components/ScrollView/ScrollViewContext';
 
 type ScrollContextResetterProps = {
@@ -13,10 +13,10 @@ export const ScrollContextResetter: FC<ScrollContextResetterProps> = ({
   children,
 }) => {
   return (
-    <VirtualizedListContextResetter>
+    <VirtualizedLists.VirtualizedListContextResetter>
       <ScrollViewContext.Provider value={null}>
         {children}
       </ScrollViewContext.Provider>
-    </VirtualizedListContextResetter>
+    </VirtualizedLists.VirtualizedListContextResetter>
   );
 };
