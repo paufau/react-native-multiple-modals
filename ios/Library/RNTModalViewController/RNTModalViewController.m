@@ -56,9 +56,6 @@
 #pragma mark - ModalViewControllerProtocol
 
 - (void)presentOn:(UIViewController *)parentVC onView:(UIView *)parentView {
-    self.modalPresentationStyle = UIModalPresentationCustom;
-    self.view.accessibilityViewIsModal = YES;
-    
     [self willMoveToParentViewController:parentVC];
     [parentVC addChildViewController:self];
     [parentView addSubview:self.view];

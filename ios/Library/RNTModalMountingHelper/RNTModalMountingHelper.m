@@ -2,12 +2,8 @@
 #import "RNTModalMountingHelper.h"
 #import "RNTModalWindowHelper.h"
 
-@implementation RNTModalMountingHelper
-
-- (instancetype)init
-{
-    [NSException raise:@"init" format:@"init has not been implemented"];
-    return self;
+@implementation RNTModalMountingHelper {
+    __strong UIWindow *modalWindow;
 }
 
 - (instancetype _Nonnull)initWithViewController:(RNTModalViewController * _Nonnull)viewController {
@@ -53,7 +49,8 @@
 
 - (void)mount {
     RNTModalWindowHelper *windowHelper = [[RNTModalWindowHelper alloc] init];
-    UIViewController *rvc = [windowHelper getRootController];
+    modalWindow = [windowHelper createNewKeyWindow];
+    UIViewController *rvc = modalWindow.rootViewController;
     
     if (!rvc) {
         NSLog(@"reactViewController not found");
@@ -69,10 +66,12 @@
 
 - (void)unmount {
     [self.modal dismiss];
-    _modal = nil;
-    _isMounted = NO;
-    _hasProps = NO;
-    _hasChildren = NO;
+    self.modal = nil;
+    self.isMounted = NO;
+    self.hasProps = NO;
+    self.hasChildren = NO;
+    modalWindow.hidden = YES;
+    modalWindow = nil;
 }
 
 @end

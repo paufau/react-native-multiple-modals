@@ -48,6 +48,8 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
         [self.mountingHelper unmountIfNeeded];
         [subview removeFromSuperview];
         self.reactSubview = nil;
+        self.modalViewController = nil;
+        self.mountingHelper = nil;
     });
 }
 
