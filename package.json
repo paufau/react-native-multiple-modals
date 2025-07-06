@@ -44,6 +44,7 @@
     "lint": "npx eslint ./src",
     "build": "tsup",
     "release": "npm run build && npm publish",
+    "release:nightly": "npm run build && npm publish --tag nightly",
     "prepare": "husky"
   },
   "files": [
