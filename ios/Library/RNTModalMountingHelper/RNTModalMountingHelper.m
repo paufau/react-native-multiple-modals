@@ -2,7 +2,9 @@
 #import "RNTModalMountingHelper.h"
 #import "RNTModalWindowHelper.h"
 
-@implementation RNTModalMountingHelper
+@implementation RNTModalMountingHelper {
+    __strong UIWindow *modalWindow;
+}
 
 - (instancetype)init
 {
@@ -53,7 +55,8 @@
 
 - (void)mount {
     RNTModalWindowHelper *windowHelper = [[RNTModalWindowHelper alloc] init];
-    UIViewController *rvc = [windowHelper getRootController];
+    modalWindow = [windowHelper createNewKeyWindow];
+    UIViewController *rvc = modalWindow.rootViewController;
     
     if (!rvc) {
         NSLog(@"reactViewController not found");

@@ -33,4 +33,19 @@
     return [self getKeyWindow].windowScene.interfaceOrientation ?: UIInterfaceOrientationPortrait;
 }
 
+- (UIWindow *)createNewKeyWindow {
+    UIWindow *keyWindow = [self getKeyWindow];
+    
+    UIWindow *nextWindow = [[UIWindow alloc] initWithFrame: keyWindow.bounds];
+    
+    nextWindow.rootViewController = [[UIViewController alloc] init];
+    nextWindow.backgroundColor = UIColor.clearColor;
+    nextWindow.accessibilityViewIsModal = YES;
+    nextWindow.rootViewController.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [nextWindow makeKeyAndVisible];
+    
+    return nextWindow;
+}
+
 @end

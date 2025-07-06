@@ -8,6 +8,7 @@
 - (UIWindow *_Nullable)getKeyWindow;
 - (UIViewController *_Nullable)getRootController;
 - (UIInterfaceOrientation)getWindowOrientation;
+- (UIWindow *_Nonnull)createNewKeyWindow;
 
 @end
 
