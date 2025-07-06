@@ -6,12 +6,6 @@
     __strong UIWindow *modalWindow;
 }
 
-- (instancetype)init
-{
-    [NSException raise:@"init" format:@"init has not been implemented"];
-    return self;
-}
-
 - (instancetype _Nonnull)initWithViewController:(RNTModalViewController * _Nonnull)viewController {
     if (self = [super init]) {
         _modal = viewController;
@@ -72,10 +66,11 @@
 
 - (void)unmount {
     [self.modal dismiss];
-    _modal = nil;
-    _isMounted = NO;
-    _hasProps = NO;
-    _hasChildren = NO;
+    self.modal = nil;
+    self.isMounted = NO;
+    self.hasProps = NO;
+    self.hasChildren = NO;
+    modalWindow = nil;
 }
 
 @end
