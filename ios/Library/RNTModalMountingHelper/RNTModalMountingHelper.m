@@ -70,6 +70,7 @@
     self.isMounted = NO;
     self.hasProps = NO;
     self.hasChildren = NO;
+    modalWindow.hidden = YES;
     modalWindow = nil;
 }
 
