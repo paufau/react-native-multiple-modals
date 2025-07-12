@@ -2,6 +2,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
 ![Static Badge](https://img.shields.io/badge/types-included-81B622)
+![Static Badge](https://img.shields.io/badge/plarforms-iOS%2C_Android-7a34eb)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
 
 Native Modal implementation which allows to display multiple Modals simultaneously.
@@ -10,14 +11,13 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 
 ## ✨ Features
 
-- 📱 iOS & Android
-- 🚀 Performant Native Implementation
-- ✅ Accessibility Support
-- 💯 Compatible with Expo
-- 💥 New Architecture (Fabric)
-- 🆗 Old Architecture (Paper)
-- 👌 Written in TypeScript
+- 🚀 Shows multiple instances at the same time
+- 💯 Displays on top of default modal
+- 🆗 Supports gesture handler out of the box
 - 🛠️ Displays above bottom tabs navigation
+- 📱 Adjusts content when rotated
+- 💥 Enhanced status bar configuration
+- ✅ Accessibility Support
 
 ## Installation
 
@@ -150,7 +150,9 @@ Determines whether your modal should go under the system statusbar.
 
 If you notice any bugs or anything working differently compared to React Native, feel free to open an issue. It’ll really help improve the project 🙏.
 
-Also, if there are any well-known issues in React Native that haven’t been fixed for a long time and they show up here too, let me know! Let’s make things better together 😎.
+#### Still something missed?
+
+I would love if you would let me know what you are missing in the library. _Together we can make it a community standard!_
 
 ## Roadmap
 
@@ -161,10 +163,11 @@ Common:
 
 ## Versions
 
-| version       | react-native | links                                                                               |
-| ------------- | ------------ | ----------------------------------------------------------------------------------- |
-| 2.0.0+        | 71+          | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/main)   |
-| 1.0.0 - 1.2.6 | 70+          | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v1.2.6) |
+| library version | react-native | old arch | new arch | docs                                                                                |
+| --------------- | ------------ | -------- | -------- | ----------------------------------------------------------------------------------- |
+| 3.0.0+          | 73+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/main)   |
+| 2.0.0 - 2.5.0   | 71+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v2.5.0) |
+| 1.0.0 - 1.2.6   | 70+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v1.2.6) |
 
 ## Author
 
