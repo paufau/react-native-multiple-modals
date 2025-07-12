@@ -167,8 +167,14 @@ Common:
 | --------------- | ------------ | -------- | -------- | ----------------------------------------------------------------------------------- |
 | 3.0.0+          | 73+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/main)   |
 | 2.0.0 - 2.5.0   | 71+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v2.5.0) |
-| 1.0.0 - 1.2.6   | 70+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v1.2.6) |
+| 1.0.0 - 1.2.6   | 70+          | ✅       | ❌       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v1.2.6) |
 
 ## Author
 
 - [Pavel Pakseev](https://www.linkedin.com/in/pavel-pakseev/)
+
+## Sponsor & Support
+
+If you found the library useful, you can support me here:
+
+<a href='https://ko-fi.com/Y8Y315L7NK' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
