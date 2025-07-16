@@ -1,6 +1,6 @@
 {
   "name": "react-native-multiple-modals",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Native implementation with the ability to display multiple Modals",
   "author": "Pavel Pakseev <pakseev.1999@gmail.com> (https://github.com/paufau)",
   "license": "MIT",
@@ -94,7 +94,7 @@
   "peerDependencies": {
     "@types/react": "*",
     "@types/react-native": "*",
-    "react": "^18",
+    "react": ">=18",
     "react-native": ">=0.71.0",
     "@react-native/virtualized-lists": ">=0.75.4"
   },
