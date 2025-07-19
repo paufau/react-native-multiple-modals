@@ -150,15 +150,18 @@ Determines whether your modal should go under the system statusbar.
 
 If you notice any bugs or anything working differently compared to React Native, feel free to open an issue. It’ll really help improve the project 🙏.
 
-#### Still something missed?
+#### Still missing something?
 
 I would love if you would let me know what you are missing in the library. _Together we can make it a community standard!_
+
+## Developing & Testing
+
+Follow instructions: https://github.com/paufau/react-native-multiple-modals-examples
 
 ## Roadmap
 
 Common:
 
-- Add UI tests automation
 - Create separate documentation page
 
 ## Versions
