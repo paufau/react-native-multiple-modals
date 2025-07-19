@@ -159,6 +159,11 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         modalView.dispatchProvideStructure(structure)
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        reactContext.addLifecycleEventListener(this)
+    }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         dismiss()
