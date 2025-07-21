@@ -12,14 +12,30 @@ import com.facebook.react.bridge.UiThreadUtil
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.UIManagerHelper
 import com.facebook.react.uimanager.events.EventDispatcher
+import com.facebook.react.uimanager.DisplayMetricsHolder
+import com.facebook.react.uimanager.PixelUtil
 import com.multiplemodals.events.PressBackEvent
 import com.multiplemodals.library.ModalDialog
 import com.multiplemodals.library.ModalView
 import com.multiplemodals.library.OnSizeComputedListener
+import com.facebook.yoga.annotations.DoNotStrip
 
 class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener {
     companion object {
         const val REACT_CLASS: String = "RNTModalView"
+
+        @JvmStatic
+        @DoNotStrip
+        private fun getScreenDisplayMetricsWithoutInsets(): Long {
+            val displayMetrics = DisplayMetricsHolder.getScreenDisplayMetrics()
+            return encodeFloatsToLong(
+                PixelUtil.toDIPFromPixel(displayMetrics.widthPixels.toFloat()),
+                PixelUtil.toDIPFromPixel(displayMetrics.heightPixels.toFloat())
+            )
+        }
+
+        private fun encodeFloatsToLong(width: Float, height: Float): Long =
+            (width.toRawBits().toLong()) shl 32 or (height.toRawBits().toLong())
     }
 
     var onSizeComputedListener: OnSizeComputedListener?

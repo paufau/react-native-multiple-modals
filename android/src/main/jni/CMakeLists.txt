@@ -18,7 +18,15 @@ add_compile_options(
         -Wno-gnu-zero-variadic-macro-arguments
 )
 
-file(GLOB LIB_CUSTOM_SRCS CONFIGURE_DEPENDS *.cpp ${LIB_COMMON_DIR}/react/renderer/components/${LIB_LITERAL}/*.cpp)
+file(
+  GLOB 
+  LIB_CUSTOM_SRCS 
+  CONFIGURE_DEPENDS 
+  *.cpp 
+  ${LIB_COMMON_DIR}/react/renderer/components/${LIB_LITERAL}/*.cpp
+  ${LIB_COMMON_DIR}/react/renderer/components/${LIB_LITERAL}/platform/android/*.cpp
+)
+
 file(GLOB LIB_CODEGEN_SRCS CONFIGURE_DEPENDS ${LIB_ANDROID_GENERATED_JNI_DIR}/*.cpp ${LIB_ANDROID_GENERATED_COMPONENTS_DIR}/*.cpp)
 
 add_library(
