@@ -21,8 +21,9 @@ namespace facebook::react
       auto result = method(javaClassStatic());
 
       // Inspired from yogaMeassureToSize from conversions.h
-      int32_t wBits = 0xFFFFFFFF & (result >> 32);
-      int32_t hBits = 0xFFFFFFFF & result;
+      constexpr uint32_t MASK_32BIT = 0xFFFFFFFF;
+      int32_t wBits = static_cast<uint32_t>(MASK_32BIT & (result >> 32));
+      int32_t hBits = static_cast<uint32_t>(MASK_32BIT & result);
 
       auto *measuredWidth = reinterpret_cast<float *>(&wBits);
       auto *measuredHeight = reinterpret_cast<float *>(&hBits);
