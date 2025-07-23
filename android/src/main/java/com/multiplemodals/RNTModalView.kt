@@ -89,7 +89,9 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         modalDialog?.apply {
             attachBackHandler(this)
             setStatusBarTranslucency(statusBarTranslucent)
-            setStatusBarDarkIcons(statusBarIconsStyle == "dark-content")
+            if (statusBarIconsStyle != "default") {
+                setStatusBarIconsStyle(statusBarIconsStyle == "dark-content")
+            }
             addContent(modalView)
             show()
         }
