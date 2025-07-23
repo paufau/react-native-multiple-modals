@@ -1,5 +1,6 @@
 package com.multiplemodals
 
+import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.view.KeyEvent
@@ -23,6 +24,8 @@ import com.facebook.yoga.annotations.DoNotStrip
 class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener {
     companion object {
         const val REACT_CLASS: String = "RNTModalView"
+        const val DEFAULT_STATUS_BAR_ICONS_STYLE = "default"
+        const val STATUS_BAR_DARK_ICONS_STYLE = "dark-content"
 
         @JvmStatic
         @DoNotStrip
@@ -54,7 +57,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     private var wasShown = false
     internal var isShadowViewSizeSet = false
     internal var statusBarTranslucent: Boolean = false
-    internal var statusBarIconsStyle: String = "default"
+    internal var statusBarIconsStyle: String = DEFAULT_STATUS_BAR_ICONS_STYLE
     internal var animationType: String = "none"
 
     init {
@@ -89,8 +92,13 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         modalDialog?.apply {
             attachBackHandler(this)
             setStatusBarTranslucency(statusBarTranslucent)
-            if (statusBarIconsStyle != "default") {
-                setStatusBarDarkIcons(statusBarIconsStyle == "dark-content")
+            if (statusBarIconsStyle == DEFAULT_STATUS_BAR_ICONS_STYLE) {
+                val inheritFromActivity = reactContext.currentActivity
+                if (inheritFromActivity != null) {
+                    inheritStatusBarFromWindow(inheritFromActivity.window)
+                }
+            } else {
+                setStatusBarDarkIcons(statusBarIconsStyle == STATUS_BAR_DARK_ICONS_STYLE)
             }
             addContent(modalView)
             show()

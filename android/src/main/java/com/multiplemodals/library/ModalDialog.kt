@@ -1,10 +1,14 @@
 package com.multiplemodals.library
 
 import android.app.Dialog
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.Window
 import android.view.WindowManager.LayoutParams
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.facebook.react.uimanager.ThemedReactContext
 import com.multiplemodals.extensions.setStatusBarDarkIcons
 
@@ -59,6 +63,43 @@ class ModalDialog(reactContext: ThemedReactContext, themeId: Int) : Dialog(react
     fun setStatusBarDarkIcons(isDark: Boolean) {
         window?.apply {
             setStatusBarDarkIcons(isDark)
+        }
+    }
+
+    fun inheritStatusBarFromWindow(inheritFromWindow: Window) {
+        window?.apply {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+                val activityWindowInsetsController =
+                    WindowInsetsControllerCompat(inheritFromWindow, inheritFromWindow.decorView)
+                val dialogWindowInsetsController =
+                    WindowInsetsControllerCompat(this, decorView)
+
+                dialogWindowInsetsController.isAppearanceLightStatusBars =
+                    activityWindowInsetsController.isAppearanceLightStatusBars
+
+                inheritFromWindow.decorView.rootWindowInsets?.let { insets ->
+                    val activityRootWindowInsets = WindowInsetsCompat.toWindowInsetsCompat(insets)
+                    syncSystemBarsVisibility(activityRootWindowInsets, dialogWindowInsetsController)
+                }
+            } else {
+                decorView.systemUiVisibility = inheritFromWindow.decorView.systemUiVisibility
+            }
+        }
+    }
+
+    private fun syncSystemBarsVisibility(
+        activityRootWindowInsets: WindowInsetsCompat,
+        dialogWindowInsetsController: WindowInsetsControllerCompat?,
+        types: List<Int> =
+            listOf(WindowInsetsCompat.Type.statusBars(), WindowInsetsCompat.Type.navigationBars()),
+    ) {
+        types.forEach { type ->
+            val isVisible = activityRootWindowInsets.isVisible(type)
+            if (isVisible) {
+                dialogWindowInsetsController?.show(type)
+            } else {
+                dialogWindowInsetsController?.hide(type)
+            }
         }
     }
 }
