@@ -90,7 +90,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
             attachBackHandler(this)
             setStatusBarTranslucency(statusBarTranslucent)
             if (statusBarIconsStyle != "default") {
-                setStatusBarIconsStyle(statusBarIconsStyle == "dark-content")
+                setStatusBarDarkIcons(statusBarIconsStyle == "dark-content")
             }
             addContent(modalView)
             show()
