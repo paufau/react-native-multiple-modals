@@ -25,8 +25,6 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 npm i react-native-multiple-modals
 ```
 
-or
-
 ```bash
 yarn add react-native-multiple-modals
 ```
