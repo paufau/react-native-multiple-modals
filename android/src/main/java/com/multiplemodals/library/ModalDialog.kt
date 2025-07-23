@@ -89,7 +89,7 @@ class ModalDialog(reactContext: ThemedReactContext, themeId: Int) : Dialog(react
 
     private fun syncSystemBarsVisibility(
         activityRootWindowInsets: WindowInsetsCompat,
-        dialogWindowInsetsController: WindowInsetsControllerCompat?,
+        dialogWindowInsetsController: WindowInsetsControllerCompat,
         types: List<Int> =
             listOf(WindowInsetsCompat.Type.statusBars(), WindowInsetsCompat.Type.navigationBars()),
     ) {
