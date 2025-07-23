@@ -96,9 +96,9 @@ class ModalDialog(reactContext: ThemedReactContext, themeId: Int) : Dialog(react
         types.forEach { type ->
             val isVisible = activityRootWindowInsets.isVisible(type)
             if (isVisible) {
-                dialogWindowInsetsController?.show(type)
+                dialogWindowInsetsController.show(type)
             } else {
-                dialogWindowInsetsController?.hide(type)
+                dialogWindowInsetsController.hide(type)
             }
         }
     }
