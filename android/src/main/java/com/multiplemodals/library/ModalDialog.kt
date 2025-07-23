@@ -68,7 +68,7 @@ class ModalDialog(reactContext: ThemedReactContext, themeId: Int) : Dialog(react
 
     fun inheritStatusBarFromWindow(inheritFromWindow: Window) {
         window?.apply {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 val activityWindowInsetsController =
                     WindowInsetsControllerCompat(inheritFromWindow, inheritFromWindow.decorView)
                 val dialogWindowInsetsController =
