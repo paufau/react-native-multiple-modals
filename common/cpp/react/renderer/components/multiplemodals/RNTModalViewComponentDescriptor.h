@@ -21,8 +21,9 @@ namespace facebook::react
               *shadowNode.getState())
               .getData();
 
-      layoutableShadowNode.setSize(
-          Size{stateData.screenSize.width, stateData.screenSize.height});
+      layoutableShadowNode.setSize(Size{
+          .width = stateData.screenSize.width,
+          .height = stateData.screenSize.height});
       layoutableShadowNode.setPositionType(YGPositionTypeAbsolute);
 
       ConcreteComponentDescriptor::adopt(shadowNode);
