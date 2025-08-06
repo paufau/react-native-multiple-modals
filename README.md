@@ -162,6 +162,11 @@ Common:
 
 - Create separate documentation page
 
+## Troubleshooting
+
+- Reanimated modal has wrong size for the first only render:
+  https://github.com/software-mansion/react-native-reanimated/issues/6659
+
 ## Versions
 
 | library version | react-native | old arch | new arch | docs                                                                                |
