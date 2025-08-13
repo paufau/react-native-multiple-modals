@@ -93,8 +93,10 @@
   },
   "peerDependencies": {
     "@types/react": "*",
+    "@types/react-dom": "*",
     "@types/react-native": "*",
     "react": ">=18",
+    "react-dom": ">=18",
     "react-native": ">=0.71.0",
     "@react-native/virtualized-lists": ">=0.75.4"
   },
@@ -102,7 +104,13 @@
     "@types/react": {
       "optional": true
     },
+    "@types/react-dom": {
+      "optional": true
+    },
     "@types/react-native": {
+      "optional": true
+    },
+    "react-dom": {
       "optional": true
     }
   }
