@@ -1,6 +1,9 @@
 export {
-  DismissalSource,
   ModalView,
+  DismissalSource,
+} from './ModalView';
+
+export {
   type BackdropProps,
   type ModalViewProps,
-} from './ModalView';
+} from './index.d';
