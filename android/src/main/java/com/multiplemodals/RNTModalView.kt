@@ -31,10 +31,12 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         @DoNotStrip
         private fun getScreenDisplayMetricsWithoutInsets(): Long {
             val displayMetrics = DisplayMetricsHolder.getScreenDisplayMetrics()
-            return encodeFloatsToLong(
-                PixelUtil.toDIPFromPixel(displayMetrics.widthPixels.toFloat()),
-                PixelUtil.toDIPFromPixel(displayMetrics.heightPixels.toFloat())
-            )
+            val widthPx = displayMetrics.widthPixels.toFloat()
+            val heightPx = displayMetrics.heightPixels.toFloat()
+            val widthDp = PixelUtil.toDIPFromPixel(widthPx)
+            val heightDp = PixelUtil.toDIPFromPixel(heightPx)
+
+            return encodeFloatsToLong(widthDp, heightDp)
         }
 
         private fun encodeFloatsToLong(width: Float, height: Float): Long =

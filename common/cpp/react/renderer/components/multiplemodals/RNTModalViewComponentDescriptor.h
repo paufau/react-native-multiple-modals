@@ -12,6 +12,13 @@ namespace facebook::react
   public:
     using ConcreteComponentDescriptor::ConcreteComponentDescriptor;
 
+
+    #ifdef ANDROID
+    State::Shared createInitialState(
+        const Props::Shared& props,
+        const ShadowNodeFamily::Shared& family) const override;
+    #endif // ANDROID
+
     void adopt(ShadowNode &shadowNode) const override
     {
       auto &layoutableShadowNode =
