@@ -9,7 +9,6 @@
   "module": "lib/index.mjs",
   "types": "lib/index.d.ts",
   "react-native": "src/index.ts",
-  "private": false,
   "codegenConfig": {
     "name": "multiplemodals",
     "type": "all",
@@ -62,7 +61,6 @@
     "!android/local.properties",
     "!android/gradlew",
     "!android/gradlew.bat",
-    "!android/local.properties",
     "!**/__tests__",
     "!**/__mocks__",
     "!**/.*",
@@ -92,13 +90,13 @@
     "tsup": "^8.3.0"
   },
   "peerDependencies": {
+    "@react-native/virtualized-lists": ">=0.75.4",
     "@types/react": "*",
     "@types/react-dom": "*",
     "@types/react-native": "*",
     "react": ">=18",
     "react-dom": ">=18",
-    "react-native": ">=0.71.0",
-    "@react-native/virtualized-lists": ">=0.75.4"
+    "react-native": ">=0.71.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
@@ -113,5 +111,6 @@
     "react-dom": {
       "optional": true
     }
-  }
+  },
+  "packageManager": "yarn@4.9.2+sha512.1fc009bc09d13cfd0e19efa44cbfc2b9cf6ca61482725eb35bbc5e257e093ebf4130db6dfe15d604ff4b79efd8e1e8e99b25fa7d0a6197c9f9826358d4d65c3c"
 }

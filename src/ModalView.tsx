@@ -1,16 +1,11 @@
 import { FC } from 'react';
-import {
-  Platform,
-  Pressable,
-  StatusBar,
-  StyleSheet,
-  View,
-} from 'react-native';
+
+import { Platform, Pressable, StatusBar, StyleSheet, View } from 'react-native';
+
 import { ScrollContextResetter } from './ScrollContextResetter';
 import { GestureHandlerRootView } from './integrations/GestureHandlerRootView';
 import RNTModalView from './newarch/NativeRNTModalView';
-
-import type { ModalViewProps } from './index.d';
+import type { ModalViewProps } from './types';
 
 export enum DismissalSource {
   BackButton = 'BackButton',

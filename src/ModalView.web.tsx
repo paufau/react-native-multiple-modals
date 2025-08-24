@@ -1,12 +1,17 @@
-import { useRef, useMemo } from 'react';
-import { StyleSheet, View, Pressable } from 'react-native';
-import { createPortal } from 'react-dom';
-import { useModalRegistry } from './hooks/useModalRegistry';
-
+import { useMemo } from 'react';
 import type { FC } from 'react';
-import type { ModalViewProps } from './index.d';
 
-export type ModalViewWebProps = Omit<ModalViewProps, 'statusBar' | 'disableDefaultStatusBarIOS' | 'statusBarTranslucent'> & {
+import { createPortal } from 'react-dom';
+import { StyleSheet, View, Pressable } from 'react-native';
+
+import { useID } from './hooks/useID';
+import { useModalRegistry } from './hooks/useModalRegistry';
+import type { ModalViewProps } from './types';
+
+export type ModalViewWebProps = Omit<
+  ModalViewProps,
+  'statusBar' | 'disableDefaultStatusBarIOS' | 'statusBarTranslucent'
+> & {
   modalId?: string;
 };
 
@@ -29,7 +34,7 @@ export const ModalView: FC<ModalViewWebProps> = ({
   backdropColor = defaultBackdropColor,
   animationType = 'none',
 }) => {
-  const currentModalId = modalId || useRef<string>(Math.random().toString(36)).current;
+  const currentModalId = useID(modalId);
   const { modals, isBackdropVisible } = useModalRegistry(currentModalId);
   const modalIsOpen = modals.has(currentModalId);
 
@@ -47,6 +52,7 @@ export const ModalView: FC<ModalViewWebProps> = ({
         transition: 'transform 0.3s, opacity 0.3s',
       };
     }
+
     return {};
   }, [animationType, modalIsOpen]);
 
@@ -55,36 +61,39 @@ export const ModalView: FC<ModalViewWebProps> = ({
       <BackdropPressableComponent
         accessibilityLabel={backdropAccessibilityLabel}
         accessibilityHint={backdropAccessibilityHint}
-        style={[styles.backdropPressable, {
-          opacity: isBackdropVisible ? 1 : 0,
-        }]}
+        style={[
+          styles.backdropPressable,
+          !isBackdropVisible && styles.backdropHidden,
+        ]}
         onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
       >
         {renderBackdrop ? (
           renderBackdrop()
         ) : (
-          <View
-            style={[styles.flex, { backgroundColor: backdropColor }]}
-          />
+          <View style={[styles.flex, { backgroundColor: backdropColor }]} />
         )}
       </BackdropPressableComponent>
 
       <View
-        accessibilityRole="dialog"
+        accessibilityRole='dialog'
         pointerEvents='box-none'
         style={[styles.content, animatedStyle, contentContainerStyle]}
       >
         {children}
       </View>
     </View>,
-    document.body
+    document.body,
   );
 };
 
 const styles = StyleSheet.create({
   backdropPressable: {
     flex: 1,
+    opacity: 1,
     alignSelf: 'stretch',
+  },
+  backdropHidden: {
+    opacity: 0,
   },
   flex: {
     flex: 1,

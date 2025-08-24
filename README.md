@@ -2,7 +2,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
 ![Static Badge](https://img.shields.io/badge/types-included-81B622)
-![Static Badge](https://img.shields.io/badge/plarforms-iOS%2C_Android-7a34eb)
+![Static Badge](https://img.shields.io/badge/plarforms-iOS%2C_Android%2C_Web-7a34eb)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
 
 Native Modal implementation which allows to display multiple Modals simultaneously.
@@ -89,7 +89,7 @@ Styles of the content wrapper. Use it for aligning your content view.
 
 ---
 
-### `statusBar?: StatusBarProps`
+### `statusBar?: StatusBarProps` - Native Only
 
 Controls the status bar.
 

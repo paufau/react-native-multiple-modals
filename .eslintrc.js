@@ -185,7 +185,7 @@ module.exports = {
     'filename-rules/match': [
       'error',
       {
-        '.tsx': /^[A-Z]+[a-z]+([A-Z][a-z]*)*(\.test)?(\.tsx)?$/,
+        '.tsx': /^[A-Z]+[a-z]+([A-Z][a-z]*)*(\.test|\.web)?(\.tsx)?$/,
         '.ts': /^([a-z]+([A-Z][a-z]*)*|[A-Z][a-z]+([A-Z][a-z]*)*)(\.test|\.types)?(\.ts)?$/,
       },
     ],

@@ -1,7 +1,13 @@
-import { DismissalSource } from './ModalView';
-
 import type { FC, ReactNode } from 'react';
-import type { StyleProp, ViewStyle, StatusBarProps, PressableProps } from 'react-native';
+
+import type {
+  StyleProp,
+  ViewStyle,
+  StatusBarProps,
+  PressableProps,
+} from 'react-native';
+
+import { DismissalSource } from './ModalView';
 
 export type ModalViewProps = {
   /**
