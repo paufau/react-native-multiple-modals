@@ -3,7 +3,6 @@ package com.multiplemodals
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
@@ -76,8 +75,6 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     }
 
     fun show() {
-        Log.d("MODAL", "SHOWN")
-
         if (wasShown) {
             return
         }
@@ -94,8 +91,6 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         modalDialog = ModalDialog(reactContext, dialogStyle)
 
         modalDialog?.apply {
-            show()
-            addContent(modalView)
             attachBackHandler(this)
             setStatusBarTranslucency(statusBarTranslucent)
             if (statusBarIconsStyle == DEFAULT_STATUS_BAR_ICONS_STYLE) {
@@ -106,6 +101,8 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
             } else {
                 setStatusBarDarkIcons(statusBarIconsStyle == STATUS_BAR_DARK_ICONS_STYLE)
             }
+            addContent(modalView)
+            show()
         }
 
         wasShown = true
