@@ -57,7 +57,6 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     private val modalView: ModalView
 
     private var wasShown = false
-    internal var isShadowViewSizeSet = false
     internal var statusBarTranslucent: Boolean = false
     internal var statusBarIconsStyle: String = DEFAULT_STATUS_BAR_ICONS_STYLE
     internal var animationType: String = "none"
@@ -76,7 +75,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     }
 
     fun show() {
-        if (wasShown || !isShadowViewSizeSet) {
+        if (wasShown) {
             return
         }
 

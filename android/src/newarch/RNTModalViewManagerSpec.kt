@@ -30,6 +30,14 @@ abstract class RNTModalViewManagerSpec<T : ViewGroup> : ViewGroupManager<T>(), R
     )
   }
 
+  override fun onAfterUpdateTransaction(view: T) {
+    super.onAfterUpdateTransaction(view)
+
+    if (view is RNTModalView) {
+      view.show()
+    }
+  }
+
   override fun updateState(
     view: T,
     props: ReactStylesDiffMap,
@@ -38,12 +46,6 @@ abstract class RNTModalViewManagerSpec<T : ViewGroup> : ViewGroupManager<T>(), R
     if (view is RNTModalView) {
       val currentWidthDip = stateWrapper.stateData?.getDouble("screenWidth")?.roundToInt()
       val currentHeightDip = stateWrapper.stateData?.getDouble("screenHeight")?.roundToInt()
-
-      if (currentWidthDip != null && currentHeightDip != null) {
-        if (currentWidthDip > 0 && currentHeightDip > 0) {
-          view.isShadowViewSizeSet = true
-        }
-      }
 
       view.onSizeComputedListener = OnSizeComputedListener { widthPx, heightPx ->
         val nextWidthDip = PixelUtil.toDIPFromPixel(widthPx.toFloat()).roundToInt()
