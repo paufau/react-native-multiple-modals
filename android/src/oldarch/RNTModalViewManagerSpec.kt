@@ -41,8 +41,6 @@ abstract class RNTModalViewManagerSpec<T : ViewGroup> : ViewGroupManager<T>() {
         super.onAfterUpdateTransaction(view)
 
         if (view is RNTModalView) {
-            view.isShadowViewSizeSet = true
-
             view.onSizeComputedListener = OnSizeComputedListener { widthPx, heightPx ->
                 setViewSize(view.reactContext, view.id, widthPx, heightPx)
             }
