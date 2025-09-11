@@ -22,9 +22,14 @@ class RNTModalViewManager : RNTModalViewManagerSpec<RNTModalView>() {
   override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
     val buildOf = "registrationName"
 
-    return MapBuilder.builder<String, Any>()
+    val map = MapBuilder.builder<String, Any>()
       .put(PressBackEvent.NAME, MapBuilder.of(buildOf, PressBackEvent.REGISTRATION_NAME))
       .build()
+    
+    return when (map) {
+      is MutableMap<String, Any> -> map
+      else -> map.toMutableMap()
+    }
   }
 
   override fun onDropViewInstance(view: RNTModalView) {
