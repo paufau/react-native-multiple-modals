@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
 import { Platform, Pressable, StatusBar, StyleSheet, View } from 'react-native';
+import AppContainer from 'react-native/Libraries/ReactNative/AppContainer';
+import { RootTagContext } from 'react-native/Libraries/ReactNative/RootTag';
 
 import { ScrollContextResetter } from './ScrollContextResetter';
 import { GestureHandlerRootView } from './integrations/GestureHandlerRootView';
@@ -29,6 +31,17 @@ export const ModalView: FC<ModalViewProps> = ({
   animationType = 'none',
   statusBarTranslucent,
 }) => {
+  const rootTag = useContext(RootTagContext);
+
+  // Wrap the children in AppContainer so the React Native inspector works
+  // within the modal. See https://github.com/facebook/react-native/blob/v0.81.4/packages/react-native/Libraries/Modal/Modal.js#L308
+  // for the inspiration within the RN Modal component.
+  const innerChildren = __DEV__ ? (
+    <AppContainer rootTag={rootTag}>{children}</AppContainer>
+  ) : (
+    children
+  );
+
   return (
     <RNTModalView
       style={styles.container}
@@ -63,7 +76,7 @@ export const ModalView: FC<ModalViewProps> = ({
               pointerEvents='box-none'
               style={[styles.content, contentContainerStyle]}
             >
-              {children}
+              {innerChildren}
             </View>
           </ScrollContextResetter>
         </GestureHandlerRootView>
