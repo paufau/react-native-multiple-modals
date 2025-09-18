@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { Platform, Pressable, StatusBar, StyleSheet, View } from 'react-native';
 
+import { AppContainerWrapper } from './AppContainerWrapper';
 import { ScrollContextResetter } from './ScrollContextResetter';
 import { GestureHandlerRootView } from './integrations/GestureHandlerRootView';
 import RNTModalView from './newarch/NativeRNTModalView';
@@ -37,37 +38,39 @@ export const ModalView: FC<ModalViewProps> = ({
       onPressBackAndroid={() => onRequestDismiss?.(DismissalSource.BackButton)}
       animationType={animationType}
     >
-      <View collapsable={false} style={styles.flex}>
-        {isIOS && statusBar && !disableDefaultStatusBarIOS ? (
-          <StatusBar {...statusBar} />
-        ) : null}
-        <GestureHandlerRootView style={styles.flex}>
-          <View style={[styles.backdropContainer]}>
-            <BackdropPressableComponent
-              accessibilityLabel={backdropAccessibilityLabel}
-              accessibilityHint={backdropAccessibilityHint}
-              style={styles.flex}
-              onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
-            >
-              {renderBackdrop ? (
-                renderBackdrop()
-              ) : (
-                <View
-                  style={[styles.flex, { backgroundColor: backdropColor }]}
-                />
-              )}
-            </BackdropPressableComponent>
-          </View>
-          <ScrollContextResetter>
-            <View
-              pointerEvents='box-none'
-              style={[styles.content, contentContainerStyle]}
-            >
-              {children}
+      <AppContainerWrapper>
+        <View collapsable={false} style={styles.flex}>
+          {isIOS && statusBar && !disableDefaultStatusBarIOS ? (
+            <StatusBar {...statusBar} />
+          ) : null}
+          <GestureHandlerRootView style={styles.flex}>
+            <View style={[styles.backdropContainer]}>
+              <BackdropPressableComponent
+                accessibilityLabel={backdropAccessibilityLabel}
+                accessibilityHint={backdropAccessibilityHint}
+                style={styles.flex}
+                onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+              >
+                {renderBackdrop ? (
+                  renderBackdrop()
+                ) : (
+                  <View
+                    style={[styles.flex, { backgroundColor: backdropColor }]}
+                  />
+                )}
+              </BackdropPressableComponent>
             </View>
-          </ScrollContextResetter>
-        </GestureHandlerRootView>
-      </View>
+            <ScrollContextResetter>
+              <View
+                pointerEvents='box-none'
+                style={[styles.content, contentContainerStyle]}
+              >
+                {children}
+              </View>
+            </ScrollContextResetter>
+          </GestureHandlerRootView>
+        </View>
+      </AppContainerWrapper>
     </RNTModalView>
   );
 };
