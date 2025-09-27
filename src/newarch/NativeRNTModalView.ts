@@ -1,4 +1,3 @@
-/* eslint-disable filename-rules/match */
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import type { ViewProps } from 'react-native';
 import { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
