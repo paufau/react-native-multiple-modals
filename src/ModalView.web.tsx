@@ -75,7 +75,7 @@ export const ModalView: FC<ModalViewWebProps> = ({
       </BackdropPressableComponent>
 
       <View
-        accessibilityRole='dialog'
+        role='dialog'
         pointerEvents='box-none'
         style={[styles.content, animatedStyle, contentContainerStyle]}
       >
