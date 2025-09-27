@@ -1,14 +1,15 @@
 {
   "name": "react-native-multiple-modals",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Native implementation with the ability to display multiple Modals",
   "author": "Pavel Pakseev <pakseev.1999@gmail.com> (https://github.com/paufau)",
   "license": "MIT",
   "homepage": "https://github.com/paufau/react-native-multiple-modals#readme",
-  "main": "lib/index.js",
-  "module": "lib/index.mjs",
-  "types": "lib/index.d.ts",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/index.d.ts",
   "react-native": "src/index.ts",
+  "source": "src/index.ts",
   "codegenConfig": {
     "name": "multiplemodals",
     "type": "all",
@@ -41,7 +42,8 @@
   },
   "scripts": {
     "lint": "npx eslint ./src",
-    "build": "tsup",
+    "typecheck": "npx tsc --noEmit",
+    "build": "npx bob build",
     "release": "npm run build && npm publish",
     "release:nightly": "npm run build && npm publish --tag nightly",
     "prepare": "husky"
@@ -70,47 +72,38 @@
   ],
   "devDependencies": {
     "@swc/core": "^1.7.36",
-    "@typescript-eslint/eslint-plugin": "^8.6.0",
-    "@typescript-eslint/parser": "^8.6.0",
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-check-file": "^2.8.0",
-    "eslint-plugin-filename-rules": "^1.3.1",
-    "eslint-plugin-folders": "^1.0.4",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-jest": "^28.8.3",
-    "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.28.0",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "eslint-plugin-react-native": "^4.1.0",
-    "eslint-plugin-testing-library": "^6.3.0",
-    "eslint-plugin-unicorn": "^55.0.0",
+    "@types/react": "^19.1.14",
+    "@types/react-dom": "^19.1.9",
+    "@types/react-native-web": "^0.19.2",
+    "@typescript-eslint/eslint-plugin": "^8.44.1",
+    "@typescript-eslint/parser": "^8.44.1",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^9.1.6",
     "prettier": "^3.3.3",
-    "tsup": "^8.3.0"
+    "react-dom": "^19.1.1",
+    "react-native-builder-bob": "^0.40.13"
   },
   "peerDependencies": {
     "@react-native/virtualized-lists": ">=0.75.4",
-    "@types/react": "*",
-    "@types/react-dom": "*",
-    "@types/react-native": "*",
     "react": ">=18",
     "react-dom": ">=18",
     "react-native": ">=0.71.0"
   },
   "peerDependenciesMeta": {
-    "@types/react": {
-      "optional": true
-    },
-    "@types/react-dom": {
-      "optional": true
-    },
-    "@types/react-native": {
-      "optional": true
-    },
     "react-dom": {
       "optional": true
     }
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      "commonjs",
+      "module",
+      "typescript"
+    ]
   }
 }

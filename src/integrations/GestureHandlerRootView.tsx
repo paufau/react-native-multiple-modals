@@ -1,9 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-require-imports */
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable import/no-unused-modules */
-/* eslint-disable global-require */
-
 import { ReactNode } from 'react';
 
 // The library is connected if it is detected at runtime.

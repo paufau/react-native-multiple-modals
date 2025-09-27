@@ -1,10 +1,9 @@
-/* eslint-disable filename-rules/match */
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 import type { ViewProps } from 'react-native';
 import { DirectEventHandler } from 'react-native/Libraries/Types/CodegenTypes';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 
 type PressBackAndroidEvent = Readonly<{}>;
+
 interface NativeProps extends ViewProps {
   onPressBackAndroid?: DirectEventHandler<PressBackAndroidEvent>;
   statusBarTranslucent?: boolean;

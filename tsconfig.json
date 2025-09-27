@@ -1,24 +1,32 @@
 {
   "compilerOptions": {
     "moduleResolution": "node",
-    "target": "es5",
-    "module":"es2015",
-    "lib": ["es2015", "es2016", "es2017", "dom"],
+    "target": "es2017",
+    "module": "es2015",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "strict": true,
     "sourceMap": true,
     "declaration": true,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist/lib",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "skipLibCheck": true,
     "jsx": "react-native",
+    "types": [
+      "react",
+      "react-native",
+      "react-native-web"
+    ],
+    "noEmit": false
   },
   "include": [
     "src",
     "global.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "dist"
   ]
 }
