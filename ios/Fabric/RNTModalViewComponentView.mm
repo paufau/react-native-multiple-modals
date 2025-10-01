@@ -52,7 +52,9 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
 
 - (void)mountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
-    [self.touchHandler attachToView:childComponentView];
+    if (self.touchHandler.view != nil && self.touchHandler.view != childComponentView) {
+        [self.touchHandler attachToView:childComponentView];
+    }
     [self.mountingHelper updateChildrenTransaction:^{
         [self.modalViewController addReactSubview:childComponentView];
     }];
@@ -60,7 +62,9 @@ RCT_NOT_IMPLEMENTED(-(instancetype)initWithCoder : coder)
 
 - (void)unmountChildComponentView:(UIView<RCTComponentViewProtocol> *)childComponentView index:(NSInteger)index
 {
-    [self.touchHandler detachFromView:childComponentView];
+    if (self.touchHandler.view == childComponentView) {
+        [self.touchHandler detachFromView:childComponentView];
+    }
     [self.mountingHelper unmountIfNeeded];
     [childComponentView removeFromSuperview];
 }
