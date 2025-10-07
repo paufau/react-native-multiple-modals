@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { Platform, Pressable, StatusBar, StyleSheet, View } from 'react-native';
 
-import { AppContainerWrapper } from './AppContainerWrapper';
+import { LayoutInspectorProvider } from './LayoutInspectorProvider';
 import { ScrollContextResetter } from './ScrollContextResetter';
 import { GestureHandlerRootView } from './integrations/GestureHandlerRootView';
 import RNTModalView from './newarch/NativeRNTModalView';
@@ -38,8 +38,8 @@ export const ModalView: FC<ModalViewProps> = ({
       onPressBackAndroid={() => onRequestDismiss?.(DismissalSource.BackButton)}
       animationType={animationType}
     >
-      <AppContainerWrapper>
-        <View collapsable={false} style={styles.flex}>
+      <View collapsable={false} style={styles.flex}>
+        <LayoutInspectorProvider>
           {isIOS && statusBar && !disableDefaultStatusBarIOS ? (
             <StatusBar {...statusBar} />
           ) : null}
@@ -69,8 +69,8 @@ export const ModalView: FC<ModalViewProps> = ({
               </View>
             </ScrollContextResetter>
           </GestureHandlerRootView>
-        </View>
-      </AppContainerWrapper>
+        </LayoutInspectorProvider>
+      </View>
     </RNTModalView>
   );
 };
