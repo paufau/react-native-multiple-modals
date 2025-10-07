@@ -46,6 +46,7 @@
     "build": "npx bob build",
     "release": "npm run build && npm publish",
     "release:nightly": "npm run build && npm publish --tag nightly",
+    "promote:nightly": "./scripts/nightly-to-latest.sh",
     "prepare": "husky"
   },
   "files": [
