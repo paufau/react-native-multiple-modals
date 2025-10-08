@@ -9,6 +9,17 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 
 ![React Native Multiple Modals](./assets/preview.gif)
 
+## 📚 Documentation
+
+For comprehensive documentation, visit: **[https://paufau.github.io/react-native-multiple-modals/](https://paufau.github.io/react-native-multiple-modals/)**
+
+The documentation includes:
+- 📖 [Installation Guide](https://paufau.github.io/react-native-multiple-modals/installation)
+- 🚀 [Usage Examples](https://paufau.github.io/react-native-multiple-modals/usage)
+- 🔧 [API Reference](https://paufau.github.io/react-native-multiple-modals/api/properties)
+- 🐛 [Troubleshooting](https://paufau.github.io/react-native-multiple-modals/troubleshooting)
+- 🤝 [Contributing](https://paufau.github.io/react-native-multiple-modals/contribution)
+
 ## ✨ Features
 
 - 🚀 Shows multiple instances at the same time
@@ -160,7 +171,7 @@ Follow instructions: https://github.com/paufau/react-native-multiple-modals-exam
 
 Common:
 
-- Create separate documentation page
+- ✅ Create separate documentation page - [View Docs](https://paufau.github.io/react-native-multiple-modals/)
 
 ## Troubleshooting
 
