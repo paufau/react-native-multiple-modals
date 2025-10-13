@@ -28,7 +28,6 @@
 @property(nonatomic, strong) ModalAnimation *inAnimation;
 @property(nonatomic, strong) ModalAnimation *outAnimation;
 @property(nonatomic, assign) CGRect lastBounds;
-@property(nonatomic, assign) BOOL shouldTrackRotationChange;
 
 @end
 
