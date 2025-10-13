@@ -14,7 +14,6 @@
     if (self) {
         self.reactSubviewContainer = [[UIView alloc] init];
         self.delegate = delegate;
-        self.shouldTrackRotationChange = NO;
     }
     return self;
 }
@@ -38,16 +37,10 @@
     [self setupReactSubview:self.reactSubviewContainer];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self.inAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
-        self.shouldTrackRotationChange = YES;
-    }];
-}
-
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    if (!CGRectEqualToRect(self.lastBounds, self.view.bounds) && self.shouldTrackRotationChange) {
+    if (!CGRectEqualToRect(self.lastBounds, self.view.bounds)) {
         [self.delegate boundsDidChange:self.view.bounds];
         self.lastBounds = self.view.bounds;
     }
@@ -67,7 +60,6 @@
     self.reactSubviewContainer = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
     [prevReactSubviewContainer removeFromSuperview];
 
-    self.shouldTrackRotationChange = NO;
     [self setupReactSubview:self.reactSubviewContainer];
     [self.outAnimation prepareAnimation:self.reactSubviewContainer];
     [self.outAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
