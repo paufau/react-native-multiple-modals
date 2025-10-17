@@ -7,6 +7,7 @@ import { useID } from './hooks/useID';
 import { useModalRegistry } from './hooks/useModalRegistry';
 
 import type { MouseEvent } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 import type { ModalViewProps } from './types';
 
 export type ModalViewWebProps = Omit<
@@ -14,6 +15,7 @@ export type ModalViewWebProps = Omit<
   'statusBar' | 'disableDefaultStatusBarIOS' | 'statusBarTranslucent'
 > & {
   modalId?: string;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 const backdropAccessibilityLabel = 'Backdrop';
@@ -31,6 +33,7 @@ export const ModalView = ({
   renderBackdrop,
   onRequestDismiss,
   contentContainerStyle,
+  containerStyle,
   BackdropPressableComponent = Pressable,
   backdropColor = defaultBackdropColor,
   animationType = 'none',
@@ -58,7 +61,7 @@ export const ModalView = ({
   }, [animationType, modalIsOpen]);
 
   return createPortal(
-    <View style={[styles.backdropContainer]}>
+    <View style={[styles.backdropContainer, containerStyle]}>
       <BackdropPressableComponent
         accessibilityLabel={backdropAccessibilityLabel}
         accessibilityHint={backdropAccessibilityHint}
