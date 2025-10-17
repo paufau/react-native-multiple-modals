@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
-import type { FC } from 'react';
 
 import { createPortal } from 'react-dom';
 import { StyleSheet, View, Pressable } from 'react-native';
 
 import { useID } from './hooks/useID';
 import { useModalRegistry } from './hooks/useModalRegistry';
+
+import type { MouseEvent } from 'react';
 import type { ModalViewProps } from './types';
 
 export type ModalViewWebProps = Omit<
@@ -24,7 +25,7 @@ export enum DismissalSource {
   Backdrop = 'Backdrop',
 }
 
-export const ModalView: FC<ModalViewWebProps> = ({
+export const ModalView = ({
   modalId,
   children,
   renderBackdrop,
@@ -33,7 +34,7 @@ export const ModalView: FC<ModalViewWebProps> = ({
   BackdropPressableComponent = Pressable,
   backdropColor = defaultBackdropColor,
   animationType = 'none',
-}) => {
+}: ModalViewWebProps) => {
   const currentModalId = useID(modalId);
   const { modals, isBackdropVisible } = useModalRegistry(currentModalId);
   const modalIsOpen = modals.has(currentModalId);
@@ -65,7 +66,13 @@ export const ModalView: FC<ModalViewWebProps> = ({
           styles.backdropPressable,
           !isBackdropVisible && styles.backdropHidden,
         ]}
-        onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+        onPress={(e) => {
+          const event = e as unknown as MouseEvent<Element>;
+
+          if (event.target === event.currentTarget) {
+            onRequestDismiss?.(DismissalSource.Backdrop);
+          }
+        }}
       >
         {renderBackdrop ? (
           renderBackdrop()

@@ -60,4 +60,14 @@ module.exports = [
       ],
     },
   },
+  // Web-specific files
+  {
+    files: ['src/**/*.web.{ts,tsx}'],
+    languageOptions: {
+      globals: {
+        document: 'readonly',
+        Element: 'readonly',
+      },
+    },
+  },
 ];
