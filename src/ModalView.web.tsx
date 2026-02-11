@@ -30,6 +30,7 @@ export const ModalView: FC<ModalViewWebProps> = ({
   renderBackdrop,
   onRequestDismiss,
   contentContainerStyle,
+  showBackdrop = true,
   BackdropPressableComponent = Pressable,
   backdropColor = defaultBackdropColor,
   animationType = 'none',
@@ -57,22 +58,24 @@ export const ModalView: FC<ModalViewWebProps> = ({
   }, [animationType, modalIsOpen]);
 
   return createPortal(
-    <View style={[styles.backdropContainer]}>
-      <BackdropPressableComponent
-        accessibilityLabel={backdropAccessibilityLabel}
-        accessibilityHint={backdropAccessibilityHint}
-        style={[
-          styles.backdropPressable,
-          !isBackdropVisible && styles.backdropHidden,
-        ]}
-        onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
-      >
-        {renderBackdrop ? (
-          renderBackdrop()
-        ) : (
-          <View style={[styles.flex, { backgroundColor: backdropColor }]} />
-        )}
-      </BackdropPressableComponent>
+    <View style={[showBackdrop && styles.backdropContainer]}>
+      {showBackdrop && (
+        <BackdropPressableComponent
+          accessibilityLabel={backdropAccessibilityLabel}
+          accessibilityHint={backdropAccessibilityHint}
+          style={[
+            styles.backdropPressable,
+            !isBackdropVisible && styles.backdropHidden,
+          ]}
+          onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+        >
+          {renderBackdrop ? (
+            renderBackdrop()
+          ) : (
+            <View style={[styles.flex, { backgroundColor: backdropColor }]} />
+          )}
+        </BackdropPressableComponent>
+      )}
 
       <View
         role='dialog'
