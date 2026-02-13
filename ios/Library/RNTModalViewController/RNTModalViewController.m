@@ -14,6 +14,9 @@
     if (self) {
         self.reactSubviewContainer = [[UIView alloc] init];
         self.delegate = delegate;
+        ModalAnimation *defaultAnimation = [[ModalAnimation alloc] init];
+        self.inAnimation = defaultAnimation;
+        self.outAnimation = defaultAnimation;
     }
     return self;
 }
@@ -35,6 +38,11 @@
     
     [self.inAnimation prepareAnimation:self.reactSubviewContainer];
     [self setupReactSubview:self.reactSubviewContainer];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.inAnimation animate:self.reactSubviewContainer completion:nil];
 }
 
 - (void)viewDidLayoutSubviews
