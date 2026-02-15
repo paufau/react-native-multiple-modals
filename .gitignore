@@ -77,3 +77,6 @@ android/keystores/debug.keystore
 
 # Build
 lib/
+
+# LLM
+.claude
