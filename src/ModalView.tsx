@@ -24,6 +24,7 @@ export const ModalView: FC<ModalViewProps> = ({
   onRequestDismiss,
   contentContainerStyle,
   statusBar,
+  showBackdrop = true,
   BackdropPressableComponent = Pressable,
   backdropColor = defaultBackdropColor,
   disableDefaultStatusBarIOS = false,
@@ -44,22 +45,24 @@ export const ModalView: FC<ModalViewProps> = ({
             <StatusBar {...statusBar} />
           ) : null}
           <GestureHandlerRootView style={styles.flex}>
-            <View style={[styles.backdropContainer]}>
-              <BackdropPressableComponent
-                accessibilityLabel={backdropAccessibilityLabel}
-                accessibilityHint={backdropAccessibilityHint}
-                style={styles.flex}
-                onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
-              >
-                {renderBackdrop ? (
-                  renderBackdrop()
-                ) : (
-                  <View
-                    style={[styles.flex, { backgroundColor: backdropColor }]}
-                  />
-                )}
-              </BackdropPressableComponent>
-            </View>
+            {showBackdrop && (
+              <View style={[styles.backdropContainer]}>
+                <BackdropPressableComponent
+                  accessibilityLabel={backdropAccessibilityLabel}
+                  accessibilityHint={backdropAccessibilityHint}
+                  style={styles.flex}
+                  onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+                >
+                  {renderBackdrop ? (
+                    renderBackdrop()
+                  ) : (
+                    <View
+                      style={[styles.flex, { backgroundColor: backdropColor }]}
+                    />
+                  )}
+                </BackdropPressableComponent>
+              </View>
+            )}
             <ScrollContextResetter>
               <View
                 pointerEvents='box-none'

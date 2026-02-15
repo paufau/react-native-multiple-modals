@@ -66,6 +66,12 @@ export type ModalViewProps = {
   animationType?: 'none' | 'fade' | 'slide';
 
   /**
+   * Whether to show the backdrop behind the modal.
+   * Defaults to true.
+   */
+  showBackdrop?: boolean;
+
+  /**
    * @deprecated Use `statusBar.translucent` instead.
    */
   statusBarTranslucent?: boolean;
