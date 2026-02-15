@@ -1,0 +1,84 @@
+{
+  "modals": [
+    {
+      "id": "simple",
+      "title": "Simple",
+      "description": "A simple modal that can be dismissed by tapping outside or pressing a button.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "animated-fade",
+      "title": "Animated Fade",
+      "description": "An animated modal that fades in and out.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "animated-slide",
+      "title": "Animated Slide",
+      "description": "An animated modal that slides in and out.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "blocking",
+      "title": "Blocking",
+      "description": "A modal that blocks interaction with the background. Appears from the bottom.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "blurred",
+      "title": "Blurred",
+      "description": "A modal that blurs the background. Appears from the bottom.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "gestured",
+      "title": "Gestured",
+      "description": "A modal that responds to gestures. Can be dragged",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "reanimated",
+      "title": "Reanimated",
+      "description": "A modal that uses custom reanimated layout animations.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "in-bottom-tab",
+      "title": "In Bottom Tab",
+      "description": "A modal that appears above a bottom tab navigator.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "full-screen",
+      "title": "Fill Screen",
+      "description": "A modal that takes up the entire screen.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "with-navigation-inside",
+      "title": "With Navigation Inside",
+      "description": "A modal that contains a navigation stack inside it.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    }
+  ]
+}
