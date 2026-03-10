@@ -3,6 +3,7 @@ package com.multiplemodals
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
+import android.os.Build
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
@@ -120,7 +121,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
     }
 
     private fun attachBackHandler(dialog: ModalDialog) {
-        // Prevent closing from native part as this is handled by JS
+        // Prevent KEYCODE_BACK from closing the dialog and handle the event in JS.
         dialog.setOnKeyListener(object : DialogInterface.OnKeyListener {
             override fun onKey(dialog: DialogInterface, keyCode: Int, event: KeyEvent): Boolean {
                 if (event.action != KeyEvent.ACTION_UP) {
@@ -144,6 +145,17 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
                 return false
             }
         })
+
+        // Register a back handler to prevent closing and handle the event in JS.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            dialog.onBackInvokedDispatcher.registerOnBackInvokedCallback(
+                android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT
+            ) {
+                UiThreadUtil.runOnUiThread {
+                    eventDispatcher.dispatchEvent(PressBackEvent(surfaceId, id))
+                }
+            }
+        }
     }
 
     // Child management
