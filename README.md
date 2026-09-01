@@ -65,7 +65,7 @@ const YourComponent = () => {
 };
 ```
 
-More Examples: https://github.com/paufau/react-native-multiple-modals-examples
+More Examples: https://github.com/paufau/react-native-multiple-modals/example/demo-components
 
 ---
 
