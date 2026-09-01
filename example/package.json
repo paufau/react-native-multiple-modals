@@ -22,13 +22,17 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
-    "typescript": "~6.0.3"
+    "jimp": "^1.6.0",
+    "js-yaml": "^4.1.0",
+    "typescript": "~6.0.3",
+    "yargs": "^18.0.0"
   },
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "e2e:run": "node ./e2e-run.mjs"
   },
   "private": true
 }

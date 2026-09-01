@@ -1,0 +1,26 @@
+appId: ${APP_ID}
+env:
+  TEST_NAME: simple_dismiss_by_button
+---
+# Always reset to the top first, then center the target card, so the background
+# scroll offset (visible behind see-through modals) is identical on every run.
+- scrollUntilVisible:
+    direction: up
+    element:
+      id: screen-top
+- scrollUntilVisible:
+    element:
+      id: ${MODAL_ID}-open-button
+    centerElement: true
+- tapOn:
+    id: ${MODAL_ID}-open-button
+- assertVisible:
+    id: ${MODAL_ID}-close-button
+- waitForAnimationToEnd:
+    timeout: 5000
+- takeScreenshot:
+    path: ${SCREENSHOTS_PATH}${TEST_NAME}_${MODAL_ID}_${ARCHITECTURE}_${DEVICE}
+- tapOn:
+    id: ${MODAL_ID}-close-button
+- assertNotVisible:
+    id: ${MODAL_ID}-close-button

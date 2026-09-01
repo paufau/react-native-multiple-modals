@@ -1,9 +1,25 @@
 {
   "modals": [
     {
+      "id": "default",
+      "title": "Default",
+      "description": "A default React Native modal that can be dismissed by pressing a button.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
       "id": "simple",
       "title": "Simple",
       "description": "A simple modal that can be dismissed by tapping outside or pressing a button.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
+    },
+    {
+      "id": "embedded",
+      "title": "Embedded",
+      "description": "A modal with another modal embedded inside it; dismissed by pressing a button.",
       "e2e": {
         "scenarios": ["simple_dismiss_by_button"]
       }
