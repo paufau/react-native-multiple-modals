@@ -22,6 +22,10 @@
 }
 
 - (void)setupReactSubview:(UIView *)subview {
+    if (!self.reactSubviewContainer || !self.view) {
+        return;
+    }
+
     [self.view addSubview:self.reactSubviewContainer];
     self.reactSubviewContainer.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -65,16 +69,24 @@
 
 - (void)dismiss {
     UIView *prevReactSubviewContainer = self.reactSubviewContainer;
-    self.reactSubviewContainer = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
-    [prevReactSubviewContainer removeFromSuperview];
+    UIView *snapshot = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
 
-    [self setupReactSubview:self.reactSubviewContainer];
-    [self.outAnimation prepareAnimation:self.reactSubviewContainer];
-    [self.outAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
+    if (snapshot) {
+        self.reactSubviewContainer = snapshot;
+        [prevReactSubviewContainer removeFromSuperview];
+
+        [self setupReactSubview:self.reactSubviewContainer];
+        [self.outAnimation prepareAnimation:self.reactSubviewContainer];
+        [self.outAnimation animate:self.reactSubviewContainer completion:^(BOOL finished) {
+            [self willMoveToParentViewController:nil];
+            [self.view removeFromSuperview];
+            [self removeFromParentViewController];
+        }];
+    } else {
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
-    }];
+    }
 }
 
 - (void)addReactSubview:(UIView *)view {

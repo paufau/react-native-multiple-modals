@@ -1,22 +1,23 @@
-import {ComponentType, useCallback, useMemo, useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {ScenarioCard} from './components/scenario-card/ScenarioCard';
-import {Typography} from './components/typography/Typography';
-import {AnimatedFadeModal} from './modals/animated-fade/AnimatedFadeModal';
-import {BlockingModal} from './modals/blocking/BlockingModal';
-import {BlurredModal} from './modals/blurred/BlurredModal';
-import {DefaultModal} from './modals/default/DefaultModal';
-import {FullScreenNoBackgroundModal} from './modals/full-screen-no-bg/FullScreenNoBackgroundModal';
-import {GesturedModal} from './modals/gestured/GesturedModal';
-import {InBottomTabsModal} from './modals/in-bottom-tabs-modal/InBottomTabsModal';
-import {ReanimatedModal} from './modals/reanimated/ReanimatedModal';
-import {SimpleModal} from './modals/simple/SimpleModal';
-import {AnimatedSlideModal} from './modals/slide/AnimatedSlideModal';
-import {WithNavigationInsideModal} from './modals/with-navigation-inside/WithNavigationInsideModal';
-import {useTheme} from './theme/colors';
-import {IS_FABRIC} from './constants';
-import {EmbeddedModal} from './modals/embedded/EmbeddedModal';
+import { ComponentType, useCallback, useMemo, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScenarioCard } from './components/scenario-card/ScenarioCard';
+import { Typography } from './components/typography/Typography';
+import { AnimatedFadeModal } from './modals/animated-fade/AnimatedFadeModal';
+import { BlockingModal } from './modals/blocking/BlockingModal';
+import { BlurredModal } from './modals/blurred/BlurredModal';
+import { DefaultModal } from './modals/default/DefaultModal';
+import { FullScreenNoBackgroundModal } from './modals/full-screen-no-bg/FullScreenNoBackgroundModal';
+import { GesturedModal } from './modals/gestured/GesturedModal';
+import { InBottomTabsModal } from './modals/in-bottom-tabs-modal/InBottomTabsModal';
+import { ReanimatedModal } from './modals/reanimated/ReanimatedModal';
+import { SimpleModal } from './modals/simple/SimpleModal';
+import { AnimatedSlideModal } from './modals/slide/AnimatedSlideModal';
+import { WithNavigationInsideModal } from './modals/with-navigation-inside/WithNavigationInsideModal';
+import { useTheme } from './theme/colors';
+import { IS_FABRIC } from './constants';
+import { EmbeddedModal } from './modals/embedded/EmbeddedModal';
+import { FlashModal } from './modals/flash-modal/FlashModal';
 
 type DemoCase = {
   id: string;
@@ -28,7 +29,7 @@ type DemoCase = {
 };
 
 export const DemoScreen = () => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   const [activeCases, setActiveCases] = useState<DemoCase[]>([]);
 
@@ -130,6 +131,12 @@ export const DemoScreen = () => {
         description: 'A modal that contains a navigation stack inside it.',
         Component: WithNavigationInsideModal,
       },
+      {
+        id: 'flash-modal',
+        title: 'Flash Modal',
+        description: 'Tap Flash: a submodal is dismissed before it renders',
+        Component: FlashModal,
+      },
     ],
     [openModal],
   );
@@ -163,16 +170,18 @@ export const DemoScreen = () => {
 
   return (
     <SafeAreaView
-      style={[styles.safeArea, {backgroundColor: colors.background}]}>
+      style={[styles.safeArea, { backgroundColor: colors.background }]}
+    >
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}>
-        <Typography testID="screen-top" style={styles.architecture}>
+        contentContainerStyle={styles.scrollContent}
+      >
+        <Typography testID='screen-top' style={styles.architecture}>
           Current Architecture: {IS_FABRIC ? 'Fabric 🚀' : 'Paper ✈️'}
         </Typography>
 
         <View style={styles.casesContainer}>
-          {demoCases.map(({title, description, id}) => (
+          {demoCases.map(({ title, description, id }) => (
             <ScenarioCard
               key={id}
               testID={`${id}-open-button`}

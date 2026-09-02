@@ -1,0 +1,30 @@
+appId: ${APP_ID}
+env:
+  TEST_NAME: flash_dismiss
+---
+# Regression guard for the "dismiss before first render" crash. Flashing a
+# submodal (open, then dismiss on the next tick before it renders a frame)
+- scrollUntilVisible:
+    direction: up
+    element:
+      id: screen-top
+- scrollUntilVisible:
+    element:
+      id: ${MODAL_ID}-open-button
+    centerElement: true
+- tapOn:
+    id: ${MODAL_ID}-open-button
+- assertVisible:
+    id: ${MODAL_ID}-flash-button
+- repeat:
+    times: 10
+    commands:
+      - tapOn:
+          id: ${MODAL_ID}-flash-button
+# If any flash crashed the app, the button is gone and this assertion fails.
+- assertVisible:
+    id: ${MODAL_ID}-flash-button
+- tapOn:
+    id: ${MODAL_ID}-close-button
+- assertNotVisible:
+    id: ${MODAL_ID}-close-button
