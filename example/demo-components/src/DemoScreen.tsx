@@ -31,6 +31,7 @@ type DemoCase = {
 
 export const DemoScreen = () => {
   const { colors } = useTheme();
+  const { colors } = useTheme();
 
   const [activeCases, setActiveCases] = useState<DemoCase[]>([]);
 
@@ -180,8 +181,13 @@ export const DemoScreen = () => {
     <SafeAreaView
       style={[styles.safeArea, { backgroundColor: colors.background }]}
     >
+      style={[styles.safeArea, { backgroundColor: colors.background }]}
+    >
       <ScrollView
         style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <Typography testID='screen-top' style={styles.architecture}>
         contentContainerStyle={styles.scrollContent}
       >
         <Typography testID='screen-top' style={styles.architecture}>
@@ -189,6 +195,7 @@ export const DemoScreen = () => {
         </Typography>
 
         <View style={styles.casesContainer}>
+          {demoCases.map(({ title, description, id }) => (
           {demoCases.map(({ title, description, id }) => (
             <ScenarioCard
               key={id}
