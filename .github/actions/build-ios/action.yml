@@ -23,9 +23,9 @@ runs:
       run: |
         if [ -n "${{ inputs.rn-version }}" ]; then
           npm --prefix example pkg set "overrides.react-native=${{ inputs.rn-version }}"
-          npm --prefix example install --no-save
+          npm --prefix example install --no-save --ignore-scripts
         else
-          npm --prefix example ci
+          npm --prefix example ci --ignore-scripts
         fi
 
     - name: Pod install
