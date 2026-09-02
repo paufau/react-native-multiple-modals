@@ -152,10 +152,6 @@ If you notice any bugs or anything working differently compared to React Native,
 
 I would love if you would let me know what you are missing in the library. _Together we can make it a community standard!_
 
-## Developing & Testing
-
-Follow instructions: https://github.com/paufau/react-native-multiple-modals-examples
-
 ## Roadmap
 
 Common:
@@ -174,10 +170,6 @@ Common:
 | 3.0.0+          | 73+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/main)   |
 | 2.0.0 - 2.5.0   | 71+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v2.5.0) |
 | 1.0.0 - 1.2.6   | 70+          | ✅       | ❌       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v1.2.6) |
-
-## Author
-
-- [Pavel Pakseev](https://www.linkedin.com/in/pavel-pakseev/)
 
 ## Sponsor & Support
 
