@@ -95,6 +95,14 @@
       "e2e": {
         "scenarios": ["simple_dismiss_by_button"]
       }
+    },
+    {
+      "id": "flash-modal",
+      "title": "Flash Modal",
+      "description": "A modal whose submodal is dismissed before it renders.",
+      "e2e": {
+        "scenarios": ["flash_dismiss"]
+      }
     }
   ]
 }

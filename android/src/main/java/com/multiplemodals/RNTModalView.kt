@@ -174,7 +174,7 @@ class RNTModalView(context: Context): ViewGroup(context), LifecycleEventListener
         return modalView.childCount
     }
 
-    override fun getChildAt(index: Int): View {
+    override fun getChildAt(index: Int): View? {
         return modalView.getChildAt(index)
     }
 
