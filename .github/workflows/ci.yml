@@ -46,3 +46,23 @@ jobs:
             git status --porcelain
             exit 1
           fi
+
+  android:
+    name: Build Android (new arch)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Android
+        uses: ./.github/actions/build-android
+
+  ios:
+    name: Build iOS (new arch)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build iOS
+        uses: ./.github/actions/build-ios

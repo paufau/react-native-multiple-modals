@@ -1,0 +1,34 @@
+name: nightly
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  nightly-android:
+    name: Build Android against react-native@nightly
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Android
+        uses: ./.github/actions/build-android
+        with:
+          rn-version: nightly
+
+  nightly-ios:
+    name: Build iOS against react-native@nightly
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build iOS
+        uses: ./.github/actions/build-ios
+        with:
+          rn-version: nightly
