@@ -29,6 +29,11 @@ runs:
           npm --prefix example ci
         fi
 
+    - name: Prebuild native project (ios)
+      shell: bash
+      run: npx expo prebuild --platform ios --no-install
+      working-directory: example
+
     - name: Pod install
       shell: bash
       run: pod install

@@ -36,6 +36,11 @@ runs:
           npm --prefix example ci
         fi
 
+    - name: Prebuild native project (android)
+      shell: bash
+      run: npx expo prebuild --platform android --no-install
+      working-directory: example
+
     - name: Build Android (assembleDebug, new arch)
       shell: bash
       run: ./gradlew assembleDebug -PnewArchEnabled=true -PreactNativeArchitectures=arm64-v8a --no-daemon
