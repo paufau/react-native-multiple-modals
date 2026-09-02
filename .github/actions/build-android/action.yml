@@ -28,11 +28,12 @@ runs:
     - name: Install example dependencies
       shell: bash
       run: |
+        npm pkg delete scripts.prepare
         if [ -n "${{ inputs.rn-version }}" ]; then
           npm --prefix example pkg set "overrides.react-native=${{ inputs.rn-version }}"
-          npm --prefix example install --no-save --ignore-scripts
+          npm --prefix example install --no-save
         else
-          npm --prefix example ci --ignore-scripts
+          npm --prefix example ci
         fi
 
     - name: Build Android (assembleDebug, new arch)
