@@ -10,7 +10,7 @@
 
 @protocol RNTModalViewControllerProtocol <NSObject>
 - (void)presentOn:(UIViewController *)parentVC onView:(UIView *)parentView;
-- (void)dismiss;
+- (void)dismissWithCompletion:(void (^ _Nullable)(void))completion;
 - (void)addReactSubview:(UIView *)view;
 - (void)setupReactSubview:(UIView *)subview;
 - (void)setAnimationType:(NSString *)type;

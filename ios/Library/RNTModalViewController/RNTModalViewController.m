@@ -67,7 +67,7 @@
     [self didMoveToParentViewController:parentVC];
 }
 
-- (void)dismiss {
+- (void)dismissWithCompletion:(void (^ _Nullable)(void))completion {
     UIView *prevReactSubviewContainer = self.reactSubviewContainer;
     UIView *snapshot = [self.reactSubviewContainer snapshotViewAfterScreenUpdates:NO];
 
@@ -81,11 +81,17 @@
             [self willMoveToParentViewController:nil];
             [self.view removeFromSuperview];
             [self removeFromParentViewController];
+            if (completion) {
+                completion();
+            }
         }];
     } else {
         [self willMoveToParentViewController:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
+        if (completion) {
+            completion();
+        }
     }
 }
 
