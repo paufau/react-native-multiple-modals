@@ -18,6 +18,7 @@ import { useTheme } from './theme/colors';
 import { IS_FABRIC } from './constants';
 import { EmbeddedModal } from './modals/embedded/EmbeddedModal';
 import { FlashModal } from './modals/flash-modal/FlashModal';
+import { EdgeToEdgeModal } from './modals/edge-to-edge/EdgeToEdgeModal';
 
 type DemoCase = {
   id: string;
@@ -136,6 +137,13 @@ export const DemoScreen = () => {
         title: 'Flash Modal',
         description: 'Tap Flash: a submodal is dismissed before it renders',
         Component: FlashModal,
+      },
+      {
+        id: 'edge-to-edge',
+        title: 'Edge To Edge',
+        description:
+          'Content stays within the safe area while the backdrop covers system bars.',
+        Component: EdgeToEdgeModal,
       },
     ],
     [openModal],

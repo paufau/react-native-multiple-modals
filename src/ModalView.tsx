@@ -5,6 +5,7 @@ import { Platform, Pressable, StatusBar, StyleSheet, View } from 'react-native';
 import { LayoutInspectorProvider } from './LayoutInspectorProvider';
 import { ScrollContextResetter } from './ScrollContextResetter';
 import { GestureHandlerRootView } from './integrations/GestureHandlerRootView';
+import { SafeAreaProvider } from './integrations/SafeAreaProvider';
 import RNTModalView from './newarch/NativeRNTModalView';
 import type { ModalViewProps } from './types';
 
@@ -40,39 +41,41 @@ export const ModalView: FC<ModalViewProps> = ({
       animationType={animationType}
     >
       <View collapsable={false} style={styles.flex}>
-        <LayoutInspectorProvider>
-          {isIOS && statusBar && !disableDefaultStatusBarIOS ? (
-            <StatusBar {...statusBar} />
-          ) : null}
-          <GestureHandlerRootView style={styles.flex}>
-            {showBackdrop && (
-              <View style={[styles.backdropContainer]}>
-                <BackdropPressableComponent
-                  accessibilityLabel={backdropAccessibilityLabel}
-                  accessibilityHint={backdropAccessibilityHint}
-                  style={styles.flex}
-                  onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+        <SafeAreaProvider style={styles.flex}>
+          <LayoutInspectorProvider>
+            {isIOS && statusBar && !disableDefaultStatusBarIOS ? (
+              <StatusBar {...statusBar} />
+            ) : null}
+            <GestureHandlerRootView style={styles.flex}>
+              {showBackdrop && (
+                <View style={[styles.backdropContainer]}>
+                  <BackdropPressableComponent
+                    accessibilityLabel={backdropAccessibilityLabel}
+                    accessibilityHint={backdropAccessibilityHint}
+                    style={styles.flex}
+                    onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
+                  >
+                    {renderBackdrop ? (
+                      renderBackdrop()
+                    ) : (
+                      <View
+                        style={[styles.flex, { backgroundColor: backdropColor }]}
+                      />
+                    )}
+                  </BackdropPressableComponent>
+                </View>
+              )}
+              <ScrollContextResetter>
+                <View
+                  pointerEvents='box-none'
+                  style={[styles.content, contentContainerStyle]}
                 >
-                  {renderBackdrop ? (
-                    renderBackdrop()
-                  ) : (
-                    <View
-                      style={[styles.flex, { backgroundColor: backdropColor }]}
-                    />
-                  )}
-                </BackdropPressableComponent>
-              </View>
-            )}
-            <ScrollContextResetter>
-              <View
-                pointerEvents='box-none'
-                style={[styles.content, contentContainerStyle]}
-              >
-                {children}
-              </View>
-            </ScrollContextResetter>
-          </GestureHandlerRootView>
-        </LayoutInspectorProvider>
+                  {children}
+                </View>
+              </ScrollContextResetter>
+            </GestureHandlerRootView>
+          </LayoutInspectorProvider>
+        </SafeAreaProvider>
       </View>
     </RNTModalView>
   );
