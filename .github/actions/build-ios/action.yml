@@ -1,0 +1,54 @@
+name: Build iOS
+description: >-
+  Build the example app's iOS (new arch).
+
+inputs:
+  rn-version:
+    description: 'react-native version to force in the example (e.g. "nightly", "0.84"). Empty = use the committed lockfile.'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v5
+      with:
+        node-version: 24
+        cache: 'npm'
+        cache-dependency-path: example/package-lock.json
+
+    - name: Install example dependencies
+      shell: bash
+      run: |
+        npm pkg delete scripts.prepare
+        if [ -n "${{ inputs.rn-version }}" ]; then
+          npm --prefix example pkg set "overrides.react-native=${{ inputs.rn-version }}"
+          npm --prefix example install --no-save
+        else
+          npm --prefix example ci
+        fi
+
+    - name: Prebuild native project (ios)
+      shell: bash
+      run: npx expo prebuild --platform ios --no-install
+      working-directory: example
+
+    - name: Pod install
+      shell: bash
+      run: pod install
+      working-directory: example/ios
+
+    - name: Build iOS (xcodebuild)
+      shell: bash
+      run: |
+        xcodebuild \
+          -workspace example.xcworkspace \
+          -scheme example \
+          -configuration Debug \
+          -sdk iphonesimulator \
+          -destination 'generic/platform=iOS Simulator' \
+          build \
+          CODE_SIGNING_ALLOWED=NO \
+          -quiet
+      working-directory: example/ios

@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 permissions:
   contents: read
@@ -15,16 +15,16 @@ concurrency:
 
 jobs:
   ci:
-    name: CI
+    name: Code Quality
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
           cache: 'npm'
 
       - name: Install dependencies
@@ -46,3 +46,23 @@ jobs:
             git status --porcelain
             exit 1
           fi
+
+  android:
+    name: Build Android (new arch)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Build Android
+        uses: ./.github/actions/build-android
+
+  ios:
+    name: Build iOS (new arch)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Build iOS
+        uses: ./.github/actions/build-ios
