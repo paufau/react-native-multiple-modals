@@ -65,12 +65,14 @@
 }
 
 - (void)unmount {
-    [self.modal dismiss];
+    UIWindow *window = modalWindow;
+    [self.modal dismissWithCompletion:^{
+        window.hidden = YES;
+    }];
     self.modal = nil;
     self.isMounted = NO;
     self.hasProps = NO;
     self.hasChildren = NO;
-    modalWindow.hidden = YES;
     modalWindow = nil;
 }
 
