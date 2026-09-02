@@ -18,6 +18,7 @@ import { useTheme } from './theme/colors';
 import { IS_FABRIC } from './constants';
 import { EmbeddedModal } from './modals/embedded/EmbeddedModal';
 import { FlashModal } from './modals/flash-modal/FlashModal';
+import { EdgeToEdgeModal } from './modals/edge-to-edge/EdgeToEdgeModal';
 
 type DemoCase = {
   id: string;
@@ -29,6 +30,7 @@ type DemoCase = {
 };
 
 export const DemoScreen = () => {
+  const { colors } = useTheme();
   const { colors } = useTheme();
 
   const [activeCases, setActiveCases] = useState<DemoCase[]>([]);
@@ -137,6 +139,13 @@ export const DemoScreen = () => {
         description: 'Tap Flash: a submodal is dismissed before it renders',
         Component: FlashModal,
       },
+      {
+        id: 'edge-to-edge',
+        title: 'Edge To Edge',
+        description:
+          'Content stays within the safe area while the backdrop covers system bars.',
+        Component: EdgeToEdgeModal,
+      },
     ],
     [openModal],
   );
@@ -172,8 +181,13 @@ export const DemoScreen = () => {
     <SafeAreaView
       style={[styles.safeArea, { backgroundColor: colors.background }]}
     >
+      style={[styles.safeArea, { backgroundColor: colors.background }]}
+    >
       <ScrollView
         style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <Typography testID='screen-top' style={styles.architecture}>
         contentContainerStyle={styles.scrollContent}
       >
         <Typography testID='screen-top' style={styles.architecture}>
@@ -181,6 +195,7 @@ export const DemoScreen = () => {
         </Typography>
 
         <View style={styles.casesContainer}>
+          {demoCases.map(({ title, description, id }) => (
           {demoCases.map(({ title, description, id }) => (
             <ScenarioCard
               key={id}

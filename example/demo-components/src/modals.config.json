@@ -103,6 +103,14 @@
       "e2e": {
         "scenarios": ["flash_dismiss"]
       }
+    },
+    {
+      "id": "edge-to-edge",
+      "title": "Edge To Edge",
+      "description": "A full-screen modal whose content stays within the safe area while the backdrop covers the system bars.",
+      "e2e": {
+        "scenarios": ["simple_dismiss_by_button"]
+      }
     }
   ]
 }
