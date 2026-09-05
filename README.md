@@ -154,8 +154,10 @@ I would love if you would let me know what you are missing in the library. _Toge
 
 ## Roadmap
 
-Common:
-
+- Align web modal behavior and API with mobile
+- Build CI verification against nightly RN
+- Drop old architecture support & deprecated props
+- Change versioning to {LIB}.{RN_VERSION}.{PATCH}
 - Create separate documentation page
 
 ## Troubleshooting
