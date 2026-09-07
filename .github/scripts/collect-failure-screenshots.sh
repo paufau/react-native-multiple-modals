@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
-# Copy Maestro's failure screenshot(s) into ./maestro-debug with clean names, for
-# upload as a CI artifact. Maestro writes one screenshot per failed flow to
-# ~/.maestro/tests/<run>/screenshot-*.png; the per-step modal screenshots (in
-# example/e2e/screenshots) are intentionally excluded.
 mkdir -p maestro-debug
-i=0
-for f in ~/.maestro/tests/*/screenshot-*.png; do
-  [ -e "$f" ] || break
-  cp "$f" "maestro-debug/failure-$i.png"
-  i=$((i + 1))
-done
+latest=$(find "$HOME/.maestro/tests" -type f -name '*.png' -print0 2>/dev/null \
+  | xargs -0 ls -t 2>/dev/null | head -1)
+if [ -n "$latest" ] && [ -e "$latest" ]; then
+  cp "$latest" maestro-debug/failure.png
+fi
