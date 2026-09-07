@@ -48,3 +48,16 @@ runs:
         script: |
           npx expo run:android --variant release --no-bundler
           npm run e2e:run -- --platform android --run-steps generation tests
+
+    - name: Collect failure screenshot
+      if: failure()
+      shell: bash
+      run: .github/scripts/collect-failure-screenshots.sh
+
+    - name: Upload failure screenshot
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: failure-screenshot-android
+        path: maestro-debug/
+        if-no-files-found: ignore
