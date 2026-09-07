@@ -1,11 +1,10 @@
-import { useMemo } from 'react';
+import { useEffect, useId, useMemo, useState } from 'react';
 import type { FC } from 'react';
 
 import { createPortal } from 'react-dom';
 import { StyleSheet, View, Pressable } from 'react-native';
 
-import { useID } from './hooks/useID';
-import { useModalRegistry } from './hooks/useModalRegistry';
+import { useModalStack } from './hooks/useModalStack';
 import type { ModalViewProps } from './types';
 
 export type ModalViewWebProps = Omit<
@@ -18,6 +17,8 @@ export type ModalViewWebProps = Omit<
 const backdropAccessibilityLabel = 'Backdrop';
 const backdropAccessibilityHint = 'Double-tap to close the modal';
 const defaultBackdropColor = 'rgba(0, 0, 0, 0.3)';
+
+const MODAL_Z_INDEX = 10000; // react-native-web's default <Modal> renders at zIndex 9999
 
 export enum DismissalSource {
   BackButton = 'BackButton',
@@ -35,38 +36,56 @@ export const ModalView: FC<ModalViewWebProps> = ({
   backdropColor = defaultBackdropColor,
   animationType = 'none',
 }) => {
-  const currentModalId = useID(modalId);
-  const { modals, isBackdropVisible } = useModalRegistry(currentModalId);
-  const modalIsOpen = modals.has(currentModalId);
+  const reactId = useId();
+  const currentModalId = modalId ?? reactId;
+  const { isTopmost } = useModalStack(currentModalId);
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isTopmost || !onRequestDismiss) {
+      return;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onRequestDismiss(DismissalSource.BackButton);
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isTopmost, onRequestDismiss]);
 
   const animatedStyle = useMemo(() => {
-    if (animationType === 'fade') {
-      return {
-        opacity: modalIsOpen ? 1 : 0,
-        transition: 'opacity 0.3s',
-      };
+    switch (animationType) {
+      case 'fade':
+        return { opacity: isOpen ? 1 : 0, transition: 'opacity 0.3s' };
+      case 'slide':
+        return {
+          transform: isOpen ? 'translateY(0)' : 'translateY(100%)',
+          opacity: isOpen ? 1 : 0,
+          transition: 'transform 0.3s, opacity 0.3s',
+        };
+      default:
+        return {};
     }
-    if (animationType === 'slide') {
-      return {
-        transform: modalIsOpen ? 'translateY(0)' : 'translateY(100%)',
-        opacity: modalIsOpen ? 1 : 0,
-        transition: 'transform 0.3s, opacity 0.3s',
-      };
-    }
-
-    return {};
-  }, [animationType, modalIsOpen]);
+  }, [animationType, isOpen]);
 
   return createPortal(
-    <View style={[showBackdrop && styles.backdropContainer]}>
+    <View pointerEvents='box-none' style={styles.container}>
       {showBackdrop && (
         <BackdropPressableComponent
           accessibilityLabel={backdropAccessibilityLabel}
           accessibilityHint={backdropAccessibilityHint}
-          style={[
-            styles.backdropPressable,
-            !isBackdropVisible && styles.backdropHidden,
-          ]}
+          style={styles.backdropPressable}
           onPress={() => onRequestDismiss?.(DismissalSource.Backdrop)}
         >
           {renderBackdrop ? (
@@ -95,9 +114,6 @@ const styles = StyleSheet.create({
     opacity: 1,
     alignSelf: 'stretch',
   },
-  backdropHidden: {
-    opacity: 0,
-  },
   flex: {
     flex: 1,
   },
@@ -108,7 +124,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 1,
   },
-  backdropContainer: {
+  container: {
     bottom: 0,
     display: 'flex',
     flexDirection: 'column',
@@ -116,6 +132,6 @@ const styles = StyleSheet.create({
     position: 'fixed',
     right: 0,
     top: 0,
-    zIndex: 0,
+    zIndex: MODAL_Z_INDEX,
   },
 } as const);
