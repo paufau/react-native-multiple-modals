@@ -25,15 +25,6 @@ module.exports = [
         sourceType: 'module',
         ecmaFeatures: { jsx: true },
       },
-      globals: {
-        __DEV__: 'readonly',
-        document: 'readonly',
-        require: 'readonly',
-        console: 'readonly',
-        KeyboardEvent: 'readonly',
-        HTMLElement: 'readonly',
-        Element: 'readonly',
-      },
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
@@ -45,6 +36,7 @@ module.exports = [
       // Base JS
       ...js.configs.recommended.rules,
       'no-unused-vars': 'off',
+      'no-undef': 'off',
 
       // React
       ...reactPlugin.configs.recommended.rules,

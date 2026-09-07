@@ -1,4 +1,4 @@
-import { useEffect, useId, useMemo, useState } from 'react';
+import { useEffect, useId } from 'react';
 import type { FC } from 'react';
 
 import { createPortal } from 'react-dom';
@@ -6,6 +6,7 @@ import { StyleSheet, View, Pressable } from 'react-native';
 
 import { FocusBracket } from './FocusBracket';
 import { useFocusTrap } from './hooks/useFocusTrap';
+import { useModalAnimation } from './hooks/useModalAnimation';
 import { useModalStack } from './hooks/useModalStack';
 import type { ModalViewProps } from './types';
 
@@ -43,12 +44,7 @@ export const ModalView: FC<ModalViewWebProps> = ({
   const { isTopmost } = useModalStack(currentModalId);
 
   const contentRef = useFocusTrap(isTopmost);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    setIsOpen(true);
-  }, []);
+  const { setContainerRef, animatedStyle } = useModalAnimation(animationType);
 
   useEffect(() => {
     if (!isTopmost || !onRequestDismiss) {
@@ -68,23 +64,12 @@ export const ModalView: FC<ModalViewWebProps> = ({
     };
   }, [isTopmost, onRequestDismiss]);
 
-  const animatedStyle = useMemo(() => {
-    switch (animationType) {
-      case 'fade':
-        return { opacity: isOpen ? 1 : 0, transition: 'opacity 0.3s' };
-      case 'slide':
-        return {
-          transform: isOpen ? 'translateY(0)' : 'translateY(100%)',
-          opacity: isOpen ? 1 : 0,
-          transition: 'transform 0.3s, opacity 0.3s',
-        };
-      default:
-        return {};
-    }
-  }, [animationType, isOpen]);
-
   return createPortal(
-    <View pointerEvents='box-none' style={styles.container}>
+    <View
+      ref={setContainerRef}
+      pointerEvents='box-none'
+      style={styles.container}
+    >
       {showBackdrop && (
         <BackdropPressableComponent
           accessibilityLabel={backdropAccessibilityLabel}

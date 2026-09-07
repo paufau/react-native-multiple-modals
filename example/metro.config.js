@@ -15,9 +15,7 @@ const config = getDefaultConfig(projectRoot);
 
 config.watchFolders = [projectRoot, path.resolve(root, 'src')];
 
-config.resolver.extraNodeModules = {
-  'react-native-multiple-modals': path.resolve(root, 'src'),
-};
+config.resolver.extraNodeModules = {};
 
 // Force the library's peer deps to resolve from the example's node_modules, and
 // block the root copies so imports originating in `../src` don't pick up the
@@ -35,5 +33,17 @@ config.resolver.blockList = [
   ...(Array.isArray(existing) ? existing : existing ? [existing] : []),
   ...blocks,
 ];
+
+const libName = pak.name;
+const libSrc = path.resolve(root, 'src');
+const libPrefix = `${libName}/`;
+
+config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (moduleName === libName || moduleName.startsWith(libPrefix)) {
+    const rest = moduleName.slice(libName.length);
+    return context.resolveRequest(context, path.join(libSrc, rest || 'index'), platform);
+  }
+  return context.resolveRequest(context, moduleName, platform);
+};
 
 module.exports = config;

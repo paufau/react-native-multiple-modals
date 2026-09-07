@@ -154,12 +154,8 @@ I would love if you would let me know what you are missing in the library. _Toge
 
 ## Roadmap
 
-- Align web modal behavior and API with mobile
-  - play exit animations (fade-out / slide-out) on dismiss
-  - focus trap, body scroll-lock, and `aria-modal` for accessibility
-  - guard `document.body` access for SSR (Next.js / server rendering)
+- Guard `document.body` access for SSR (Next.js / server rendering)
 - Drop old architecture support & deprecated props
-- Change versioning to {LIB}.{RN_VERSION}.{PATCH}
 - Create separate documentation page
 
 ## Troubleshooting
