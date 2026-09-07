@@ -1,5 +1,5 @@
 import { ComponentType, useCallback, useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScenarioCard } from './components/scenario-card/ScenarioCard';
 import { Typography } from './components/typography/Typography';
@@ -31,6 +31,7 @@ type DemoCase = {
 
 export const DemoScreen = () => {
   const { colors } = useTheme();
+  const { height } = useWindowDimensions();
 
   const [activeCases, setActiveCases] = useState<DemoCase[]>([]);
 
@@ -182,7 +183,10 @@ export const DemoScreen = () => {
     >
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: height / 2 },
+        ]}
       >
         <Typography testID='screen-top' style={styles.architecture}>
           Current Architecture: {IS_FABRIC ? 'Fabric 🚀' : 'Paper ✈️'}
