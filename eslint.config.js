@@ -31,6 +31,8 @@ module.exports = [
         require: 'readonly',
         console: 'readonly',
         KeyboardEvent: 'readonly',
+        HTMLElement: 'readonly',
+        Element: 'readonly',
       },
     },
     plugins: {
