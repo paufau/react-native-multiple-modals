@@ -1,0 +1,41 @@
+name: E2E iOS
+description: >-
+  run the e2e Maestro tests without screenshot comparison
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v5
+      with:
+        node-version: 24
+        cache: 'npm'
+        cache-dependency-path: example/package-lock.json
+
+    - name: Install example dependencies
+      shell: bash
+      run: |
+        npm pkg delete scripts.prepare
+        npm --prefix example ci
+
+    - name: Install Maestro
+      shell: bash
+      run: |
+        curl -Ls "https://get.maestro.mobile.dev" | bash
+        echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+    - name: Boot iPhone 16 simulator
+      shell: bash
+      run: |
+        xcrun simctl boot "iPhone 16" || true
+        xcrun simctl bootstatus "iPhone 16" -b
+
+    - name: Build & install app on simulator
+      shell: bash
+      run: npx expo run:ios --device "iPhone 16"
+      working-directory: example
+
+    - name: Run E2E (functional flows only)
+      shell: bash
+      run: npm run e2e:run -- --platform ios --run-steps generation tests
+      working-directory: example

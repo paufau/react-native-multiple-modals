@@ -1,0 +1,50 @@
+name: E2E Android
+description: >-
+  run the e2e Maestro tests without screenshot comparison
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v5
+      with:
+        node-version: 24
+        cache: 'npm'
+        cache-dependency-path: example/package-lock.json
+
+    - name: Setup Java
+      uses: actions/setup-java@v5
+      with:
+        distribution: temurin
+        java-version: 17
+        cache: gradle
+
+    - name: Enable KVM
+      shell: bash
+      run: |
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
+
+    - name: Install example dependencies
+      shell: bash
+      run: |
+        npm pkg delete scripts.prepare
+        npm --prefix example ci
+
+    - name: Install Maestro
+      shell: bash
+      run: |
+        curl -Ls "https://get.maestro.mobile.dev" | bash
+        echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+    - name: Run E2E on emulator (functional flows only)
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 34
+        arch: x86_64
+        profile: pixel_6
+        script: |
+          cd example
+          npx expo run:android
+          npm run e2e:run -- --platform android --run-steps generation tests
