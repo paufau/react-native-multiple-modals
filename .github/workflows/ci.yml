@@ -47,6 +47,14 @@ jobs:
             exit 1
           fi
 
+      - name: Install example dependencies
+        run: npm ci
+        working-directory: example
+
+      - name: Typecheck example
+        run: npm run typecheck
+        working-directory: example
+
   android:
     name: Build Android (new arch)
     runs-on: ubuntu-latest
