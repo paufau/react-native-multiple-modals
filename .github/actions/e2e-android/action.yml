@@ -38,13 +38,13 @@ runs:
         curl -Ls "https://get.maestro.mobile.dev" | bash
         echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
-    - name: Run E2E on emulator (functional flows only)
+    - name: Run E2E
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 34
         arch: x86_64
         profile: pixel_6
+        working-directory: example
         script: |
-          cd example
-          npx expo run:android
+          npx expo run:android --variant release --no-bundler
           npm run e2e:run -- --platform android --run-steps generation tests

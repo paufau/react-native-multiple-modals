@@ -24,18 +24,12 @@ runs:
         curl -Ls "https://get.maestro.mobile.dev" | bash
         echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
-    - name: Boot iPhone 16 simulator
+    - name: Build & install app on a simulator
       shell: bash
-      run: |
-        xcrun simctl boot "iPhone 16" || true
-        xcrun simctl bootstatus "iPhone 16" -b
-
-    - name: Build & install app on simulator
-      shell: bash
-      run: npx expo run:ios --device "iPhone 16"
+      run: npx expo run:ios --configuration Release --no-bundler
       working-directory: example
 
-    - name: Run E2E (functional flows only)
+    - name: Run E2E
       shell: bash
       run: npm run e2e:run -- --platform ios --run-steps generation tests
       working-directory: example
