@@ -30,6 +30,7 @@ module.exports = [
         document: 'readonly',
         require: 'readonly',
         console: 'readonly',
+        KeyboardEvent: 'readonly',
       },
     },
     plugins: {
