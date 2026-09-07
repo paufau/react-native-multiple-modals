@@ -1,5 +1,6 @@
 import {FC, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ModalView} from 'react-native-multiple-modals';
 import Animated, {
   FadeIn,
@@ -22,6 +23,7 @@ export const BlockingModal: FC<BlockingModalProps> = ({
   title,
 }) => {
   const {colors} = useTheme();
+  const insets = useSafeAreaInsets();
   const [isVisible, setVisibility] = useState(true);
 
   const hide = () => {
@@ -35,7 +37,10 @@ export const BlockingModal: FC<BlockingModalProps> = ({
         translucent: true,
         barStyle: 'dark-content',
       }}
-      contentContainerStyle={styles.contentContainer}
+      contentContainerStyle={[
+        styles.contentContainer,
+        {paddingBottom: insets.bottom},
+      ]}
       renderBackdrop={() =>
         isVisible ? (
           <Animated.View
