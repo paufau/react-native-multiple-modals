@@ -74,3 +74,23 @@ jobs:
 
       - name: Build iOS
         uses: ./.github/actions/build-ios
+
+  e2e-android:
+    name: E2E Android (new arch)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Run E2E Android
+        uses: ./.github/actions/e2e-android
+
+  e2e-ios:
+    name: E2E iOS (new arch)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Run E2E iOS
+        uses: ./.github/actions/e2e-ios

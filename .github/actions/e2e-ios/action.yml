@@ -1,0 +1,48 @@
+name: E2E iOS
+description: >-
+  run the e2e Maestro tests without screenshot comparison
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v5
+      with:
+        node-version: 24
+        cache: 'npm'
+        cache-dependency-path: example/package-lock.json
+
+    - name: Install example dependencies
+      shell: bash
+      run: |
+        npm pkg delete scripts.prepare
+        npm --prefix example ci
+
+    - name: Install Maestro
+      shell: bash
+      run: |
+        curl -Ls "https://get.maestro.mobile.dev" | bash
+        echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+    - name: Build & install app on a simulator
+      shell: bash
+      run: npx expo run:ios --configuration Release --no-bundler
+      working-directory: example
+
+    - name: Run E2E
+      shell: bash
+      run: npm run e2e:run -- --platform ios --run-steps generation tests
+      working-directory: example
+
+    - name: Collect failure screenshot
+      if: failure()
+      shell: bash
+      run: .github/scripts/collect-failure-screenshots.sh
+
+    - name: Upload failure screenshot
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: failure-screenshot-ios
+        path: maestro-debug/
+        if-no-files-found: ignore

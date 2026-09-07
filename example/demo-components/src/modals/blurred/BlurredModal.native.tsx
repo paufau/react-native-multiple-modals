@@ -1,6 +1,7 @@
 import {BlurView} from 'expo-blur';
 import {FC, useState} from 'react';
 import {StyleSheet, Text} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ModalView} from 'react-native-multiple-modals';
 import Animated, {
   FadeIn,
@@ -21,6 +22,7 @@ export const BlurredModal: FC<BlurredModalProps> = ({
   testID,
   title,
 }) => {
+  const insets = useSafeAreaInsets();
   const [isVisible, setVisibility] = useState(true);
 
   const hide = () => {
@@ -30,7 +32,10 @@ export const BlurredModal: FC<BlurredModalProps> = ({
 
   return (
     <ModalView
-      contentContainerStyle={styles.contentContainer}
+      contentContainerStyle={[
+        styles.contentContainer,
+        {paddingBottom: insets.bottom},
+      ]}
       onRequestDismiss={hide}
       renderBackdrop={() =>
         isVisible ? (

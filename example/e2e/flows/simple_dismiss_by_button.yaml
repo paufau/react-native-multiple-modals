@@ -14,13 +14,17 @@ env:
     centerElement: true
 - tapOn:
     id: ${MODAL_ID}-open-button
-- assertVisible:
-    id: ${MODAL_ID}-close-button
+- extendedWaitUntil:
+    visible:
+      id: ${MODAL_ID}-close-button
+    timeout: 5000
 - waitForAnimationToEnd:
     timeout: 5000
 - takeScreenshot:
     path: ${SCREENSHOTS_PATH}${TEST_NAME}_${MODAL_ID}_${ARCHITECTURE}_${DEVICE}
 - tapOn:
     id: ${MODAL_ID}-close-button
-- assertNotVisible:
-    id: ${MODAL_ID}-close-button
+- extendedWaitUntil:
+    notVisible:
+      id: ${MODAL_ID}-close-button
+    timeout: 5000
