@@ -4,6 +4,8 @@ import type { FC } from 'react';
 import { createPortal } from 'react-dom';
 import { StyleSheet, View, Pressable } from 'react-native';
 
+import { FocusBracket } from './FocusBracket';
+import { useFocusTrap } from './hooks/useFocusTrap';
 import { useModalStack } from './hooks/useModalStack';
 import type { ModalViewProps } from './types';
 
@@ -39,6 +41,8 @@ export const ModalView: FC<ModalViewWebProps> = ({
   const reactId = useId();
   const currentModalId = modalId ?? reactId;
   const { isTopmost } = useModalStack(currentModalId);
+
+  const contentRef = useFocusTrap(isTopmost);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -96,13 +100,18 @@ export const ModalView: FC<ModalViewWebProps> = ({
         </BackdropPressableComponent>
       )}
 
+      <FocusBracket />
       <View
+        ref={contentRef}
         role='dialog'
+        aria-modal={true}
+        tabIndex={-1}
         pointerEvents='box-none'
         style={[styles.content, animatedStyle, contentContainerStyle]}
       >
         {children}
       </View>
+      <FocusBracket />
     </View>,
     document.body,
   );
