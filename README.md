@@ -154,7 +154,6 @@ I would love if you would let me know what you are missing in the library. _Toge
 
 ## Roadmap
 
-- Guard `document.body` access for SSR (Next.js / server rendering)
 - Drop old architecture support & deprecated props
 - Create separate documentation page
 
