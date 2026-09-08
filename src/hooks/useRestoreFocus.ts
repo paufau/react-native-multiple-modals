@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { maybeGetElement } from '../focusHelpers';
+import { maybeGetElement } from '../helpers/focusHelpers';
 
 export function useRestoreFocus() {
   useEffect(() => {

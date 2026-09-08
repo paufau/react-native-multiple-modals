@@ -7,7 +7,7 @@ import {
   inertBackground,
   maybeGetElement,
   onDocumentFocus,
-} from '../focusHelpers';
+} from '../helpers/focusHelpers';
 import { useRestoreFocus } from './useRestoreFocus';
 
 export function useFocusTrap(isTopmost: boolean) {

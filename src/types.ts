@@ -9,6 +9,8 @@ import type {
 
 import { DismissalSource } from './ModalView';
 
+export type AnimationType = 'none' | 'fade' | 'slide';
+
 export type ModalViewProps = {
   /**
    * The content of the modal.
@@ -63,7 +65,7 @@ export type ModalViewProps = {
    * Can be 'none', 'fade', or 'slide'.
    * Defaults to 'none'.
    */
-  animationType?: 'none' | 'fade' | 'slide';
+  animationType?: AnimationType;
 
   /**
    * Whether to show the backdrop behind the modal.
