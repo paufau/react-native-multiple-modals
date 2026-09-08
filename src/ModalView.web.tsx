@@ -64,6 +64,13 @@ export const ModalView: FC<ModalViewWebProps> = ({
     };
   }, [isTopmost, onRequestDismiss]);
 
+  // renders nothing on server side
+  // typically "document" is undeclared on the server
+  // and "typeof" can safely touch undeclared variables without throwing
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
   return createPortal(
     <View
       ref={setContainerRef}
