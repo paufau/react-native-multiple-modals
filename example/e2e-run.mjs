@@ -27,6 +27,12 @@ const SCREENSHOTS_PATH = './e2e/screenshots/';
 const EXPECTED_SCREENSHOTS_PATH = './e2e/expected-screenshots/';
 const GENERATED_FLOW_NAME = "generated_flow.yaml";
 
+// Web runs headless in a browser tall enough to fit 
+// every demo card without scrolling: 
+// Maestro cannot scroll react-native-web's inner ScrollView, 
+// so off-screen cards would be unreachable
+const WEB_SCREEN_SIZE = '1280x2200';
+
 // Initialize logger
 const logger = new Logger();
 logger.isVerbose = true;
@@ -37,7 +43,12 @@ const argv = yargs(hideBin(process.argv))
     demandOption: true,
     describe: 'Specify the platform for the build',
     type: 'string',
-    choices: ['ios', 'android'],
+    choices: ['ios', 'android', 'web'],
+  })
+  .option('url', {
+    describe: 'Base URL of the running web app (web platform only)',
+    type: 'string',
+    default: 'http://localhost:8081',
   })
   .option('architecture', {
     alias: 'arch',
@@ -77,20 +88,23 @@ const argv = yargs(hideBin(process.argv))
   .parse();
 
 // Setup variables
-const { platform, architecture, runSteps, silent, updateScreenshots, device: specificDevice, deviceLabel } = argv;
+const { platform, architecture, runSteps, silent, updateScreenshots, device: specificDevice, deviceLabel, url } = argv;
+const isWeb = platform === 'web';
 
 logger.isVerbose = !silent;
 
 // App id comes from the Expo config (single example app), not a per-project derivation.
 const appConfig = JSON.parse(fs.readFileSync('./app.json', 'utf8'));
-const appId = platform === 'ios'
-  ? appConfig.expo.ios.bundleIdentifier
-  : appConfig.expo.android.package;
+const appId = isWeb
+  ? 'web'
+  : platform === 'ios'
+    ? appConfig.expo.ios.bundleIdentifier
+    : appConfig.expo.android.package;
 
 const modalsConfig = JSON.parse(fs.readFileSync('./demo-components/src/modals.config.json', 'utf8'));
 
 const generatedFlowPath = path.join(process.cwd(), 'e2e', 'flows', GENERATED_FLOW_NAME);
-const baseFlowPath = path.join(process.cwd(), 'e2e', 'flows', 'base.yaml');
+const baseFlowPath = path.join(process.cwd(), 'e2e', 'flows', isWeb ? 'base.web.yaml' : 'base.yaml');
 
 const getBootedDevice = () => {
   if (specificDevice) {
@@ -108,7 +122,7 @@ const getBootedDevice = () => {
   }
 }
 
-const device = getBootedDevice();
+const device = isWeb ? null : getBootedDevice();
 // Screenshots are keyed by a stable label, not the device UDID, so baselines stay reproducible
 // across machines. Pin the same simulator/emulator model when (re)generating expected screenshots.
 const screenshotDevice = deviceLabel || platform;
@@ -152,28 +166,36 @@ const generateFlow = () => {
 
 // Run E2E tests using Maestro
 const runE2ETests = () => {
-  if (!device) {
+  if (!isWeb && !device) {
     logger.raiseException(`No booted ${platform} device found. Boot a simulator/emulator (or pass --device) before running e2e.`);
   }
 
-  logger.log(`Running E2E tests for app ${appId} on device: ${device}`);
+  let maestroCmd;
+  if (isWeb) {
+    logger.log(`Running web E2E tests against ${url}`);
+    maestroCmd = `maestro test --headless --screen-size ${WEB_SCREEN_SIZE} ${generatedFlowPath} -e URL=${url} -e APP_ID=${appId}`;
+  } else {
+    logger.log(`Running E2E tests for app ${appId} on device: ${device}`);
 
-  // Freeze the status bar so screenshots are deterministic across runs (clock, battery, signal).
-  if (platform === 'ios') {
-    execSync(`xcrun simctl status_bar ${device} override --time "9:41" --batteryState charged --batteryLevel 100 --cellularMode active --cellularBars 4 --dataNetwork wifi --wifiMode active --wifiBars 3`, { stdio: 'ignore' });
-  } else if (platform === 'android') {
-    // Android SystemUI demo mode: fixed clock/battery/signal.
-    const demo = (args) => execSync(`adb -s ${device} shell am broadcast -a com.android.systemui.demo ${args}`, { stdio: 'ignore' });
-    execSync(`adb -s ${device} shell settings put global sysui_demo_allowed 1`, { stdio: 'ignore' });
-    demo('-e command clock -e hhmm 0941');
-    demo('-e command battery -e level 100 -e plugged false');
-    demo('-e command network -e wifi show -e level 4');
-    demo('-e command network -e mobile show -e datatype none -e level 4');
-    demo('-e command notifications -e visible false');
+    // Freeze the status bar so screenshots are deterministic across runs (clock, battery, signal).
+    if (platform === 'ios') {
+      execSync(`xcrun simctl status_bar ${device} override --time "9:41" --batteryState charged --batteryLevel 100 --cellularMode active --cellularBars 4 --dataNetwork wifi --wifiMode active --wifiBars 3`, { stdio: 'ignore' });
+    } else if (platform === 'android') {
+      // Android SystemUI demo mode: fixed clock/battery/signal.
+      const demo = (args) => execSync(`adb -s ${device} shell am broadcast -a com.android.systemui.demo ${args}`, { stdio: 'ignore' });
+      execSync(`adb -s ${device} shell settings put global sysui_demo_allowed 1`, { stdio: 'ignore' });
+      demo('-e command clock -e hhmm 0941');
+      demo('-e command battery -e level 100 -e plugged false');
+      demo('-e command network -e wifi show -e level 4');
+      demo('-e command network -e mobile show -e datatype none -e level 4');
+      demo('-e command notifications -e visible false');
+    }
+
+    maestroCmd = `maestro --device ${device} test ${generatedFlowPath} -e APP_ID=${appId}`;
   }
 
   try {
-    execSync(`maestro --device ${device} test ${generatedFlowPath} -e APP_ID=${appId}`, { stdio: 'inherit' });
+    execSync(maestroCmd, { stdio: 'inherit' });
     logger.log('E2E tests completed successfully.');
   } catch (error) {
     logger.raiseException('E2E tests failed:', error.message);
