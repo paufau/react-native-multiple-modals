@@ -1,0 +1,28 @@
+name: Build Web
+description: >-
+  Export the example app for web as a static bundle
+
+inputs:
+  rn-version:
+    description: 'react-native version to force in the example (e.g. "nightly", "0.84")'
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v5
+      with:
+        node-version: 24
+        cache: 'npm'
+        cache-dependency-path: example/package-lock.json
+
+    - name: Install example dependencies
+      shell: bash
+      run: .github/scripts/install-example-deps.sh "${{ inputs.rn-version }}"
+
+    - name: Export web
+      shell: bash
+      run: npx expo export --platform web
+      working-directory: example

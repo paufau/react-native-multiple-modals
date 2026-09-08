@@ -41,3 +41,17 @@ Useful flags:
 - `--device-label <name>` (stable label in screenshot file names)
 - `--run-steps generation tests images`,
 - `--silent`
+
+## Web behavior only
+
+Prerequisites: Maestro CLI 2.10.0+
+
+```sh
+npx expo start --web
+```
+
+Then in another terminal:
+
+```sh
+npm run e2e:run -- --platform web --run-steps generation tests
+```

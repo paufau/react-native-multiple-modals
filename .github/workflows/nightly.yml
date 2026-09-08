@@ -32,3 +32,15 @@ jobs:
         uses: ./.github/actions/build-ios
         with:
           rn-version: nightly
+
+  nightly-web:
+    name: Build Web against react-native@nightly
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Build Web
+        uses: ./.github/actions/build-web
+        with:
+          rn-version: nightly

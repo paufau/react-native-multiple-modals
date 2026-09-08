@@ -1,6 +1,6 @@
-name: E2E iOS
+name: E2E Web
 description: >-
-  run the e2e Maestro tests without screenshot comparison
+  run the e2e Maestro tests on web (behavior only, no screenshot comparison)
 
 runs:
   using: composite
@@ -19,28 +19,25 @@ runs:
     - name: Install Maestro
       shell: bash
       run: |
-        curl -Ls "https://get.maestro.mobile.dev" | bash
+        curl -Ls "https://get.maestro.mobile.dev" | MAESTRO_VERSION=2.10.0 bash
         echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
 
-    - name: Build & install app on a simulator
+    - name: Run E2E (web)
       shell: bash
-      run: npx expo run:ios --configuration Release --no-bundler
-      working-directory: example
+      run: .github/scripts/e2e-web.sh
 
-    - name: Run E2E
-      shell: bash
-      run: npm run e2e:run -- --platform ios --run-steps generation tests
-      working-directory: example
-
-    - name: Collect failure screenshot
+    - name: Collect web e2e debug output
       if: failure()
       shell: bash
-      run: .github/scripts/collect-failure-screenshots.sh
+      run: |
+        mkdir -p maestro-debug
+        cp -R "$HOME/.maestro/tests" maestro-debug/ 2>/dev/null || true
+        cp "$RUNNER_TEMP/web-server.log" maestro-debug/ 2>/dev/null || true
 
-    - name: Upload failure screenshot
+    - name: Upload web e2e debug output
       if: failure()
       uses: actions/upload-artifact@v5
       with:
-        name: failure-screenshot-ios
+        name: e2e-web-debug
         path: maestro-debug/
         if-no-files-found: ignore
