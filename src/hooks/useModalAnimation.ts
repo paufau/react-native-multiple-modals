@@ -1,4 +1,6 @@
+import type { RefObject } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { View } from 'react-native';
 
 import {
   playExitAnimation,
@@ -7,7 +9,10 @@ import {
 import { maybeGetElement } from '../helpers/focusHelpers';
 import type { AnimationType } from '../types';
 
-export function useModalAnimation(animationType: AnimationType) {
+export function useModalAnimation(
+  animationType: AnimationType,
+  contentRef: RefObject<View | null>,
+) {
   const [isVisible, setVisibility] = useState(animationType === 'none');
 
   const containerRef = useRef<HTMLElement | null>(null);
@@ -23,13 +28,14 @@ export function useModalAnimation(animationType: AnimationType) {
       setVisibility(true),
     );
 
-    const modalContent = containerRef.current;
+    const container = containerRef.current;
+    const content = maybeGetElement(contentRef.current);
 
     return () => {
       cancelEnteringAnimation();
-      playExitAnimation(modalContent, latestAnimationType.current);
+      playExitAnimation(container, content, latestAnimationType.current);
     };
-  }, []);
+  }, [contentRef]);
 
   const animatedStyle = useMemo(() => {
     switch (animationType) {

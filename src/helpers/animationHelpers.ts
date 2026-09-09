@@ -23,14 +23,15 @@ export function runAfterGuaranteedRender(callback: () => void) {
 }
 
 export function playExitAnimation(
-  node: HTMLElement | null,
+  container: HTMLElement | null,
+  content: HTMLElement | null,
   animationType: AnimationType,
 ) {
-  if (!node || animationType === 'none') {
+  if (!container || animationType === 'none') {
     return;
   }
 
-  const clone = maybeGetElement(node.cloneNode(true));
+  const clone = maybeGetElement(container.cloneNode(true));
 
   if (!clone) {
     return;
@@ -44,10 +45,11 @@ export function playExitAnimation(
     EXIT_ANIMATION_OPTIONS,
   );
 
-  if (animationType === 'slide') {
-    const content = maybeGetElement(clone.lastElementChild);
+  if (animationType === 'slide' && content) {
+    const contentIndex = Array.from(container.children).indexOf(content);
+    const contentClone = clone.children.item(contentIndex);
 
-    content?.animate(
+    contentClone?.animate(
       { transform: ['translateY(0)', 'translateY(100%)'] },
       EXIT_ANIMATION_OPTIONS,
     );
