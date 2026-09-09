@@ -1,10 +1,10 @@
-import {FC} from 'react';
-import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import {BaseModalProps} from '../../modals/BaseModal';
-import {useTheme} from '../../theme/colors';
-import {Button} from '../button/Button';
-import {DocumentationLinkText} from '../documentation-link-text/DocumentationLinkText';
-import {Typography} from '../typography/Typography';
+import { FC } from 'react';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { BaseModalProps } from '../../modals/BaseModal';
+import { useTheme } from '../../theme/colors';
+import { Button } from '../button/Button';
+import { DocumentationLinkText } from '../documentation-link-text/DocumentationLinkText';
+import { Typography } from '../typography/Typography';
 
 type AlertContentProps = {
   style?: StyleProp<ViewStyle>;
@@ -16,7 +16,7 @@ export const AlertContent: FC<AlertContentProps> = ({
   title,
   style,
 }) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   return (
     <View
@@ -28,8 +28,9 @@ export const AlertContent: FC<AlertContentProps> = ({
         },
         style,
       ]}
-      testID={`${testID}-modal`}>
-      <Typography variant="title" color="primary">
+      testID={`${testID}-modal`}
+    >
+      <Typography variant='title' color='primary'>
         {title}
       </Typography>
 

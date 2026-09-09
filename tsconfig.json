@@ -3,30 +3,16 @@
     "moduleResolution": "node",
     "target": "es2017",
     "module": "es2015",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "strict": true,
     "sourceMap": true,
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "jsx": "react-native",
-    "types": [
-      "react",
-      "react-native",
-      "react-native-web"
-    ],
+    "types": ["react", "react-native", "react-native-web"],
     "noEmit": false
   },
-  "include": [
-    "src",
-    "global.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "lib",
-    "dist"
-  ]
+  "include": ["src", "global.d.ts"],
+  "exclude": ["node_modules", "lib", "dist"]
 }

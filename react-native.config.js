@@ -2,9 +2,9 @@ module.exports = {
   dependency: {
     platforms: {
       android: {
-        libraryName: "multiplemodals",
+        libraryName: 'multiplemodals',
         componentDescriptors: ['RNTModalViewComponentDescriptor'],
-        cmakeListsPath: "../android/src/main/jni/CMakeLists.txt"
+        cmakeListsPath: '../android/src/main/jni/CMakeLists.txt',
       },
     },
   },

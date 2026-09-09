@@ -1,10 +1,10 @@
-import {FC} from 'react';
-import {Modal, StyleSheet, View} from 'react-native';
-import {BaseModalProps} from '../BaseModal';
-import {Typography} from '../../components/typography/Typography';
-import {DocumentationLinkText} from '../../components/documentation-link-text/DocumentationLinkText';
-import {Button} from '../../components/button/Button';
-import {useTheme} from '../../theme/colors';
+import { FC } from 'react';
+import { Modal, StyleSheet, View } from 'react-native';
+import { Button } from '../../components/button/Button';
+import { DocumentationLinkText } from '../../components/documentation-link-text/DocumentationLinkText';
+import { Typography } from '../../components/typography/Typography';
+import { useTheme } from '../../theme/colors';
+import { BaseModalProps } from '../BaseModal';
 
 type DefaultModalProps = BaseModalProps & {
   onOpenLibraryModal: () => void;
@@ -16,14 +16,15 @@ export const DefaultModal: FC<DefaultModalProps> = ({
   onRequestDismiss,
   onOpenLibraryModal,
 }) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   return (
     <Modal
       onRequestClose={onRequestDismiss}
       transparent={true}
-      animationType="none"
-      statusBarTranslucent={true}>
+      animationType='none'
+      statusBarTranslucent={true}
+    >
       <View style={styles.container} testID={`${testID}-modal`}>
         <View style={styles.backdrop} />
         <View
@@ -33,8 +34,9 @@ export const DefaultModal: FC<DefaultModalProps> = ({
               borderColor: colors.cardOutline,
               backgroundColor: colors.background,
             },
-          ]}>
-          <Typography variant="title" color="primary">
+          ]}
+        >
+          <Typography variant='title' color='primary'>
             {title}
           </Typography>
           <DocumentationLinkText />
@@ -43,7 +45,8 @@ export const DefaultModal: FC<DefaultModalProps> = ({
           </Button>
           <Button
             onPress={onOpenLibraryModal}
-            testID={`${testID}-open-library-button`}>
+            testID={`${testID}-open-library-button`}
+          >
             Open Library Modal
           </Button>
         </View>

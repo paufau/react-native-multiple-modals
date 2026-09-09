@@ -1,16 +1,16 @@
-import {FC, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ModalView} from 'react-native-multiple-modals';
+import { FC, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ModalView } from 'react-native-multiple-modals';
 import Animated, {
   FadeIn,
   FadeOut,
   SlideInDown,
   SlideOutDown,
 } from 'react-native-reanimated';
-import {Button} from '../../components/button/Button';
-import {useTheme} from '../../theme/colors';
-import {BaseModalProps} from '../BaseModal';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Button } from '../../components/button/Button';
+import { useTheme } from '../../theme/colors';
+import { BaseModalProps } from '../BaseModal';
 
 type BlockingModalProps = {
   onOpenAnother: () => void;
@@ -22,7 +22,7 @@ export const BlockingModal: FC<BlockingModalProps> = ({
   testID,
   title,
 }) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const [isVisible, setVisibility] = useState(true);
 
@@ -39,7 +39,7 @@ export const BlockingModal: FC<BlockingModalProps> = ({
       }}
       contentContainerStyle={[
         styles.contentContainer,
-        {paddingBottom: insets.bottom},
+        { paddingBottom: insets.bottom },
       ]}
       renderBackdrop={() =>
         isVisible ? (
@@ -49,7 +49,8 @@ export const BlockingModal: FC<BlockingModalProps> = ({
             style={styles.backdrop}
           />
         ) : null
-      }>
+      }
+    >
       {isVisible ? (
         <Animated.View
           testID={`${testID}-modal`}
@@ -61,8 +62,9 @@ export const BlockingModal: FC<BlockingModalProps> = ({
               backgroundColor: colors.background,
               borderColor: colors.cardOutline,
             },
-          ]}>
-          <Text style={[styles.title, {color: colors.textPrimary}]}>
+          ]}
+        >
+          <Text style={[styles.title, { color: colors.textPrimary }]}>
             {title}
           </Text>
           <View style={styles.buttons}>
@@ -71,7 +73,8 @@ export const BlockingModal: FC<BlockingModalProps> = ({
             </Button>
             <Button
               testID={`${testID}-open-animated-button`}
-              onPress={onOpenAnother}>
+              onPress={onOpenAnother}
+            >
               Open Another
             </Button>
           </View>

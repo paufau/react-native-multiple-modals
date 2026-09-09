@@ -34,7 +34,9 @@ export function useFocusTrap(isTopmost: boolean) {
       return;
     }
 
-    const trapFocus = createFocusTrap(() => maybeGetElement(contentRef.current));
+    const trapFocus = createFocusTrap(() =>
+      maybeGetElement(contentRef.current),
+    );
 
     trapFocus();
 

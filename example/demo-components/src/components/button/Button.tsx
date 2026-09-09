@@ -1,4 +1,4 @@
-import {FC, ReactNode} from 'react';
+import { FC, ReactNode } from 'react';
 import {
   Pressable,
   PressableProps,
@@ -6,31 +6,32 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
-import {useTheme} from '../../theme/colors';
-import {Typography} from '../../components/typography/Typography';
+import { Typography } from '../../components/typography/Typography';
+import { useTheme } from '../../theme/colors';
 
 type ButtonProps = Omit<PressableProps, 'style'> & {
   style?: StyleProp<ViewStyle>;
   children: string | ReactNode;
 };
 
-export const Button: FC<ButtonProps> = ({children, ...props}) => {
-  const {colors} = useTheme();
+export const Button: FC<ButtonProps> = ({ children, ...props }) => {
+  const { colors } = useTheme();
 
   return (
     <Pressable
       {...props}
       disabled={!props.onPress}
-      style={({pressed}) => [
+      style={({ pressed }) => [
         styles.button,
         props.style,
         pressed && styles.buttonPressed,
         {
           backgroundColor: colors.textPrimary,
         },
-      ]}>
+      ]}
+    >
       {typeof children === 'string' ? (
-        <Typography style={[styles.title, {color: colors.background}]}>
+        <Typography style={[styles.title, { color: colors.background }]}>
           {children}
         </Typography>
       ) : (

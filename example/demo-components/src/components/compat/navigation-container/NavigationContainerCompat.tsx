@@ -1,4 +1,4 @@
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 
 // Related issues:
 // https://github.com/software-mansion/react-native-screens/issues/1769
@@ -13,7 +13,7 @@ const initNavigationContainer = () => {
         <NavigationContainer {...props} />
       </IndependentTree>
     );
-  } catch (e) {
+  } catch {
     // v6
     // @ts-ignore
     return (props: any) => <NavigationContainer independent {...props} />;

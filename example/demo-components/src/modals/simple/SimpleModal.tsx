@@ -1,8 +1,8 @@
-import {FC} from 'react';
-import {StyleSheet} from 'react-native';
-import {ModalView} from 'react-native-multiple-modals';
-import {AlertContent} from '../../components/alert-content/AlertContent';
-import {BaseModalProps} from '../BaseModal';
+import { FC } from 'react';
+import { StyleSheet } from 'react-native';
+import { ModalView } from 'react-native-multiple-modals';
+import { AlertContent } from '../../components/alert-content/AlertContent';
+import { BaseModalProps } from '../BaseModal';
 
 type SimpleModalProps = BaseModalProps;
 
@@ -14,7 +14,8 @@ export const SimpleModal: FC<SimpleModalProps> = props => {
       statusBar={{
         barStyle: 'light-content',
         translucent: false,
-      }}>
+      }}
+    >
       <AlertContent {...props} />
     </ModalView>
   );

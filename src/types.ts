@@ -1,10 +1,10 @@
 import type { FC, ReactNode } from 'react';
 
 import type {
+  PressableProps,
+  StatusBarProps,
   StyleProp,
   ViewStyle,
-  StatusBarProps,
-  PressableProps,
 } from 'react-native';
 
 import { DismissalSource } from './ModalView';

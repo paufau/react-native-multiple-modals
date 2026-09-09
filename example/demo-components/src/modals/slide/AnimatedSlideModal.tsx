@@ -1,9 +1,9 @@
-import {FC} from 'react';
-import {StyleSheet} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ModalView} from 'react-native-multiple-modals';
-import {AlertContent} from '../../components/alert-content/AlertContent';
-import {BaseModalProps} from '../BaseModal';
+import { FC } from 'react';
+import { StyleSheet } from 'react-native';
+import { ModalView } from 'react-native-multiple-modals';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AlertContent } from '../../components/alert-content/AlertContent';
+import { BaseModalProps } from '../BaseModal';
 
 type AnimatedSlideModalProps = BaseModalProps;
 
@@ -15,9 +15,10 @@ export const AnimatedSlideModal: FC<AnimatedSlideModalProps> = props => {
       onRequestDismiss={props.onRequestDismiss}
       contentContainerStyle={[
         styles.contentContainer,
-        {paddingBottom: insets.bottom},
+        { paddingBottom: insets.bottom },
       ]}
-      animationType="slide">
+      animationType='slide'
+    >
       <AlertContent {...props} style={styles.modal} />
     </ModalView>
   );

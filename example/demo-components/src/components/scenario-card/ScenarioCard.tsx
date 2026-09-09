@@ -1,12 +1,12 @@
-import {Typography} from '../typography/Typography';
-import {useTheme} from '../../theme/colors';
-import {FC} from 'react';
+import { FC } from 'react';
 import {
   Pressable,
   PressableProps,
   StyleSheet,
   useWindowDimensions,
 } from 'react-native';
+import { useTheme } from '../../theme/colors';
+import { Typography } from '../typography/Typography';
 
 type ScenarioCardProps = Omit<PressableProps, 'style'> & {
   title: string;
@@ -18,7 +18,7 @@ export const ScenarioCard: FC<ScenarioCardProps> = ({
   description,
   ...props
 }) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const isLargeScreen = useWindowDimensions().width > 600;
 
   return (
@@ -31,9 +31,10 @@ export const ScenarioCard: FC<ScenarioCardProps> = ({
           borderColor: colors.cardOutline,
           backgroundColor: colors.cardBackground,
         },
-      ]}>
+      ]}
+    >
       <Typography style={styles.title}>{title}</Typography>
-      <Typography color="secondary">{description}</Typography>
+      <Typography color='secondary'>{description}</Typography>
     </Pressable>
   );
 };

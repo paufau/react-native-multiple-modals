@@ -1,11 +1,11 @@
-import {FC, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {ModalView} from 'react-native-multiple-modals';
-import {Button} from '../../components/button/Button';
-import {useTheme} from '../../theme/colors';
-import {BaseModalProps} from '../BaseModal';
-import {Typography} from '../../components/typography/Typography';
-import {AlertContent} from '../../components/alert-content/AlertContent';
+import { FC, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ModalView } from 'react-native-multiple-modals';
+import { AlertContent } from '../../components/alert-content/AlertContent';
+import { Button } from '../../components/button/Button';
+import { Typography } from '../../components/typography/Typography';
+import { useTheme } from '../../theme/colors';
+import { BaseModalProps } from '../BaseModal';
 
 type EmbeddedModalProps = BaseModalProps;
 
@@ -14,7 +14,7 @@ export const EmbeddedModal: FC<EmbeddedModalProps> = ({
   testID,
   title,
 }) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const [isVisible, setVisibility] = useState(false);
 
   return (
@@ -23,9 +23,10 @@ export const EmbeddedModal: FC<EmbeddedModalProps> = ({
         translucent: true,
         barStyle: 'dark-content',
       }}
-      animationType="slide"
+      animationType='slide'
       onRequestDismiss={onRequestDismiss}
-      contentContainerStyle={styles.contentContainer}>
+      contentContainerStyle={styles.contentContainer}
+    >
       <View
         testID={`${testID}-modal`}
         style={[
@@ -34,11 +35,14 @@ export const EmbeddedModal: FC<EmbeddedModalProps> = ({
             backgroundColor: colors.background,
             borderColor: colors.cardOutline,
           },
-        ]}>
-        <Text style={[styles.title, {color: colors.textPrimary}]}>{title}</Text>
+        ]}
+      >
+        <Text style={[styles.title, { color: colors.textPrimary }]}>
+          {title}
+        </Text>
         <View style={styles.leftRightContainer}>
-          <Typography variant="body">Left</Typography>
-          <Typography variant="body">Right</Typography>
+          <Typography variant='body'>Left</Typography>
+          <Typography variant='body'>Right</Typography>
           {isVisible ? (
             <ModalView contentContainerStyle={styles.innerContentContainer}>
               <AlertContent
@@ -59,7 +63,8 @@ export const EmbeddedModal: FC<EmbeddedModalProps> = ({
             testID={`${testID}-open-animated-button`}
             onPress={() => {
               setVisibility(true);
-            }}>
+            }}
+          >
             Open Another
           </Button>
         </View>

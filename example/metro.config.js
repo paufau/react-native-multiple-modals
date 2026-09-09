@@ -6,7 +6,7 @@ const { getDefaultConfig } = require('expo/metro-config');
 const path = require('path');
 const pak = require('../package.json');
 
-const escape = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const escapeRegExp = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const projectRoot = __dirname;
 const root = path.resolve(projectRoot, '..');
@@ -21,12 +21,17 @@ config.resolver.extraNodeModules = {};
 // block the root copies so imports originating in `../src` don't pick up the
 // stale root react-native/react while walking up the tree.
 const modules = Object.keys({ ...pak.peerDependencies });
-modules.forEach((name) => {
-  config.resolver.extraNodeModules[name] = path.resolve(projectRoot, 'node_modules', name);
+modules.forEach(name => {
+  config.resolver.extraNodeModules[name] = path.resolve(
+    projectRoot,
+    'node_modules',
+    name,
+  );
 });
 
 const blocks = modules.map(
-  (m) => new RegExp(`^${escape(path.resolve(root, 'node_modules', m))}\\/.*$`)
+  m =>
+    new RegExp(`^${escapeRegExp(path.resolve(root, 'node_modules', m))}\\/.*$`),
 );
 const existing = config.resolver.blockList;
 config.resolver.blockList = [
@@ -41,7 +46,11 @@ const libPrefix = `${libName}/`;
 config.resolver.resolveRequest = (context, moduleName, platform) => {
   if (moduleName === libName || moduleName.startsWith(libPrefix)) {
     const rest = moduleName.slice(libName.length);
-    return context.resolveRequest(context, path.join(libSrc, rest || 'index'), platform);
+    return context.resolveRequest(
+      context,
+      path.join(libSrc, rest || 'index'),
+      platform,
+    );
   }
   return context.resolveRequest(context, moduleName, platform);
 };
