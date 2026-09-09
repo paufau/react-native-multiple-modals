@@ -41,7 +41,7 @@
     "url": "https://github.com/paufau/react-native-multiple-modals/issues"
   },
   "scripts": {
-    "lint": "biome check",
+    "lint": "biome check --error-on-warnings",
     "format": "biome check --write",
     "typecheck": "npx tsc --noEmit",
     "build": "npx bob build",
@@ -52,7 +52,7 @@
   },
   "lint-staged": {
     "*": [
-      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --error-on-warnings"
     ]
   },
   "files": [
