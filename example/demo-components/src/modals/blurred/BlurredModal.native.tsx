@@ -1,17 +1,17 @@
-import {BlurView} from 'expo-blur';
-import {FC, useState} from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {ModalView} from 'react-native-multiple-modals';
+import { BlurView } from 'expo-blur';
+import { FC, useState } from 'react';
+import { StyleSheet, Text } from 'react-native';
+import { ModalView } from 'react-native-multiple-modals';
 import Animated, {
   FadeIn,
   FadeOut,
   SlideInDown,
   SlideOutDown,
 } from 'react-native-reanimated';
-import {Button} from '../../components/button/Button';
-import {COLORS} from '../../theme/colors';
-import {BaseModalProps} from '../BaseModal';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Button } from '../../components/button/Button';
+import { COLORS } from '../../theme/colors';
+import { BaseModalProps } from '../BaseModal';
 
 type BlurredModalProps = BaseModalProps;
 
@@ -34,7 +34,7 @@ export const BlurredModal: FC<BlurredModalProps> = ({
     <ModalView
       contentContainerStyle={[
         styles.contentContainer,
-        {paddingBottom: insets.bottom},
+        { paddingBottom: insets.bottom },
       ]}
       onRequestDismiss={hide}
       renderBackdrop={() =>
@@ -45,13 +45,15 @@ export const BlurredModal: FC<BlurredModalProps> = ({
             style={styles.backdrop}
           />
         ) : null
-      }>
+      }
+    >
       {isVisible ? (
         <Animated.View
           testID={`${testID}-modal`}
           entering={SlideInDown}
           exiting={SlideOutDown}
-          style={styles.modal}>
+          style={styles.modal}
+        >
           <Text style={styles.title}>{title}</Text>
           <Button testID={`${testID}-close-button`} onPress={hide}>
             Close

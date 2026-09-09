@@ -1,5 +1,5 @@
-import { maybeGetElement } from './focusHelpers';
 import type { AnimationType } from '../types';
+import { maybeGetElement } from './focusHelpers';
 
 const EXIT_DURATION_MS = 300;
 

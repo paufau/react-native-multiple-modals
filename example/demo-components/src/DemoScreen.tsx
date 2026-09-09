@@ -1,12 +1,21 @@
 import { ComponentType, useCallback, useMemo, useState } from 'react';
-import { ScrollView, StyleSheet, useWindowDimensions, View } from 'react-native';
+import {
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScenarioCard } from './components/scenario-card/ScenarioCard';
 import { Typography } from './components/typography/Typography';
+import { IS_FABRIC } from './constants';
 import { AnimatedFadeModal } from './modals/animated-fade/AnimatedFadeModal';
 import { BlockingModal } from './modals/blocking/BlockingModal';
 import { BlurredModal } from './modals/blurred/BlurredModal';
 import { DefaultModal } from './modals/default/DefaultModal';
+import { EdgeToEdgeModal } from './modals/edge-to-edge/EdgeToEdgeModal';
+import { EmbeddedModal } from './modals/embedded/EmbeddedModal';
+import { FlashModal } from './modals/flash-modal/FlashModal';
 import { FullScreenNoBackgroundModal } from './modals/full-screen-no-bg/FullScreenNoBackgroundModal';
 import { GesturedModal } from './modals/gestured/GesturedModal';
 import { InBottomTabsModal } from './modals/in-bottom-tabs-modal/InBottomTabsModal';
@@ -15,10 +24,6 @@ import { SimpleModal } from './modals/simple/SimpleModal';
 import { AnimatedSlideModal } from './modals/slide/AnimatedSlideModal';
 import { WithNavigationInsideModal } from './modals/with-navigation-inside/WithNavigationInsideModal';
 import { useTheme } from './theme/colors';
-import { IS_FABRIC } from './constants';
-import { EmbeddedModal } from './modals/embedded/EmbeddedModal';
-import { FlashModal } from './modals/flash-modal/FlashModal';
-import { EdgeToEdgeModal } from './modals/edge-to-edge/EdgeToEdgeModal';
 
 type DemoCase = {
   id: string;
@@ -35,6 +40,7 @@ export const DemoScreen = () => {
 
   const [activeCases, setActiveCases] = useState<DemoCase[]>([]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: openModal intentionally captures demoCases once and stays stable
   const openModal = useCallback((caseId: string) => {
     const demoCase = demoCases.find(c => c.id === caseId);
 
@@ -43,7 +49,6 @@ export const DemoScreen = () => {
     } else {
       console.error(`Demo case with id "${caseId}" not found.`);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const closeModal = useCallback((caseId: string) => {

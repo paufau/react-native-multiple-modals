@@ -1,6 +1,6 @@
-import {useTheme} from '../../theme/colors';
-import {FC} from 'react';
-import {Text, TextProps} from 'react-native';
+import { FC } from 'react';
+import { Text, TextProps } from 'react-native';
+import { useTheme } from '../../theme/colors';
 
 type TypographyProps = {
   variant?: 'body' | 'title';
@@ -13,7 +13,7 @@ export const Typography: FC<TypographyProps> = ({
   style,
   ...props
 }) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   return (
     <Text

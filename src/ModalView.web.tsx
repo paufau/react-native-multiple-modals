@@ -1,8 +1,8 @@
-import { useEffect, useId } from 'react';
 import type { FC } from 'react';
+import { useEffect, useId } from 'react';
 
 import { createPortal } from 'react-dom';
-import { StyleSheet, View, Pressable } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { FocusBracket } from './FocusBracket';
 import { useFocusTrap } from './hooks/useFocusTrap';
