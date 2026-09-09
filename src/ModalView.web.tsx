@@ -44,7 +44,10 @@ export const ModalView: FC<ModalViewWebProps> = ({
   const { isTopmost } = useModalStack(currentModalId);
 
   const contentRef = useFocusTrap(isTopmost);
-  const { setContainerRef, animatedStyle } = useModalAnimation(animationType);
+  const { setContainerRef, animatedStyle } = useModalAnimation(
+    animationType,
+    contentRef,
+  );
 
   useEffect(() => {
     if (!isTopmost || !onRequestDismiss) {
