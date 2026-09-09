@@ -1,6 +1,6 @@
-import {Linking} from 'react-native';
-import {LIBRARY_GIT_URL} from '../../constants';
-import {Typography} from '../typography/Typography';
+import { Linking } from 'react-native';
+import { LIBRARY_GIT_URL } from '../../constants';
+import { Typography } from '../typography/Typography';
 
 export const DocumentationLinkText = () => {
   const handlePress = async () => {
@@ -12,7 +12,7 @@ export const DocumentationLinkText = () => {
   };
 
   return (
-    <Typography color="secondary" onPress={handlePress}>
+    <Typography color='secondary' onPress={handlePress}>
       Press the description to open the library documentation page.
     </Typography>
   );

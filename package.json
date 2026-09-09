@@ -41,13 +41,19 @@
     "url": "https://github.com/paufau/react-native-multiple-modals/issues"
   },
   "scripts": {
-    "lint": "npx eslint ./src",
+    "lint": "biome check --error-on-warnings",
+    "format": "biome check --write",
     "typecheck": "npx tsc --noEmit",
     "build": "npx bob build",
     "release": "npm run build && npm publish",
     "release:nightly": "npm run build && npm publish --tag nightly",
     "promote:nightly": "./scripts/nightly-to-latest.sh",
     "prepare": "husky"
+  },
+  "lint-staged": {
+    "*": [
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --error-on-warnings"
+    ]
   },
   "files": [
     "src",
@@ -72,20 +78,15 @@
     "!.yarn"
   ],
   "devDependencies": {
+    "@biomejs/biome": "2.5.12",
     "@commitlint/cli": "^21.2.2",
     "@commitlint/config-conventional": "^21.2.2",
     "@swc/core": "^1.7.36",
     "@types/react": "^19.1.14",
     "@types/react-dom": "^19.1.9",
     "@types/react-native-web": "^0.19.2",
-    "@typescript-eslint/eslint-plugin": "^8.44.1",
-    "@typescript-eslint/parser": "^8.44.1",
-    "eslint": "^9.36.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^9.1.6",
-    "prettier": "^3.3.3",
+    "lint-staged": "^17.5.0",
     "react-dom": "^19.1.1",
     "react-native-builder-bob": "^0.40.13"
   },
@@ -103,10 +104,6 @@
   "react-native-builder-bob": {
     "source": "src",
     "output": "lib",
-    "targets": [
-      "commonjs",
-      "module",
-      "typescript"
-    ]
+    "targets": ["commonjs", "module", "typescript"]
   }
 }

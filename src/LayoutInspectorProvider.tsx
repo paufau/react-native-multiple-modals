@@ -18,7 +18,8 @@ export const LayoutInspectorProvider: FC<PropsWithChildren> = ({
   // Lazy import to avoid bundling AppContainer in production builds.
   // AppContainer is an internal React Native module that may not be
   // available in production builds on Android, causing crashes.
-  const AppContainer = require('react-native/Libraries/ReactNative/AppContainer').default;
+  const AppContainer =
+    require('react-native/Libraries/ReactNative/AppContainer').default;
 
   return <AppContainer rootTag={rootTag}>{children}</AppContainer>;
 };

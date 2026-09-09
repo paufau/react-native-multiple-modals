@@ -1,6 +1,5 @@
-import { FC, ReactNode } from 'react';
-
 import VirtualizedLists from '@react-native/virtualized-lists';
+import { FC, ReactNode } from 'react';
 import ScrollViewContext from 'react-native/Libraries/Components/ScrollView/ScrollViewContext';
 
 type ScrollContextResetterProps = {

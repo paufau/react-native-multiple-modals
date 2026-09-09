@@ -1,9 +1,9 @@
-import {FC} from 'react';
-import {Pressable, StyleSheet} from 'react-native';
-import {ModalView} from 'react-native-multiple-modals';
-import Animated, {FadeIn, FadeOut, withTiming} from 'react-native-reanimated';
-import {AlertContent} from '../../components/alert-content/AlertContent';
-import {BaseModalProps} from '../BaseModal';
+import { FC } from 'react';
+import { Pressable, StyleSheet } from 'react-native';
+import { ModalView } from 'react-native-multiple-modals';
+import Animated, { FadeIn, FadeOut, withTiming } from 'react-native-reanimated';
+import { AlertContent } from '../../components/alert-content/AlertContent';
+import { BaseModalProps } from '../BaseModal';
 
 type ReanimatedModalProps = BaseModalProps;
 
@@ -12,12 +12,12 @@ const ZoomAndFadeIn = () => {
   const duration = 300;
 
   const animations = {
-    opacity: withTiming(1, {duration}),
-    transform: [{scale: withTiming(1, {duration})}],
+    opacity: withTiming(1, { duration }),
+    transform: [{ scale: withTiming(1, { duration }) }],
   };
   const initialValues = {
     opacity: 0,
-    transform: [{scale: 0.3}],
+    transform: [{ scale: 0.3 }],
   };
   return {
     animations,
@@ -30,12 +30,12 @@ const ZoomAndFadeOut = () => {
   const duration = 300;
 
   const animations = {
-    opacity: withTiming(0, {duration}),
-    transform: [{scale: withTiming(0.3, {duration})}],
+    opacity: withTiming(0, { duration }),
+    transform: [{ scale: withTiming(0.3, { duration }) }],
   };
   const initialValues = {
     opacity: 1,
-    transform: [{scale: 1}],
+    transform: [{ scale: 1 }],
   };
   return {
     animations,
@@ -61,7 +61,8 @@ export const ReanimatedModal: FC<ReanimatedModalProps> = props => {
           style={styles.backdrop}
           onPress={props.onRequestDismiss}
         />
-      )}>
+      )}
+    >
       <Animated.View entering={ZoomAndFadeIn} exiting={ZoomAndFadeOut}>
         <AlertContent {...props} />
       </Animated.View>

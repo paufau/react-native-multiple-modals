@@ -1,16 +1,16 @@
-import {FC} from 'react';
-import {StyleSheet, useColorScheme} from 'react-native';
-import {ModalView} from 'react-native-multiple-modals';
-import {AlertContent} from '../../components/alert-content/AlertContent';
-import {useTheme} from '../../theme/colors';
-import {BaseModalProps} from '../BaseModal';
+import { FC } from 'react';
+import { StyleSheet, useColorScheme } from 'react-native';
+import { ModalView } from 'react-native-multiple-modals';
+import { AlertContent } from '../../components/alert-content/AlertContent';
+import { useTheme } from '../../theme/colors';
+import { BaseModalProps } from '../BaseModal';
 
 type FullScreenNoBackgroundModalProps = BaseModalProps;
 
 export const FullScreenNoBackgroundModal: FC<
   FullScreenNoBackgroundModalProps
 > = props => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
   const isDark = useColorScheme() === 'dark';
 
   return (
@@ -22,7 +22,8 @@ export const FullScreenNoBackgroundModal: FC<
         animated: true,
         barStyle: isDark ? 'light-content' : 'dark-content',
         translucent: false,
-      }}>
+      }}
+    >
       <AlertContent {...props} />
     </ModalView>
   );

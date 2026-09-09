@@ -1,12 +1,11 @@
 import { FC } from 'react';
 
 import { Platform, Pressable, StatusBar, StyleSheet, View } from 'react-native';
-
-import { LayoutInspectorProvider } from './LayoutInspectorProvider';
-import { ScrollContextResetter } from './ScrollContextResetter';
 import { GestureHandlerRootView } from './integrations/GestureHandlerRootView';
 import { SafeAreaProvider } from './integrations/SafeAreaProvider';
+import { LayoutInspectorProvider } from './LayoutInspectorProvider';
 import RNTModalView from './newarch/NativeRNTModalView';
+import { ScrollContextResetter } from './ScrollContextResetter';
 import type { ModalViewProps } from './types';
 
 export enum DismissalSource {
@@ -59,7 +58,10 @@ export const ModalView: FC<ModalViewProps> = ({
                       renderBackdrop()
                     ) : (
                       <View
-                        style={[styles.flex, { backgroundColor: backdropColor }]}
+                        style={[
+                          styles.flex,
+                          { backgroundColor: backdropColor },
+                        ]}
                       />
                     )}
                   </BackdropPressableComponent>

@@ -1,12 +1,12 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {FC} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {ModalView} from 'react-native-multiple-modals';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Button} from '../../components/button/Button';
-import {NavigationContainerCompat} from '../../components/compat/navigation-container/NavigationContainerCompat';
-import {COLORS, useTheme} from '../../theme/colors';
-import {BaseModalProps} from '../BaseModal';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FC } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ModalView } from 'react-native-multiple-modals';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Button } from '../../components/button/Button';
+import { NavigationContainerCompat } from '../../components/compat/navigation-container/NavigationContainerCompat';
+import { COLORS, useTheme } from '../../theme/colors';
+import { BaseModalProps } from '../BaseModal';
 
 type WithNavigationInsideModalProps = BaseModalProps;
 
@@ -20,13 +20,15 @@ export const WithNavigationInsideModal: FC<
       <Text>Some content</Text>
       <ModalView
         onRequestDismiss={props.onRequestDismiss}
-        contentContainerStyle={styles.contentContainer}>
+        contentContainerStyle={styles.contentContainer}
+      >
         <View testID={`${props.testID}-modal`} style={styles.wrapper}>
           <BottomTabsNavigator />
           <Button
             testID={`${props.testID}-close-button`}
             style={styles.confirmButton}
-            onPress={props.onRequestDismiss}>
+            onPress={props.onRequestDismiss}
+          >
             Close
           </Button>
         </View>
@@ -36,12 +38,12 @@ export const WithNavigationInsideModal: FC<
 };
 
 const MockScreen = () => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   return (
     <View
-      testID="modal-navigation-screen"
-      style={{flex: 1, backgroundColor: colors.backgroundHighlight}}
+      testID='modal-navigation-screen'
+      style={{ flex: 1, backgroundColor: colors.backgroundHighlight }}
     />
   );
 };
@@ -51,7 +53,7 @@ export const BottomTabsNavigator = () => {
     <SafeAreaProvider>
       <NavigationContainerCompat>
         <TabNavigator.Navigator detachInactiveScreens={false}>
-          <TabNavigator.Screen name="initial" component={MockScreen} />
+          <TabNavigator.Screen name='initial' component={MockScreen} />
         </TabNavigator.Navigator>
       </NavigationContainerCompat>
     </SafeAreaProvider>
