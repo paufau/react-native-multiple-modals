@@ -1,9 +1,10 @@
 # React Native Multiple Modals
 
 [![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
-![Static Badge](https://img.shields.io/badge/types-included-81B622)
-![Static Badge](https://img.shields.io/badge/plarforms-iOS%2C_Android%2C_Web-7a34eb)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
+![Static Badge](https://img.shields.io/badge/plarforms-iOS%2C_Android%2C_Web-7a34eb)
+![Static Badge](https://img.shields.io/badge/types-included-81B622)
+[![nightly](https://github.com/paufau/react-native-multiple-modals/actions/workflows/nightly.yml/badge.svg)](https://github.com/paufau/react-native-multiple-modals/actions/workflows/nightly.yml)
 
 Native Modal implementation which allows to display multiple Modals simultaneously.
 
