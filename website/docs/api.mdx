@@ -1,11 +1,10 @@
 ---
-sidebar_position: 2
+slug: /api
+sidebar_position: 4
 title: ModalView
 sidebar_label: API Reference
 description: ModalView props reference for react-native-multiple-modals - animation, backdrop, status bar and dismiss handling on iOS, Android and Web.
 ---
-
-Native Modal implementation which allows to display multiple Modals simultaneously.
 
 ```tsx
 import { ModalView } from 'react-native-multiple-modals';
@@ -57,7 +56,7 @@ Styles of the content wrapper. Use it for aligning your content view.
 | ----------------------------------------------------------- |
 | [View Style](https://reactnative.dev/docs/view-style-props) |
 
-### `disableDefaultStatusBarIOS` <span className="label ios">iOS</span> {/* #disableDefaultStatusBarIOS */}
+### `disableDefaultStatusBarIOS` <span className="label ios">iOS</span> <span className="label basic">No Web</span> {/* #disableDefaultStatusBarIOS */}
 
 Allows to disable inner StatusBar component in case you are using `expo-status-bar`.
 
@@ -69,7 +68,7 @@ Note that it is only applicable for iOS because there status bar is shared betwe
 
 ### `onRequestDismiss` {/* #onRequestDismiss */}
 
-Called when the backdrop or the back button is pressed. Receives a single `calledBy` argument telling which one, see [`DismissalSource`](#DismissalSource).
+Called when the backdrop or the back button is pressed. Receives a single `calledBy` argument telling which one, see [`DismissalSource`](#DismissalSource). On Web, the Escape key counts as the back button.
 
 :::tip
 
@@ -97,7 +96,7 @@ Whether to render the backdrop behind the modal.
 | ---- | ------- |
 | bool | `true`  |
 
-### `statusBar` <span className="label android">Android</span> <span className="label ios">iOS</span> {/* #statusBar */}
+### `statusBar` <span className="label android">Android</span> <span className="label ios">iOS</span> <span className="label basic">No Web</span> {/* #statusBar */}
 
 Controls the status bar of the modal window.
 
@@ -108,7 +107,7 @@ Controls the status bar of the modal window.
 | -------------------------------------------------------------- |
 | [StatusBar props](https://reactnative.dev/docs/statusbar#props) |
 
-### `statusBarTranslucent` <span className="label android">Android</span> <span className="label basic deprecated">Deprecated</span> {/* #statusBarTranslucent */}
+### `statusBarTranslucent` <span className="label android">Android</span> <span className="label basic">No Web</span> <span className="label basic deprecated">Deprecated</span> {/* #statusBarTranslucent */}
 
 Determines whether your modal should go under the system status bar. Use [`statusBar.translucent`](#statusBar) instead.
 
@@ -127,4 +126,12 @@ enum DismissalSource {
   BackButton = 'BackButton',
   Backdrop = 'Backdrop',
 }
+```
+
+### `ModalViewProps` {/* #ModalViewProps */}
+
+The props type of `ModalView`, exported for typing your own wrappers.
+
+```ts
+import type { ModalViewProps } from 'react-native-multiple-modals';
 ```
