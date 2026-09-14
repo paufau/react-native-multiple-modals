@@ -10,6 +10,8 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 
 ![React Native Multiple Modals](./assets/preview.gif)
 
+**Documentation:** https://paufau.github.io/react-native-multiple-modals/
+
 ## ✨ Features
 
 - 🚀 Shows multiple instances at the same time
@@ -156,7 +158,6 @@ I would love if you would let me know what you are missing in the library. _Toge
 ## Roadmap
 
 - Drop old architecture support & deprecated props
-- Create separate documentation page
 
 ## Troubleshooting
 

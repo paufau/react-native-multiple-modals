@@ -1,0 +1,130 @@
+---
+sidebar_position: 2
+title: ModalView
+sidebar_label: API Reference
+description: ModalView props reference for react-native-multiple-modals - animation, backdrop, status bar and dismiss handling on iOS, Android and Web.
+---
+
+Native Modal implementation which allows to display multiple Modals simultaneously.
+
+```tsx
+import { ModalView } from 'react-native-multiple-modals';
+```
+
+## Props
+
+### `animationType` {/* #animationType */}
+
+Controls how the modal animates.
+
+- `slide` slides in from the bottom
+- `fade` fades into view
+- `none` appears without an animation
+
+| Type                                | Default  |
+| ----------------------------------- | -------- |
+| enum(`'none'`, `'fade'`, `'slide'`) | `'none'` |
+
+### `backdropColor` {/* #backdropColor */}
+
+The color of the default backdrop.
+
+| Type                                         | Default                |
+| -------------------------------------------- | ---------------------- |
+| [color](https://reactnative.dev/docs/colors) | `'rgba(0, 0, 0, 0.3)'` |
+
+### `BackdropPressableComponent` {/* #BackdropPressableComponent */}
+
+The component which wraps `renderBackdrop`. Use it to overwrite default props or make backdrop untouchable, for example with `react-native-gesture-handler`'s `Pressable`.
+
+| Type      | Default     |
+| --------- | ----------- |
+| component | `Pressable` |
+
+### `children` {/* #children */}
+
+The content of the modal.
+
+| Type                                                                |
+| ------------------------------------------------------------------- |
+| React Node <span className="label basic required">Required</span> |
+
+### `contentContainerStyle` {/* #contentContainerStyle */}
+
+Styles of the content wrapper. Use it for aligning your content view.
+
+| Type                                                        |
+| ----------------------------------------------------------- |
+| [View Style](https://reactnative.dev/docs/view-style-props) |
+
+### `disableDefaultStatusBarIOS` <span className="label ios">iOS</span> {/* #disableDefaultStatusBarIOS */}
+
+Allows to disable inner StatusBar component in case you are using `expo-status-bar`.
+
+Note that it is only applicable for iOS because there status bar is shared between all modal windows. On the other hand on android status bar is tightly coupled to the individual modal window and couldn't be controlled through the StatusBar component.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `false` |
+
+### `onRequestDismiss` {/* #onRequestDismiss */}
+
+Called when the backdrop or the back button is pressed. Receives a single `calledBy` argument telling which one, see [`DismissalSource`](#DismissalSource).
+
+:::tip
+
+If you want the modal to block the interface and not close when user taps the backdrop or back button, just don't pass this function. The modal will be rendered until you remove it from the React tree.
+
+:::
+
+| Type     |
+| -------- |
+| function |
+
+### `renderBackdrop` {/* #renderBackdrop */}
+
+Use it to render custom backdrop, for example `<BlurView />`. Must return a React Node.
+
+| Type     |
+| -------- |
+| function |
+
+### `showBackdrop` {/* #showBackdrop */}
+
+Whether to render the backdrop behind the modal.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `true`  |
+
+### `statusBar` <span className="label android">Android</span> <span className="label ios">iOS</span> {/* #statusBar */}
+
+Controls the status bar of the modal window.
+
+- Android supports only `translucent` and `barStyle`
+- iOS supports all props
+
+| Type                                                           |
+| -------------------------------------------------------------- |
+| [StatusBar props](https://reactnative.dev/docs/statusbar#props) |
+
+### `statusBarTranslucent` <span className="label android">Android</span> <span className="label basic deprecated">Deprecated</span> {/* #statusBarTranslucent */}
+
+Determines whether your modal should go under the system status bar. Use [`statusBar.translucent`](#statusBar) instead.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `false` |
+
+## Type definitions
+
+### `DismissalSource` {/* #DismissalSource */}
+
+Passed to [`onRequestDismiss`](#onRequestDismiss). Exported from the package.
+
+```ts
+enum DismissalSource {
+  BackButton = 'BackButton',
+  Backdrop = 'Backdrop',
+}
+```
