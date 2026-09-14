@@ -12,6 +12,11 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 
 **Documentation:** https://paufau.github.io/react-native-multiple-modals/
 
+- [Getting Started](https://paufau.github.io/react-native-multiple-modals/getting-started/)
+- [Guides](https://paufau.github.io/react-native-multiple-modals/guides/)
+- [API Reference](https://paufau.github.io/react-native-multiple-modals/api/)
+- [Compatibility](https://paufau.github.io/react-native-multiple-modals/compatibility/)
+
 ## ✨ Features
 
 - 🚀 Shows multiple instances at the same time
@@ -68,82 +73,7 @@ const YourComponent = () => {
 };
 ```
 
-More Examples: [https://github.com/paufau/react-native-multiple-modals/example/demo-components](https://github.com/paufau/react-native-multiple-modals/tree/main/example/demo-components/src/modals)
-
----
-
-## Properties
-
-### `animationType?: "fade" | "slide" | "none" = "none"`
-
-The animationType prop controls how the modal animates.
-
-Possible values:
-
-- "slide" slides in from the bottom
-- "fade" fades into view
-- "none" appears without an animation
-
----
-
-### `contentContainerStyle?: ViewStyle`
-
-Styles of the content wrapper. Use it for aligning your content view.
-
----
-
-### `statusBar?: StatusBarProps` - Native Only
-
-Controls the status bar.
-
-Android - supports only `translucent`, `barStyle`
-
-iOS - all props are supported.
-
-[See StatusBarProps type](https://reactnative.dev/docs/statusbar#props)
-
----
-
-### `disableDefaultStatusBarIOS?: boolean = false` - iOS only
-
-Allows to disable inner StatusBar component in case you are using 'expo-status-bar'.
-
-Note that it is only applicable for iOS because there status bar is shared between all modal windows. On the other hand on android status bar is tightly coupled to the individual modal window and couldn't be controller through the StatusBar component.
-
----
-
-### `onRequestDismiss?: (calledBy: 'Backdrop' | 'BackButton') => void`
-
-The method is called when backdrop or back button is pressed
-
-> _**TIP**_: If you want the modal to block the interface and not close when user taps the backdrop or back button. Then just don't pass this function. The modal will be rendered until you remove it from the React tree.
-
----
-
-### `renderBackdrop?: () => ReactNode`
-
-Use it to render custom backdrop. For example `<BlurView />`
-
----
-
-### `backdropColor?: string`
-
-Default: `rgba(0, 0, 0, 0.3)`
-
----
-
-### `BackdropPressableComponent?: FC<PressableProps>`
-
-The component which wraps `renderBackdrop`.
-Use it to overwrite default props or make backdrop untouchable.
-
----
-
-### @Deprecated (use `statusBar` prop) `statusBarTranslucent?: boolean = false` - Android only
-
-Determines whether your modal should go under the system statusbar.
-
----
+More examples: [example/demo-components/src/modals](https://github.com/paufau/react-native-multiple-modals/tree/main/example/demo-components/src/modals)
 
 ## Contribution
 
@@ -158,19 +88,6 @@ I would love if you would let me know what you are missing in the library. _Toge
 ## Roadmap
 
 - Drop old architecture support & deprecated props
-
-## Troubleshooting
-
-- Reanimated modal has wrong size for the first only render:
-  https://github.com/software-mansion/react-native-reanimated/issues/6659
-
-## Versions
-
-| library version | react-native | old arch | new arch | docs                                                                                |
-| --------------- | ------------ | -------- | -------- | ----------------------------------------------------------------------------------- |
-| 3.0.0+          | 73+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/main)   |
-| 2.0.0 - 2.5.0   | 71+          | ✅       | ✅       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v2.5.0) |
-| 1.0.0 - 1.2.6   | 70+          | ✅       | ❌       | [Documentation](https://github.com/paufau/react-native-multiple-modals/tree/v1.2.6) |
 
 ## Sponsor & Support
 
