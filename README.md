@@ -10,13 +10,6 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 
 ![React Native Multiple Modals](./assets/preview.gif)
 
-**Documentation:** https://paufau.github.io/react-native-multiple-modals/
-
-- [Getting Started](https://paufau.github.io/react-native-multiple-modals/getting-started/)
-- [Guides](https://paufau.github.io/react-native-multiple-modals/guides/)
-- [API Reference](https://paufau.github.io/react-native-multiple-modals/api/)
-- [Compatibility](https://paufau.github.io/react-native-multiple-modals/compatibility/)
-
 ## ✨ Features
 
 - 🚀 Shows multiple instances at the same time
@@ -26,6 +19,13 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 - 📱 Adjusts content when rotated
 - 💥 Enhanced status bar configuration
 - ✅ Accessibility Support
+
+**Documentation:** https://paufau.github.io/react-native-multiple-modals/
+
+- [Getting Started](https://paufau.github.io/react-native-multiple-modals/getting-started/)
+- [Guides](https://paufau.github.io/react-native-multiple-modals/guides/)
+- [API Reference](https://paufau.github.io/react-native-multiple-modals/api/)
+- [Compatibility](https://paufau.github.io/react-native-multiple-modals/compatibility/)
 
 ## Installation
 
@@ -46,22 +46,22 @@ pod install --project-directory=ios
 ## Usage
 
 ```tsx
-import { ModalView } from 'react-native-multiple-modals';
+import { ModalView } from "react-native-multiple-modals";
 
 const YourComponent = () => {
   const [isVisible, setVisibility] = useState(false);
 
   return (
     <View>
-      <Button text='Open modal' onPress={() => setVisibility(true)} />
+      <Button text="Open modal" onPress={() => setVisibility(true)} />
       {isVisible && (
         <ModalView
-          animationType='fade'
-          statusBar={{ translucent: true, barStyle: 'dark-content' }}
-          backdropColor='rgba(0,0,0,0.5)'
+          animationType="fade"
+          statusBar={{ translucent: true, barStyle: "dark-content" }}
+          backdropColor="rgba(0,0,0,0.5)"
           contentContainerStyle={{
-            justifyContent: 'center',
-            alignItems: 'center',
+            justifyContent: "center",
+            alignItems: "center",
           }}
           onRequestDismiss={() => setVisibility(false)}
         >
@@ -84,10 +84,6 @@ If you notice any bugs or anything working differently compared to React Native,
 #### Still missing something?
 
 I would love if you would let me know what you are missing in the library. _Together we can make it a community standard!_
-
-## Roadmap
-
-- Drop old architecture support & deprecated props
 
 ## Sponsor & Support
 
