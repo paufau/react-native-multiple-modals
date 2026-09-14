@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://paufau.github.io/react-native-multiple-modals/sitemap.xml
