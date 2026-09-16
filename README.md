@@ -1,12 +1,12 @@
-# React Native Multiple Modals
+# react-native-multiple-modals
 
 [![NPM Version](https://img.shields.io/npm/v/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-native-multiple-modals)](https://www.npmjs.com/package/react-native-multiple-modals)
-![Static Badge](https://img.shields.io/badge/plarforms-iOS%2C_Android%2C_Web-7a34eb)
-![Static Badge](https://img.shields.io/badge/types-included-81B622)
+![Static Badge](https://img.shields.io/badge/platforms-iOS%2C_Android%2C_Web-7a34eb)
+![Static Badge](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF)
 [![nightly](https://github.com/paufau/react-native-multiple-modals/actions/workflows/nightly.yml/badge.svg)](https://github.com/paufau/react-native-multiple-modals/actions/workflows/nightly.yml)
 
-Native Modal implementation which allows to display multiple Modals simultaneously.
+Native layering for React Native modals, sheets and overlays, including native Modal and bottom tabs
 
 ![React Native Multiple Modals](./assets/preview.gif)
 
@@ -18,13 +18,14 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 - 🛠️ Displays above bottom tabs navigation
 - 📱 Adjusts content when rotated
 - 💥 Enhanced status bar configuration
-- ✅ Accessibility Support
+- ✅ Built with Accessibility support in mind (WCAG)
 
 **Documentation:** https://paufau.github.io/react-native-multiple-modals/
 
 - [Getting Started](https://paufau.github.io/react-native-multiple-modals/getting-started/)
 - [Guides](https://paufau.github.io/react-native-multiple-modals/guides/)
 - [API Reference](https://paufau.github.io/react-native-multiple-modals/api/)
+- [Comparison](https://paufau.github.io/react-native-multiple-modals/comparison/)
 - [Compatibility](https://paufau.github.io/react-native-multiple-modals/compatibility/)
 
 ## Installation
@@ -74,6 +75,17 @@ const YourComponent = () => {
 ```
 
 More examples: [example/demo-components/src/modals](https://github.com/paufau/react-native-multiple-modals/tree/main/example/demo-components/src/modals)
+
+## Comparison
+
+|                                                                                                                                                   | Native or JS | Multiple at once | Accessibility |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ---------------- | ------------- |
+| **react-native-multiple-modals**                                                                                                                  | Native       | ✅               | ✅            |
+| [`Modal`](https://reactnative.dev/docs/modal) (React Native)                                                                                      | Native       | ❌ on iOS        | ✅            |
+| [react-native-modal](https://github.com/react-native-modal/react-native-modal)                                                                    | Native       | ❌               | ✅            |
+| [react-native-modalfy](https://github.com/colorfy-software/react-native-modalfy)                                                                  | JS           | ✅               | ❌            |
+| [@react-navigation/native-stack](https://reactnavigation.org/docs/native-stack-navigator/)                                                        | Native       | ✅               | ❌            |
+| [@gorhom/portal](https://github.com/gorhom/react-native-portal), [react-native-portalize](https://github.com/jeremybarbet/react-native-portalize) | JS           | ✅               | ❌            |
 
 ## Contribution
 

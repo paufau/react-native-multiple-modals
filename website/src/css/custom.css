@@ -38,6 +38,11 @@
   color: #fff;
 }
 
+.label.web {
+  background: #4a9ae1;
+  color: #fff;
+}
+
 .label.basic {
   border: 2px solid currentColor;
   font-weight: 600;
@@ -52,6 +57,7 @@
 }
 
 [data-theme="dark"] .label.android,
+[data-theme="dark"] .label.web,
 [data-theme="dark"] .label.ios {
   color: #1a1a1a;
 }

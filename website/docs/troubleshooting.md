@@ -1,6 +1,6 @@
 ---
 slug: /troubleshooting
-sidebar_position: 6
+sidebar_position: 7
 title: Troubleshooting
 description: Known issues when using react-native-multiple-modals together with other libraries.
 ---
