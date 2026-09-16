@@ -2,12 +2,12 @@
 slug: /
 sidebar_position: 1
 title: Introduction
-description: Native Modal implementation for React Native that displays multiple modals simultaneously on iOS, Android and Web.
+description: Native layering for React Native. Modals, sheets and overlays above everything, including native Modal and bottom tabs.
 ---
 
 # React Native Multiple Modals
 
-Native Modal implementation which allows to display multiple Modals simultaneously.
+Native layering for React Native modals, sheets and overlays, including native Modal and bottom tabs.
 
 ![React Native Multiple Modals](../../assets/preview.gif)
 
@@ -19,10 +19,10 @@ Native Modal implementation which allows to display multiple Modals simultaneous
 - 🛠️ Displays above bottom tabs navigation
 - 📱 Adjusts content when rotated
 - 💥 Enhanced status bar configuration
-- ✅ Accessibility Support
+- ✅ Built with Accessibility support in mind (WCAG)
 
 ## Next steps
 
-- [Getting Started](./getting-started.md): install the package and show your first modal.
-- [Guides](/guides): multiple modals, non-dismissible modals, blur backdrops, status bar and edge-to-edge.
-- [API Reference](./api.mdx): every `ModalView` prop.
+- [Getting Started](./getting-started.md)
+- [Guides](/guides)
+- [API Reference](./api.mdx)

@@ -1,7 +1,7 @@
 {
   "label": "Guides",
   "position": 4,
-  "collapsed": true,
+  "collapsed": false,
   "link": {
     "type": "generated-index",
     "slug": "/guides",
