@@ -1,12 +1,14 @@
 package com.multiplemodals.library
 
 import android.app.Dialog
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.WindowManager.LayoutParams
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.facebook.react.uimanager.ThemedReactContext
@@ -34,6 +36,11 @@ class ModalDialog(reactContext: ThemedReactContext, themeId: Int) : Dialog(react
             // Makes dialog background opaque
             clearFlags(LayoutParams.FLAG_DIM_BEHIND)
 
+            // Draw behind status + navigation bars (edge-to-edge Dialog window)
+            WindowCompat.setDecorFitsSystemWindows(this, false)
+            statusBarColor = Color.TRANSPARENT
+            navigationBarColor = Color.TRANSPARENT
+
             setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         }
     }
@@ -47,11 +54,13 @@ class ModalDialog(reactContext: ThemedReactContext, themeId: Int) : Dialog(react
             if (isTranslucent) {
                 decorView.setOnApplyWindowInsetsListener { v, insets ->
                     val defaultInsets = v.onApplyWindowInsets(insets)
+                    // Zero top + bottom so content draws behind system bars.
+                    // JS should pad with safe-area insets (e.g. BaseModal).
                     defaultInsets.replaceSystemWindowInsets(
                         defaultInsets.systemWindowInsetLeft,
                         0,
                         defaultInsets.systemWindowInsetRight,
-                        defaultInsets.systemWindowInsetBottom)
+                        0)
                 }
             } else {
                 decorView.setOnApplyWindowInsetsListener(null)
