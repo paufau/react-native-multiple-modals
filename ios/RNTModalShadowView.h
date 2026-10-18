@@ -1,7 +1,7 @@
 #ifndef RNTModalShadowView_h
 #define RNTModalShadowView_h
 
-#import "RCTShadowView.h"
+#import <React/RCTShadowView.h>
 
 // TODO Move to "Paper" flow
 
