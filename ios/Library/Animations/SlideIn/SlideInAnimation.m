@@ -1,4 +1,4 @@
-#import "RCTUtils.h"
+#import <React/RCTUtils.h>
 #import "SlideInAnimation.h"
 
 @implementation SlideInAnimation
