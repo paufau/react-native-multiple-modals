@@ -1,8 +1,8 @@
 #import "RNTModalShadowView.h"
 
-#import "RCTBridge.h"
-#import "RCTShadowView.h"
-#import "RCTUtils.h"
+#import <React/RCTBridge.h>
+#import <React/RCTShadowView.h>
+#import <React/RCTUtils.h>
 #import "RNTModalWindowHelper.h"
 
 @implementation RNTModalShadowView
