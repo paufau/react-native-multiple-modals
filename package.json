@@ -1,6 +1,6 @@
 {
   "name": "react-native-multiple-modals",
-  "version": "3.5.0",
+  "version": "3.5.1",
   "description": "Native layering for React Native — modals, sheets and overlays above everything, including native Modal and bottom tabs",
   "author": "Pavel Pakseev <pakseev.1999@gmail.com> (https://github.com/paufau)",
   "license": "MIT",
